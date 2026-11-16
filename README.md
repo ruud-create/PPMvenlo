@@ -10,22 +10,28 @@ Primair ontworpen voor **mobiel gebruik** (navigatiebalk onderin, kaarten in pla
 | Mijn overzicht | Landingspagina: activiteiten waar ik **verantwoordelijk** voor ben en waarin ik **actief** ben, einddata en signalen |
 | Portfolio | Gezondheid, aandachtspunten, einddata, verdeling per programma / categorie teamplan / betrokken teams |
 | Projecten & taken | Filterbare lijst (mijn, actief in, aandacht, projecten, reguliere taken, programma, team, zoeken) |
-| Projectdetail | Velden uit de export: omschrijving, team, verantwoordelijke, doorlooptijd, teamplan, betrokken teams, impact op team |
-| Teams | Lopende activiteiten per team per kwartaal, activiteiten per verantwoordelijke |
+| Projectdetail | Velden uit de export, strategische weging, inzet in uren dit kwartaal en **statusupdates toevoegen** (datum, update-tekst, status aanpassen) |
+| Teams & uren | Begrote uren per medewerker per kwartaal (bezetting t.o.v. norm), lopende activiteiten per team, activiteiten per verantwoordelijke |
 
 ## Data
 `mockup/data.js` bevat 50 diverse activiteiten uit de export *Lopende projecten / reguliere taken* (16-11-2026),
 gegenereerd met `tools/export_naar_mockup.py`:
 
 ```
-python tools/export_naar_mockup.py pad/naar/export.xlsx            # namen gepseudonimiseerd (standaard)
-python tools/export_naar_mockup.py pad/naar/export.xlsx --echte-namen
+python tools/export_naar_mockup.py projecten.xlsx --uren uren.xlsx                 # namen gepseudonimiseerd (standaard)
+python tools/export_naar_mockup.py projecten.xlsx --uren uren.xlsx --echte-namen
 ```
+
+- `--uren`: export *Uren medewerkers* (begrote uren per medewerker per activiteit per periode). Uren worden naar rato
+  van het aantal dagen over de kwartalen K1 2025 – K4 2026 verdeeld en gekoppeld aan activiteiten op naam.
+  Bezetting = uren / norm van 375 u per kwartaal (36 u/week × 13 weken × ~80% productief; aanname, aan te passen in het script).
+- Dezelfde pseudonimisering geldt voor beide exports: een medewerker krijgt overal dezelfde verzonnen naam.
 
 - De ingelogde gebruiker "Ruud Janssen" krijgt de activiteiten van de medewerker met de meeste verantwoordelijkheden in de export.
 - Namen van medewerkers zijn standaard gepseudonimiseerd; projectnamen, teams, programma's, datums en teamplanvelden komen uit de export.
 - Niet in de export en daarom als voorbeelddata aangevuld: *gezondheid*, *strategische weging* (complexiteit, uitvoerbaarheid, strategische waarde), *projectleden* en *recente updates*. "Doorlooptijd" is berekend uit start- en einddatum.
-- De export zelf (`*.xlsx`) wordt niet in de repository opgeslagen.
+- Statusupdates die je in de mockup toevoegt worden alleen in je eigen browser bewaard (localStorage).
+- De exports zelf (`*.xlsx`) worden niet in de repository opgeslagen.
 
 ## Bekijken
 Open `mockup/index.html` in een browser; je start op het inlogscherm (klik op *Inloggen met Microsoft*). Er is geen build of server nodig.

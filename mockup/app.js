@@ -22,7 +22,7 @@
   const mine = (a) => a.verantwoordelijk === ME;
   const activeIn = (a) => !mine(a) && a.leden.includes(ME);
 
-  const STATUS = { ok: ["ok", "Op koers"], warn: ["warn", "Aandacht"], risk: ["risk", "Kritiek"], plan: ["plan", "Nog niet gestart"] };
+  const STATUS = { ok: ["ok", "Op koers"], warn: ["warn", "Aandacht"], risk: ["risk", "Kritiek"], plan: ["plan", "Nog niet gestart"], done: ["done", "Afgerond"] };
   const badge = (s) => `<span class="badge ${STATUS[s][0]}">${STATUS[s][1]}</span>`;
   const soortTag = (a) => `<span class="tag ${isRegulier(a) ? "tag-reg" : ""}">${isRegulier(a) ? "Reguliere taak" : "Project"}</span>`;
   const timeCell = (a) => a.verstreken == null
@@ -34,7 +34,7 @@
     if (d <= 90) return `<span class="due soon">nog ${d} dagen</span>`;
     return `<span class="due">t/m ${fmtDate(a.eind)}</span>`;
   };
-  const ORDER = ["risk", "warn", "ok", "plan"];
+  const ORDER = ["risk", "warn", "ok", "plan", "done"];
   const byHealth = (a, b) => ORDER.indexOf(a.gezondheid) - ORDER.indexOf(b.gezondheid) || dt(a.eind) - dt(b.eind);
   const count = (arr, fn) => { const m = {}; arr.forEach((x) => [].concat(fn(x)).forEach((k) => { if (k) m[k] = (m[k] || 0) + 1; })); return Object.entries(m).sort((a, b) => b[1] - a[1]); };
   const hbars = (rows, color = "") => { const max = Math.max(...rows.map((r) => r[1]), 1); return rows.map(([n, v]) => `<div class="hbar"><span>${esc(n)}</span><div class="track"><span style="width:${(v / max) * 100}%;${color}"></span></div><span class="val num">${v}</span></div>`).join(""); };
@@ -47,6 +47,68 @@
       ${timeCell(a)}
       <div class="pcard-foot"><span>${esc(a.programma)}</span>${endLabel(a)}</div>
     </a>`;
+
+  /* ----------------------- statusupdates (mockup) ------------------------ */
+  // Updates worden alleen in deze browser bewaard (localStorage) – in de echte app komt dit uit de database.
+  const STORE_KEY = "ppm-mockup-updates-v1";
+  let UPD = {};
+  try { UPD = JSON.parse(localStorage.getItem(STORE_KEY) || "{}") || {}; } catch (e) { UPD = {}; }
+  const saveUpd = () => { try { localStorage.setItem(STORE_KEY, JSON.stringify(UPD)); } catch (e) { /* opslag niet beschikbaar */ } };
+  Object.entries(UPD).forEach(([id, list]) => {
+    const a = A.find((x) => String(x.id) === id);
+    (list || []).forEach((u) => { if (a && u.status) a.gezondheid = u.status; });
+  });
+  const STATUS_KEUZE = [["", "Ongewijzigd"], ["ok", "Op koers"], ["warn", "Aandacht"], ["risk", "Kritiek"], ["done", "Afgerond"]];
+  document.body.insertAdjacentHTML("beforeend", `
+    <div class="modal" id="upd-modal" hidden>
+      <div class="modal-backdrop" data-close></div>
+      <form class="sheet" id="upd-form" novalidate>
+        <div class="sheet-grip" aria-hidden="true"></div>
+        <div class="sheet-head"><div><h2>Statusupdate toevoegen</h2><span class="psub" id="upd-proj"></span></div><button type="button" class="close-btn" data-close aria-label="Sluiten">✕</button></div>
+        <label class="field"><span>Datum</span><input type="date" id="upd-date" required></label>
+        <label class="field"><span>Update</span><textarea id="upd-text" rows="5" maxlength="1000" placeholder="Wat is er bereikt, wat speelt er en wat is de volgende stap?"></textarea><small class="field-foot"><span id="upd-err" class="err" hidden>Vul een korte update in.</span><span><span id="upd-count">0</span>/1000</span></small></label>
+        <fieldset class="field"><legend>Status aanpassen</legend>
+          <div class="status-pick">${STATUS_KEUZE.map(([v, l], i) => `<label class="sp ${v || "none"}"><input type="radio" name="upd-status" value="${v}" ${i === 0 ? "checked" : ""}><span>${l}</span></label>`).join("")}</div>
+          <small class="psub" id="upd-cur"></small>
+        </fieldset>
+        <div class="sheet-foot"><button type="button" class="btn" data-close>Annuleren</button><button type="submit" class="btn primary">Update opslaan</button></div>
+      </form>
+    </div>
+    <div class="toast" id="toast" role="status" hidden></div>`);
+  const modal = document.getElementById("upd-modal");
+  let updFor = null;
+  const toast = (msg) => { const t = document.getElementById("toast"); t.textContent = msg; t.hidden = false; clearTimeout(t._h); t._h = setTimeout(() => (t.hidden = true), 2600); };
+  function openUpdate(a) {
+    updFor = a;
+    document.getElementById("upd-proj").textContent = a.naam;
+    document.getElementById("upd-date").value = D.peildatum;
+    document.getElementById("upd-text").value = "";
+    document.getElementById("upd-count").textContent = "0";
+    document.getElementById("upd-err").hidden = true;
+    document.getElementById("upd-cur").textContent = `Huidige status: ${STATUS[a.gezondheid][1]}`;
+    modal.querySelector('input[name="upd-status"][value=""]').checked = true;
+    modal.hidden = false;
+    document.body.classList.add("modal-open");
+    setTimeout(() => document.getElementById("upd-text").focus(), 50);
+  }
+  const closeUpdate = () => { modal.hidden = true; document.body.classList.remove("modal-open"); };
+  modal.addEventListener("click", (e) => { if (e.target.closest("[data-close]")) closeUpdate(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) closeUpdate(); });
+  document.getElementById("upd-text").addEventListener("input", (e) => { document.getElementById("upd-count").textContent = e.target.value.length; document.getElementById("upd-err").hidden = true; });
+  document.getElementById("upd-form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const tekst = document.getElementById("upd-text").value.trim();
+    if (!tekst) { document.getElementById("upd-err").hidden = false; document.getElementById("upd-text").focus(); return; }
+    const status = modal.querySelector('input[name="upd-status"]:checked').value || null;
+    const a = updFor;
+    const u = { datum: document.getElementById("upd-date").value || D.peildatum, tekst, status, van: status ? a.gezondheid : null, door: ME, ts: Date.now() };
+    (UPD[a.id] = UPD[a.id] || []).push(u);
+    if (status) a.gezondheid = status;
+    saveUpd();
+    closeUpdate();
+    render();
+    toast(status ? `Update opgeslagen · status nu "${STATUS[status][1]}"` : "Update opgeslagen");
+  });
 
   /* ------------------------------- login --------------------------------- */
   document.getElementById("ms-login").addEventListener("click", (e) => {
@@ -290,6 +352,12 @@
       [-19, person(a.leden[0]), other ? `Afstemming met ${teamName(other)} over planning en inzet.` : "Werkzaamheden volgens planning opgepakt."],
       [-41, "Systeem", `Activiteit opgenomen in teamplan ${a.teamplanJaren.join(", ") || "—"} (${a.ontstaan || "ontstaan onbekend"}).`],
     ];
+    const mijnUpd = (UPD[a.id] || []).slice().sort((x, y) => (y.datum > x.datum ? 1 : y.datum < x.datum ? -1 : y.ts - x.ts));
+    const tlItems = mijnUpd.map((u) => `<li class="by-user"><time>${fmtDate(u.datum)} · ${esc(person(u.door))}</time>${esc(u.tekst)}${u.status ? `<div class="st-change">${badge(u.van)}<span>→</span>${badge(u.status)}</div>` : ""}</li>`).join("")
+      + updates.map(([d, w, t]) => { const x = new Date(TODAY); x.setDate(x.getDate() + d); return `<li><time>${fmtDate(x)} · ${esc(w)}</time>${esc(t)}</li>`; }).join("");
+    const inz = a.inzet || null;
+    const inzMax = inz ? Math.max(...inz.map((x) => x.uren)) : 1;
+    const inzSum = inz ? inz.reduce((s, x) => s + x.uren, 0) : 0;
     const kv = (k, v) => `<div class="kv"><span>${k}</span><b>${v || `<em class="na">Niet ingevuld</em>`}</b></div>`;
     const chipsFor = (list, cls = "") => list.length ? list.map((t) => `<span class="teamchip ${cls}">${esc(teamName(t))} <small>${team(t).code}</small></span>`).join("") : `<em class="na">Niet ingevuld</em>`;
     return `
@@ -307,7 +375,7 @@
             <div><span>Status</span><b>${esc(a.status)}${a.inUitvoering ? " · in uitvoering" : ""}</b></div>
           </div>
         </div>
-        <div class="btn-row hero-btns"><button class="btn">⤓ Rapport</button><button class="btn primary">Update toevoegen</button></div>
+        <div class="btn-row hero-btns"><button class="btn">⤓ Rapport</button><button class="btn primary" id="upd-open">+ Update toevoegen</button></div>
       </div>
 
       ${overdue(a) ? `<div class="alert mt"><b>Einddatum verstreken.</b> Deze activiteit staat nog op "Lopend" terwijl de einddatum (${fmtDate(a.eind)}) voorbij is. Verleng de einddatum of sluit de activiteit af.</div>` : ""}
@@ -362,32 +430,91 @@
             <h3 class="sub">Impact op team</h3><div class="teamchips">${chipsFor(a.impactOpTeam, "impact")}</div>
           </div>
         </div>
-        <div class="card">
+        ${inz ? `<div class="card">
+          <div class="card-head"><div><h2>Inzet ${esc(D.uren.kwartalen[D.uren.huidig])}</h2><span class="meta">${inzSum} uur begroot · ${inz.length} personen</span></div></div>
+          ${inz.slice(0, 7).map((x) => `<div class="cap-team"><div class="top"><span class="member"><span class="avatar sm ${x.persoon === ME ? "me" : ""}">${initials(x.persoon)}</span><span>${esc(person(x.persoon))}<small>${esc(x.functie || "Rol onbekend")}</small></span></span><span class="num">${x.uren} u</span></div><div class="progress"><span style="width:${(x.uren / inzMax) * 100}%"></span></div></div>`).join("")}
+          ${inz.length > 7 ? `<p class="mock-note" style="padding-top:10px">+ ${inz.length - 7} anderen</p>` : ""}
+          <p class="mock-note" style="padding-top:10px">Bron: export uren medewerkers (begrote uren).</p>
+        </div>` : `<div class="card">
           <div class="card-head"><h2>Projectleden</h2><span class="meta">${a.leden.length + 1} personen</span></div>
           <div class="team">
             <div class="member"><div class="avatar sm ${mine(a) ? "me" : ""}">${initials(a.verantwoordelijk)}</div><div>${esc(person(a.verantwoordelijk))}${mine(a) ? " (jij)" : ""}<small>Verantwoordelijk</small></div></div>
             ${a.leden.map((l) => `<div class="member"><div class="avatar sm ${l === ME ? "me" : ""}">${initials(l)}</div><div>${esc(person(l))}${l === ME ? " (jij)" : ""}<small>Projectlid</small></div></div>`).join("")}
           </div>
-          <p class="mock-note">Projectleden staan niet in de export – voorbeelddata.</p>
-        </div>
+          <p class="mock-note">Geen uren voor deze activiteit in de urenexport – voorbeelddata.</p>
+        `}</div>
       </div>
 
       <div class="grid g-2-1 mt">
         <div class="card">
-          <div class="card-head"><h2>Recente updates</h2><span class="meta">voorbeelddata</span></div>
-          <ul class="timeline">${updates.map(([d, w, t]) => { const x = new Date(TODAY); x.setDate(x.getDate() + d); return `<li><time>${fmtDate(x)} · ${esc(w)}</time>${esc(t)}</li>`; }).join("")}</ul>
+          <div class="card-head"><div><h2>Statusupdates</h2><span class="meta">${mijnUpd.length ? `${mijnUpd.length} toegevoegd in deze mockup` : "voorbeelddata"}</span></div><button class="btn sm" id="upd-open-2">+ Update</button></div>
+          <ul class="timeline">${tlItems}</ul>
         </div>
         <div class="card">
           <div class="card-head"><h2>Nog aan te vullen</h2></div>
           <div class="card-pad">
             <p class="psub" style="margin:0 0 10px">Niet in de huidige export, wel nodig voor een compleet beeld:</p>
-            <ul class="todo"><li>Strategische weging (scores per project)</li><li>Gezondheid (tijd / geld / scope)</li><li>Budget en besteding</li><li>Mijlpalen</li><li>Risico's</li><li>Projectleden en inzet in uren</li></ul>
+            <ul class="todo"><li>Strategische weging (scores per project)</li><li>Gezondheid (tijd / geld / scope)</li><li>Budget en besteding</li><li>Mijlpalen</li><li>Risico's</li><li>Uren voor teams buiten Informatiemanagement</li></ul>
           </div>
         </div>
       </div>`;
   }
 
   /* -------------------------------- Teams -------------------------------- */
+  const U = D.uren;
+  const FU = { disc: "", all: false };
+  const pct = (h) => Math.round((h / U.norm) * 100);
+  const ulvl = (h) => { const p = pct(h); return h <= 0 ? 0 : p < 50 ? 1 : p < 80 ? 2 : p <= 100 ? 3 : p <= 120 ? 4 : 5; };
+  function urenRows() {
+    const list = U.medewerkers.filter((m) => !FU.disc || m.discipline === FU.disc);
+    const shown = FU.all ? list : list.slice(0, 15);
+    const tip = (m) => esc(m.huidig.map((x) => `${x.naam}: ${x.uren} u`).join("\n") || "Geen uren dit kwartaal");
+    return {
+      n: list.length,
+      desk: shown.map((m) => `<tr title="${tip(m)}"><td class="who">${esc(person(m.naam))}<small>${esc(m.functie || m.discipline)}</small></td>${m.kw.map((v, i) => `<td class="h${ulvl(v)} ${i === U.huidig ? "cur" : ""}">${v || "–"}</td>`).join("")}<td class="pct-cell">${pct(m.kw[U.huidig])}%</td></tr>`).join(""),
+      mob: shown.map((m) => `
+        <details class="person">
+          <summary class="person-top"><div class="member"><div class="avatar sm">${initials(m.naam)}</div><div>${esc(person(m.naam))}<small>${esc(m.functie || m.discipline)}</small></div></div><span class="pct h${ulvl(m.kw[U.huidig])}">${pct(m.kw[U.huidig])}%</span></summary>
+          <div class="weeks">${m.kw.map((v, i) => `<div><i class="h${ulvl(v)}"></i><small>${U.kwartalen[i].replace(" 20", "'")}</small></div>`).join("")}</div>
+          <ul class="mini-acts">${m.huidig.map((x) => `<li>${x.id ? `<a href="#/project/${x.id}">${esc(x.naam)}</a>` : esc(x.naam)}<span class="num">${x.uren} u</span></li>`).join("") || "<li>Geen uren dit kwartaal</li>"}</ul>
+        </details>`).join(""),
+      more: list.length > 15 ? `<button class="more" id="u-all" type="button">${FU.all ? "Toon minder" : `Toon alle ${list.length} medewerkers`}</button>` : "",
+    };
+  }
+  function bindUren() {
+    const refresh = () => {
+      const r = urenRows();
+      document.getElementById("u-desk").innerHTML = r.desk;
+      document.getElementById("u-mob").innerHTML = r.mob;
+      document.getElementById("u-more").innerHTML = r.more;
+      document.getElementById("u-n").textContent = `${r.n} medewerkers`;
+      bindMore();
+    };
+    const bindMore = () => { const b = document.getElementById("u-all"); if (b) b.addEventListener("click", () => { FU.all = !FU.all; refresh(); }); };
+    document.getElementById("u-disc").addEventListener("change", (e) => { FU.disc = e.target.value; FU.all = false; refresh(); });
+    bindMore();
+  }
+  function urenCard() {
+    const r = urenRows();
+    const discs = count(U.medewerkers, (m) => m.discipline).map(([d]) => d);
+    return `
+      <div class="card mt">
+        <div class="card-head stack"><div><h2>Begrote uren per medewerker</h2><span class="meta" id="u-n">${r.n} medewerkers</span></div>
+          <select class="select" id="u-disc"><option value="">Alle disciplines</option>${discs.map((d) => `<option ${FU.disc === d ? "selected" : ""}>${esc(d)}</option>`).join("")}</select>
+        </div>
+        <div class="u-legend heat-legend"><span><i class="h1"></i>&lt;50%</span><span><i class="h2"></i>50–80%</span><span><i class="h3"></i>80–100%</span><span><i class="h4"></i>100–120%</span><span><i class="h5"></i>&gt;120%</span><span class="psub">van norm ${U.norm} u/kwartaal (aanname)</span></div>
+        <div class="only-mob" id="u-mob">${r.mob}</div>
+        <div class="card-pad table-wrap only-desk">
+          <table class="heat uren">
+            <thead><tr><th class="left">Medewerker</th>${U.kwartalen.map((q, i) => `<th class="${i === U.huidig ? "cur" : ""}">${q}</th>`).join("")}<th>Nu</th></tr></thead>
+            <tbody id="u-desk">${r.desk}</tbody>
+          </table>
+        </div>
+        <div id="u-more">${r.more}</div>
+        <p class="mock-note" style="padding-top:10px">Bron: export uren medewerkers. Uren over meerdere kwartalen naar rato verdeeld. Ga met de muis over een rij voor de activiteiten.</p>
+      </div>`;
+  }
+
   function teams() {
     const q0 = new Date(TODAY.getFullYear(), Math.floor(TODAY.getMonth() / 3) * 3, 1);
     const Q = Array.from({ length: 8 }, (_, i) => { const s = new Date(q0); s.setMonth(s.getMonth() + i * 3); const e = new Date(s); e.setMonth(e.getMonth() + 3); return { s, e, k: `K${Math.floor(s.getMonth() / 3) + 1}`, l: `K${Math.floor(s.getMonth() / 3) + 1} '${String(s.getFullYear()).slice(2)}` }; });
@@ -397,18 +524,22 @@
     const max = Math.max(...grid.flatMap((g) => g.w));
     const lvl = (v) => (v === 0 ? 0 : v <= max * 0.15 ? 1 : v <= max * 0.35 ? 2 : v <= max * 0.6 ? 3 : v <= max * 0.8 ? 4 : 5);
     const people = count(A, (a) => a.verantwoordelijk).slice(0, 8);
+    const actief = U.medewerkers.filter((m) => m.kw[U.huidig] > 0);
+    const urenNu = actief.reduce((s, m) => s + m.kw[U.huidig], 0);
+    const boven = actief.filter((m) => pct(m.kw[U.huidig]) > 100);
+    const gem = Math.round(actief.reduce((s, m) => s + pct(m.kw[U.huidig]), 0) / Math.max(actief.length, 1));
     const pmax = people[0][1];
     return `
       <div class="page-head">
-        <div><h1>Teams</h1><p>Lopende activiteiten per team (verantwoordelijk of betrokken), komende 8 kwartalen</p></div>
-        <div class="btn-row"><select class="select"><option>Alle programma's</option></select><select class="select"><option>Komende 2 jaar</option></select></div>
+        <div><h1>Teams &amp; uren</h1><p>Begrote uren per medewerker en lopende activiteiten per team</p></div>
       </div>
       <div class="grid g-4">
         <div class="card kpi accent"><div class="kpi-label">Teams in portfolio</div><div class="kpi-value num">${new Set(A.flatMap(involved)).size}</div><div class="kpi-sub">${new Set(A.map((a) => a.team)).size} als verantwoordelijk team</div></div>
-        <div class="card kpi accent"><div class="kpi-label">Meest betrokken</div><div class="kpi-value kpi-text">${esc(teamName(tlist[0]))}</div><div class="kpi-sub">${grid[0].w[0]} activiteiten dit kwartaal</div></div>
         <div class="card kpi accent"><div class="kpi-label">Samenwerking</div><div class="kpi-value num">${A.filter((a) => a.teamsBetrokken.length > 1).length}</div><div class="kpi-sub">activiteiten met &gt;1 betrokken team</div></div>
-        <div class="card kpi accent"><div class="kpi-label">Impact op organisatie</div><div class="kpi-value num">${A.filter((a) => a.impactOpTeam.length).length}</div><div class="kpi-sub">activiteiten met impact op teams</div></div>
+        <div class="card kpi accent"><div class="kpi-label">Begrote uren ${esc(U.kwartalen[U.huidig])}</div><div class="kpi-value num">${urenNu.toLocaleString("nl-NL")}</div><div class="kpi-sub">${actief.length} medewerkers met uren</div></div>
+        <div class="card kpi accent"><div class="kpi-label">Boven norm (&gt;100%)</div><div class="kpi-value num" style="color:var(--risk)">${boven.length}</div><div class="kpi-sub">gem. bezetting ${gem}%</div></div>
       </div>
+      ${urenCard()}
 
       <div class="grid g-2-1 mt">
         <div class="card">
@@ -440,7 +571,7 @@
             <ul class="list">
               <li><span class="badge risk">Piek</span><div class="grow"><b>${esc(teamName(tlist[0]))}</b><div class="reason">Betrokken bij ${grid[0].w[0]} lopende activiteiten dit kwartaal – check capaciteit.</div></div></li>
               <li><span class="badge warn">Spreiding</span><div class="grow"><b>${esc(person(people[0][0]))}</b><div class="reason">Verantwoordelijk voor ${people[0][1]} activiteiten in deze selectie.</div></div></li>
-              <li><span class="badge ok">Info</span><div class="grow"><b>Uren ontbreken</b><div class="reason">Voor inzet in uren/fte is een koppeling met de urenregistratie nodig.</div></div></li>
+              <li><span class="badge risk">Uren</span><div class="grow"><b>${actief.filter((m) => pct(m.kw[U.huidig]) > 120).length} medewerkers boven 120%</b><div class="reason">In ${esc(U.kwartalen[U.huidig])}, o.a. ${esc(person(actief[0].naam))} (${pct(actief[0].kw[U.huidig])}%).</div></div></li>
             </ul>
           </div>
         </div>
@@ -461,6 +592,12 @@
     const pages = { home, portfolio, projecten: () => projecten(params), project: () => project(arg), teams };
     view.innerHTML = (pages[route] || home)();
     if (route === "projecten") bindProjecten();
+    if (route === "teams") bindUren();
+    if (route === "project") {
+      const a = A.find((x) => String(x.id) === String(arg)) || A[0];
+      ["upd-open", "upd-open-2"].forEach((id) => { const b = document.getElementById(id); if (b) b.addEventListener("click", () => openUpdate(a)); });
+      if (params.get("update") === "1") openUpdate(a);
+    }
     document.querySelectorAll(".seg").forEach((seg) => seg.addEventListener("click", (e) => {
       const b = e.target.closest("button"); if (!b) return;
       seg.querySelectorAll("button").forEach((x) => x.classList.toggle("on", x === b));

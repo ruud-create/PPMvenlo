@@ -1,7 +1,11 @@
 """Zet een export 'Lopende projecten / reguliere taken' (xlsx) om naar mockup/data.js.
 
 Gebruik:
-    python tools/export_naar_mockup.py <pad-naar-export.xlsx> [--echte-namen]
+    python tools/export_naar_mockup.py <projecten.xlsx> [--uren <uren.xlsx>] [--echte-namen]
+
+- --uren: export 'Uren medewerkers' (begrote uren per medewerker per activiteit per periode).
+  Uren worden naar rato van het aantal dagen over kwartalen verdeeld. Dezelfde pseudonimisering
+  wordt toegepast, zodat een medewerker in beide exports dezelfde (verzonnen) naam krijgt.
 
 - Selecteert 50 diverse activiteiten (mix van teams, programma's, projecten en reguliere taken).
 - Namen van medewerkers worden standaard gepseudonimiseerd (AVG). Met --echte-namen blijven ze staan;
@@ -55,7 +59,94 @@ def fix_team(t):
     return t if t.endswith(")") else t + ")"
 
 
-def main(pad, echte_namen=False):
+# ---------------------------------------------------------------- uren
+KWARTALEN = [(2025, 1), (2025, 2), (2025, 3), (2025, 4), (2026, 1), (2026, 2), (2026, 3), (2026, 4)]
+NORM_KWARTAAL = 375  # 36 u/week x 13 weken x ~80% productief (aanname mockup)
+
+
+def kwartaal(y, q):
+    s = dt.date(y, 3 * q - 2, 1)
+    e = (dt.date(y + 1, 1, 1) if q == 4 else dt.date(y, 3 * q + 1, 1)) - dt.timedelta(days=1)
+    return s, e
+
+
+def team_label(t):
+    # "RGIMAN : Informatiemanagement" -> "Informatiemanagement (RGIMAN)"
+    if isinstance(t, str) and " : " in t:
+        code, naam = t.split(" : ", 1)
+        return f"{naam.strip()} ({code.strip()})"
+    return t or "Onbekend"
+
+
+def verwerk_uren(pad, pseudo, activiteiten):
+    wb = openpyxl.load_workbook(pad, read_only=True, data_only=True)
+    rows = [r for r in wb.active.iter_rows(values_only=True)
+            if r and r[0] and r[0] != "Projectnaam" and r[4] != "Uitvoering Ja/Nee"]
+    per_naam = {a["naam"].strip().lower(): a for a in activiteiten}
+    huidig = next(i for i, (y, q) in enumerate(KWARTALEN) if kwartaal(y, q)[0] <= PEILDATUM <= kwartaal(y, q)[1])
+    P = defaultdict(lambda: {"kw": [0.0] * len(KWARTALEN), "functie": Counter(), "disc": Counter(),
+                             "team": Counter(), "act": defaultdict(float)})
+    inzet = defaultdict(lambda: defaultdict(lambda: {"uren": 0.0, "functie": None}))
+    for naam, u, s, e, _uitv, pers, rol, tm in (r[:8] for r in rows):
+        try:
+            s, e = datum(s), datum(e)
+        except Exception:
+            continue
+        if not isinstance(u, (int, float)) or u <= 0 or e < s:
+            continue
+        persoon = pseudo(pers) if pers else None
+        functie = disc = None
+        if isinstance(rol, str) and ":" in rol:
+            functie, disc = (x.strip() for x in rol.split(":", 1))
+        dagen = (e - s).days + 1
+        for i, (y, q) in enumerate(KWARTALEN):
+            qs, qe = kwartaal(y, q)
+            overlap = (min(e, qe) - max(s, qs)).days + 1
+            if overlap <= 0:
+                continue
+            deel = u * overlap / dagen
+            if persoon:
+                p = P[persoon]
+                p["kw"][i] += deel
+                if functie:
+                    p["functie"][functie] += deel
+                    p["disc"][disc] += deel
+                p["team"][team_label(tm)] += deel
+                if i == huidig:
+                    p["act"][naam.strip()] += deel
+            a = per_naam.get(naam.strip().lower())
+            if a and i == huidig:
+                x = inzet[a["id"]][persoon or "Niet toegewezen"]
+                x["uren"] += deel
+                x["functie"] = x["functie"] or functie
+    medewerkers = []
+    for naam, p in P.items():
+        if sum(p["kw"]) < 1:
+            continue
+        top = sorted(p["act"].items(), key=lambda kv: -kv[1])[:6]
+        medewerkers.append({
+            "naam": naam,
+            "functie": p["functie"].most_common(1)[0][0] if p["functie"] else None,
+            "discipline": p["disc"].most_common(1)[0][0] if p["disc"] else "Overig",
+            "team": p["team"].most_common(1)[0][0],
+            "kw": [round(v) for v in p["kw"]],
+            "huidig": [{"naam": n, "uren": round(v), "id": per_naam.get(n.lower(), {}).get("id")} for n, v in top if v >= 1],
+        })
+    medewerkers.sort(key=lambda m: -m["kw"][huidig])
+    for a in activiteiten:
+        lst = inzet.get(a["id"])
+        if lst:
+            a["inzet"] = sorted(({"persoon": k, "functie": v["functie"], "uren": round(v["uren"])}
+                                 for k, v in lst.items() if v["uren"] >= 1), key=lambda x: -x["uren"])
+    return {
+        "kwartalen": [f"K{q} {y}" for y, q in KWARTALEN],
+        "huidig": huidig,
+        "norm": NORM_KWARTAAL,
+        "medewerkers": medewerkers,
+    }
+
+
+def main(pad, echte_namen=False, uren_pad=None):
     wb = openpyxl.load_workbook(pad, read_only=True, data_only=True)
     rows = list(wb.active.iter_rows(values_only=True))
     kop, data = rows[0], rows[1:]
@@ -182,6 +273,8 @@ def main(pad, echte_namen=False):
             "weging": weging,
         })
 
+    uren = verwerk_uren(uren_pad, pseudo, out) if uren_pad else None
+
     js = ("// Gegenereerd door tools/export_naar_mockup.py uit de export 'Lopende projecten/reguliere taken'.\n"
           "// Namen zijn gepseudonimiseerd" + (" NIET (--echte-namen)" if echte_namen else "") + ".\n"
           "// Velden 'gezondheid', 'verstreken', 'leden' en 'weging' zijn mockup-aanvullingen.\n"
@@ -189,13 +282,18 @@ def main(pad, echte_namen=False):
               "peildatum": PEILDATUM.isoformat(),
               "gebruiker": {"naam": "Janssen, Ruud (RJ)", "functie": "Hoofd Informatiemanagement", "team": PERSONA_TEAM},
               "activiteiten": out,
+              "uren": uren,
           }, ensure_ascii=False, indent=1) + ";\n")
     with open("mockup/data.js", "w", encoding="utf-8") as f:
         f.write(js)
     c = Counter(a["soort"] for a in out)
     print(f"{len(out)} activiteiten geschreven ({dict(c)}), {len({a['team'] for a in out})} teams, "
           f"{len({a['programma'] for a in out})} programma's")
+    if uren:
+        print(f"uren: {len(uren['medewerkers'])} medewerkers, {sum(1 for a in out if a.get('inzet'))} activiteiten met inzet")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], "--echte-namen" in sys.argv)
+    args = sys.argv[1:]
+    uren_pad = args[args.index("--uren") + 1] if "--uren" in args else None
+    main(args[0], "--echte-namen" in args, uren_pad)

@@ -545,3 +545,67 @@ h3.sub:first-child { margin-top: 0; }
 .pips i.on { background: var(--vbg); }
 @media (max-width: 900px) { .weging { grid-template-columns: 1fr; } }
 @media (max-width: 760px) { .weging { padding: 12px 16px 16px; gap: 16px; } }
+
+/* ====================== statusupdate: modal / bottom sheet ====================== */
+body.modal-open { overflow: hidden; }
+.modal { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 16px; }
+.modal-backdrop { position: absolute; inset: 0; background: rgba(10, 40, 40, .45); }
+.sheet { position: relative; width: 100%; max-width: 520px; max-height: calc(100vh - 32px); overflow: auto; background: var(--surface); border-radius: 14px; box-shadow: 0 12px 40px rgba(0, 40, 40, .25); padding: 20px 22px 18px; }
+.sheet-grip { display: none; }
+.sheet-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.sheet-head h2 { font-size: 19px; }
+.sheet-head .psub { display: block; margin-top: 2px; }
+.close-btn { border: 0; background: var(--surface-2); width: 36px; height: 36px; border-radius: 50%; font-size: 15px; cursor: pointer; color: var(--text-2); flex: none; }
+.field { display: block; border: 0; padding: 0; margin: 0 0 16px; }
+.field > span, .field legend { display: block; font-size: 13px; font-weight: 600; color: var(--text-2); margin-bottom: 6px; padding: 0; }
+.field input[type=date], .field textarea { width: 100%; font: inherit; font-size: 15px; color: var(--text); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; background: var(--surface); }
+.field input[type=date] { max-width: 220px; height: 44px; }
+.field textarea { resize: vertical; min-height: 120px; line-height: 1.45; }
+.field input:focus, .field textarea:focus { outline: 2px solid var(--vbg-50); border-color: var(--vbg); }
+.field-foot { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-3); margin-top: 4px; }
+.field-foot > span:last-child { margin-left: auto; }
+.err { color: var(--risk); font-weight: 600; }
+.status-pick { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+.sp { position: relative; cursor: pointer; }
+.sp input { position: absolute; opacity: 0; inset: 0; }
+.sp span { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border-radius: 99px; border: 1.5px solid var(--line); font-size: 14px; font-weight: 600; color: var(--text-2); background: var(--surface); }
+.sp:not(.none) span::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.sp.ok span { color: var(--ok); } .sp.warn span { color: var(--warn); } .sp.risk span { color: var(--risk); } .sp.done span { color: var(--done); }
+.sp input:checked + span { border-color: currentColor; box-shadow: inset 0 0 0 1px currentColor; }
+.sp.ok input:checked + span { background: var(--ok-bg); } .sp.warn input:checked + span { background: var(--warn-bg); }
+.sp.risk input:checked + span { background: var(--risk-bg); } .sp.done input:checked + span { background: var(--done-bg); }
+.sp.none input:checked + span { color: var(--vbg-150); background: var(--vbg-10); }
+.sp input:focus-visible + span { outline: 2px solid var(--vbg-50); outline-offset: 2px; }
+.sheet-foot { display: flex; justify-content: flex-end; gap: 8px; padding-top: 14px; border-top: 1px solid var(--line); }
+.toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); z-index: 60; background: var(--vbg-150); color: #fff; padding: 12px 18px; border-radius: 10px; font-weight: 600; font-size: 14px; box-shadow: 0 8px 24px rgba(0, 40, 40, .25); max-width: calc(100% - 32px); }
+.btn.sm { padding: 5px 10px; font-size: 13px; }
+.timeline li.by-user::before { background: var(--vbg); }
+.st-change { display: flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 12px; color: var(--text-3); }
+.st-change .badge { font-size: 11.5px; padding: 2px 8px; }
+
+/* uren-heatmap */
+.u-legend { padding: 12px 20px 0; }
+.heat.uren td.cur, .heat.uren th.cur { box-shadow: inset 0 0 0 2px var(--vbg-150); }
+.heat.uren th.cur { color: var(--vbg-150); border-radius: 6px; }
+.pct-cell { font-weight: 700; color: var(--text-2); }
+button.more { width: 100%; background: transparent; border: 0; border-top: 1px solid var(--line); color: var(--vbg-125); font: inherit; cursor: pointer; }
+details.person summary { list-style: none; cursor: pointer; }
+details.person summary::-webkit-details-marker { display: none; }
+details.person[open] summary { margin-bottom: 8px; }
+.mini-acts { list-style: none; margin: 10px 0 0; padding: 8px 10px; background: var(--surface-2); border-radius: 8px; font-size: 13px; }
+.mini-acts li { display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; }
+.mini-acts .num { color: var(--text-2); white-space: nowrap; }
+.cap-team .member small { display: block; color: var(--text-3); font-size: 12px; }
+
+@media (max-width: 760px) {
+  .modal { place-items: end stretch; padding: 0; bottom: auto; height: 100vh; height: 100dvh; }
+  .sheet { max-width: none; border-radius: 18px 18px 0 0; padding: 8px 16px calc(16px + env(safe-area-inset-bottom)); max-height: 92vh; max-height: 92dvh; }
+  .sheet-grip { display: block; width: 40px; height: 5px; border-radius: 99px; background: var(--line); margin: 4px auto 12px; }
+  .field input[type=date] { max-width: none; }
+  .sheet-foot .btn { flex: 1; height: 46px; }
+  .sp span { padding: 9px 14px; }
+  .toast { bottom: calc(80px + env(safe-area-inset-bottom)); }
+  .u-legend { padding: 10px 16px 4px; }
+}
+
+@media (max-width: 760px) { .card-head.stack { flex-direction: column; align-items: stretch; gap: 10px; } .card-head.stack .select { height: 40px; } }

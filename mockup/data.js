@@ -86,7 +86,19 @@ window.PPM = {
     "complexiteit": 2.9,
     "uitvoerbaarheid": 4.1,
     "waarde": 3
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Peeters, Fatima (FP)",
+     "functie": "Functioneel beheerder Levenszaken",
+     "uren": 97
+    },
+    {
+     "persoon": "Moonen, Ilse (IM)",
+     "functie": "Productowner Online Dienstverlening",
+     "uren": 52
+    }
+   ]
   },
   {
    "id": 1193,
@@ -331,7 +343,14 @@ window.PPM = {
     "complexiteit": 2.4,
     "uitvoerbaarheid": 3.9,
     "waarde": 3
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Mulders, Sem (SM)",
+     "functie": "Strategisch beleidsadviseur IM",
+     "uren": 31
+    }
+   ]
   },
   {
    "id": 421,
@@ -367,7 +386,14 @@ window.PPM = {
     "complexiteit": 1.6,
     "uitvoerbaarheid": 3.0,
     "waarde": 3
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Verheijen, Mila (MV)",
+     "functie": "Tactisch beleidsadviseur IM",
+     "uren": 70
+    }
+   ]
   },
   {
    "id": 871,
@@ -405,7 +431,34 @@ window.PPM = {
     "complexiteit": 4.5,
     "uitvoerbaarheid": 3.8,
     "waarde": 4
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Bouten, Daan (DB)",
+     "functie": "Informatie analist",
+     "uren": 50
+    },
+    {
+     "persoon": "Vossen, Mila (MV)",
+     "functie": "Consultant BI & Analyse",
+     "uren": 32
+    },
+    {
+     "persoon": "Timmermans, Maud (MT)",
+     "functie": "Functioneel beheerder Youforce",
+     "uren": 30
+    },
+    {
+     "persoon": "Craenmehr, Koen (KC)",
+     "functie": "Informatie Architect",
+     "uren": 12
+    },
+    {
+     "persoon": "Linders, Floor (FL)",
+     "functie": "i-adviseur dienstverlening",
+     "uren": 8
+    }
+   ]
   },
   {
    "id": 893,
@@ -447,7 +500,19 @@ window.PPM = {
     "complexiteit": 3.6,
     "uitvoerbaarheid": 3.7,
     "waarde": 3
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Hendriks, Luuk (LH)",
+     "functie": "Projectleider",
+     "uren": 208
+    },
+    {
+     "persoon": "Seegers, Sanne (SS)",
+     "functie": "Projectondersteuner",
+     "uren": 78
+    }
+   ]
   },
   {
    "id": 1014,
@@ -491,7 +556,19 @@ window.PPM = {
     "complexiteit": 5.0,
     "uitvoerbaarheid": 2.5,
     "waarde": 4
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Hendriks, Luuk (LH)",
+     "functie": "Projectleider",
+     "uren": 104
+    },
+    {
+     "persoon": "Seegers, Sanne (SS)",
+     "functie": "Projectondersteuner",
+     "uren": 26
+    }
+   ]
   },
   {
    "id": 819,
@@ -661,7 +738,34 @@ window.PPM = {
     "complexiteit": 4.8,
     "uitvoerbaarheid": 4.1,
     "waarde": 4
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Verheijen, Mila (MV)",
+     "functie": "Projectleider",
+     "uren": 60
+    },
+    {
+     "persoon": "Hermans, Yara (YH)",
+     "functie": "Tactisch beleidsadviseur IM",
+     "uren": 24
+    },
+    {
+     "persoon": "Craenmehr, Koen (KC)",
+     "functie": "Informatie Architect",
+     "uren": 24
+    },
+    {
+     "persoon": "Willems, Lisa (LW)",
+     "functie": "Tactisch beleidsadviseur IM",
+     "uren": 24
+    },
+    {
+     "persoon": "Coenen, Femke (FC)",
+     "functie": "Accountmanager",
+     "uren": 8
+    }
+   ]
   },
   {
    "id": 831,
@@ -742,7 +846,14 @@ window.PPM = {
     "complexiteit": 2.3,
     "uitvoerbaarheid": 4.6,
     "waarde": 3
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Peeters, Fatima (FP)",
+     "functie": "Functioneel beheerder Levenszaken",
+     "uren": 16
+    }
+   ]
   },
   {
    "id": 681,
@@ -783,7 +894,24 @@ window.PPM = {
     "complexiteit": 2.3,
     "uitvoerbaarheid": 3.4,
     "waarde": 4
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Hendriks, Joost (JH)",
+     "functie": "Data engineer",
+     "uren": 20
+    },
+    {
+     "persoon": "Vossen, Mila (MV)",
+     "functie": "Consultant BI & Analyse",
+     "uren": 20
+    },
+    {
+     "persoon": "Martens, Sem (SM)",
+     "functie": "Geo specialist",
+     "uren": 16
+    }
+   ]
   },
   {
    "id": 374,
@@ -1111,7 +1239,24 @@ window.PPM = {
     "complexiteit": 2.4,
     "uitvoerbaarheid": 4.2,
     "waarde": 3
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Dings, Jesse (JD)",
+     "functie": "ProductOwner IM Kantoorautomatisering",
+     "uren": 4
+    },
+    {
+     "persoon": "Moonen, Martijn (MM)",
+     "functie": "I-adviseur",
+     "uren": 4
+    },
+    {
+     "persoon": "Mulders, Sem (SM)",
+     "functie": "Strategisch beleidsadviseur IM",
+     "uren": 2
+    }
+   ]
   },
   {
    "id": 383,
@@ -1341,7 +1486,14 @@ window.PPM = {
     "complexiteit": 2.4,
     "uitvoerbaarheid": 4.8,
     "waarde": 5
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Bouten, Daan (DB)",
+     "functie": "Informatie analist",
+     "uren": 25
+    }
+   ]
   },
   {
    "id": 1129,
@@ -1416,7 +1568,24 @@ window.PPM = {
     "complexiteit": 3.9,
     "uitvoerbaarheid": 4.0,
     "waarde": 5
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Vossen, Mila (MV)",
+     "functie": "Consultant BI & Analyse",
+     "uren": 30
+    },
+    {
+     "persoon": "Linders, Rianne (RL)",
+     "functie": "i-adviseur dienstverlening",
+     "uren": 20
+    },
+    {
+     "persoon": "Wijnen, Sem (SW)",
+     "functie": "Functioneel beheerder Maatschappelijk Domein",
+     "uren": 8
+    }
+   ]
   },
   {
    "id": 1130,
@@ -1559,7 +1728,19 @@ window.PPM = {
     "complexiteit": 3.4,
     "uitvoerbaarheid": 4.2,
     "waarde": 4
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Linders, Martijn (ML)",
+     "functie": "Projectleider",
+     "uren": 40
+    },
+    {
+     "persoon": "Craenmehr, Koen (KC)",
+     "functie": "Informatie Architect",
+     "uren": 24
+    }
+   ]
   },
   {
    "id": 1034,
@@ -1600,7 +1781,14 @@ window.PPM = {
     "complexiteit": 2.8,
     "uitvoerbaarheid": 4.8,
     "waarde": 3
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Linders, Rianne (RL)",
+     "functie": "I-adviseur maatschappelijk Domein",
+     "uren": 20
+    }
+   ]
   },
   {
    "id": 738,
@@ -1638,7 +1826,19 @@ window.PPM = {
     "complexiteit": 3.6,
     "uitvoerbaarheid": 3.5,
     "waarde": 5
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Rutten, Lisa (LR)",
+     "functie": "Functioneel beheerder Axxerion",
+     "uren": 52
+    },
+    {
+     "persoon": "Linders, Floor (FL)",
+     "functie": "i-adviseur dienstverlening",
+     "uren": 4
+    }
+   ]
   },
   {
    "id": 789,
@@ -1836,7 +2036,19 @@ window.PPM = {
     "complexiteit": 3.9,
     "uitvoerbaarheid": 3.9,
     "waarde": 4
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Martens, Sem (SM)",
+     "functie": "Geo specialist",
+     "uren": 52
+    },
+    {
+     "persoon": "Hendriks, Joost (JH)",
+     "functie": "Data engineer",
+     "uren": 50
+    }
+   ]
   },
   {
    "id": 762,
@@ -1875,7 +2087,19 @@ window.PPM = {
     "complexiteit": 2.3,
     "uitvoerbaarheid": 3.1,
     "waarde": 4
-   }
+   },
+   "inzet": [
+    {
+     "persoon": "Hendriks, Joost (JH)",
+     "functie": "Data engineer",
+     "uren": 4
+    },
+    {
+     "persoon": "Vossen, Mila (MV)",
+     "functie": "Consultant BI & Analyse",
+     "uren": 4
+    }
+   ]
   },
   {
    "id": 946,
@@ -1908,5 +2132,2877 @@ window.PPM = {
     "waarde": 4
    }
   }
- ]
+ ],
+ "uren": {
+  "kwartalen": [
+   "K1 2025",
+   "K2 2025",
+   "K3 2025",
+   "K4 2025",
+   "K1 2026",
+   "K2 2026",
+   "K3 2026",
+   "K4 2026"
+  ],
+  "huidig": 7,
+  "norm": 375,
+  "medewerkers": [
+   {
+    "naam": "Mulders, Ilse (IM)",
+    "functie": "Data engineer",
+    "discipline": "BI & Analyse",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     346,
+     363,
+     304,
+     332,
+     322,
+     285,
+     313,
+     621
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Datakwaliteit",
+      "uren": 225,
+      "id": null
+     },
+     {
+      "naam": "Geldzorgen",
+      "uren": 208,
+      "id": null
+     },
+     {
+      "naam": "Vastlegging BRA: Bronregistratie applicaties",
+      "uren": 96,
+      "id": null
+     },
+     {
+      "naam": "REG-Domein BI & Analyse",
+      "uren": 52,
+      "id": null
+     },
+     {
+      "naam": "Data-hub contractbeheer vastgoed",
+      "uren": 40,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Coenen, Bram (BC)",
+    "functie": "Landmeter",
+    "discipline": "Beheren van basisregistraties",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     384,
+     360,
+     250,
+     352,
+     384,
+     357,
+     250,
+     560
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Beheren-Basisregistraties",
+      "uren": 420,
+      "id": null
+     },
+     {
+      "naam": "REG-Inwinnen t.b.v. projecten",
+      "uren": 140,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Bouten, Daan (DB)",
+    "functie": "Informatie analist",
+    "discipline": "BI & Analyse",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     625,
+     531,
+     373,
+     363,
+     435,
+     433,
+     298,
+     494
+    ],
+    "huidig": [
+     {
+      "naam": "Geldzorgen",
+      "uren": 208,
+      "id": null
+     },
+     {
+      "naam": "Ontwikkeling Inhoudelijk dashboard Team Levenszaken",
+      "uren": 104,
+      "id": null
+     },
+     {
+      "naam": "Implementatie HR Data analyse systeem",
+      "uren": 50,
+      "id": 871
+     },
+     {
+      "naam": "Monitoring Sociale wijkteams",
+      "uren": 50,
+      "id": null
+     },
+     {
+      "naam": "REG-Domein BI & Analyse",
+      "uren": 37,
+      "id": null
+     },
+     {
+      "naam": "Data-hub JVS visualiseren",
+      "uren": 25,
+      "id": 877
+     }
+    ]
+   },
+   {
+    "naam": "Martens, Sem (SM)",
+    "functie": "Geo specialist",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     0,
+     0,
+     279,
+     326,
+     531,
+     308,
+     390,
+     478
+    ],
+    "huidig": [
+     {
+      "naam": "BI-GEO front-end applicatie",
+      "uren": 104,
+      "id": null
+     },
+     {
+      "naam": "Woonmonitor",
+      "uren": 104,
+      "id": null
+     },
+     {
+      "naam": "Gebiedsprofielen",
+      "uren": 52,
+      "id": 648
+     },
+     {
+      "naam": "Planning.nl en ArcGIS",
+      "uren": 40,
+      "id": null
+     },
+     {
+      "naam": "REG-Domein BI & Analyse",
+      "uren": 39,
+      "id": null
+     },
+     {
+      "naam": "Voedselagenda",
+      "uren": 30,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Timmermans, Maud (MT)",
+    "functie": "Functioneel beheerder Youforce",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     423,
+     532,
+     359,
+     437,
+     443,
+     385,
+     344,
+     470
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Domein Dienstverlening",
+      "uren": 157,
+      "id": null
+     },
+     {
+      "naam": "REG-Domein Fysiek",
+      "uren": 132,
+      "id": null
+     },
+     {
+      "naam": "Migratie AMIS → ACCO (reserveren sportaccommodaties)",
+      "uren": 80,
+      "id": null
+     },
+     {
+      "naam": "REG-Extra-Verlofsoort",
+      "uren": 39,
+      "id": null
+     },
+     {
+      "naam": "HR21 als functiewaarderingssysteem",
+      "uren": 30,
+      "id": null
+     },
+     {
+      "naam": "Implementatie HR Data analyse systeem",
+      "uren": 30,
+      "id": 871
+     }
+    ]
+   },
+   {
+    "naam": "Wijnen, Sem (SW)",
+    "functie": "Functioneel beheerder Maatschappelijk Domein",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     599,
+     442,
+     309,
+     389,
+     371,
+     411,
+     280,
+     448
+    ],
+    "huidig": [
+     {
+      "naam": "E diensten Centric Fase 2 (o.a. aanvragen levensonderhoud en BB)",
+      "uren": 200,
+      "id": null
+     },
+     {
+      "naam": "REG-Operationeel beheer",
+      "uren": 180,
+      "id": null
+     },
+     {
+      "naam": "Implementatie Inwonersportaal",
+      "uren": 60,
+      "id": null
+     },
+     {
+      "naam": "Dashboard Jobport",
+      "uren": 8,
+      "id": 936
+     }
+    ]
+   },
+   {
+    "naam": "Linders, Martijn (ML)",
+    "functie": "Projectleider",
+    "discipline": "Tactisch I-advies",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     450,
+     340,
+     284,
+     368,
+     232,
+     344,
+     300,
+     418
+    ],
+    "huidig": [
+     {
+      "naam": "Aanbesteding Integraal beheerssysteem Openbare Ruimte",
+      "uren": 80,
+      "id": null
+     },
+     {
+      "naam": "Dashboard Meldingen Openbare Ruimte",
+      "uren": 80,
+      "id": null
+     },
+     {
+      "naam": "Onderzoeken en aanbesteding mutatiesignalering",
+      "uren": 80,
+      "id": null
+     },
+     {
+      "naam": "Applicatie BHV",
+      "uren": 50,
+      "id": null
+     },
+     {
+      "naam": "Aanschaf RIOX beheertool voor rioolaansluitingen",
+      "uren": 40,
+      "id": null
+     },
+     {
+      "naam": "Implementatie Smart Twin",
+      "uren": 40,
+      "id": 1160
+     }
+    ]
+   },
+   {
+    "naam": "Verheijen, Noor (NV)",
+    "functie": "Geo specialist",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     337,
+     305,
+     304,
+     439,
+     346,
+     320,
+     304,
+     408
+    ],
+    "huidig": [
+     {
+      "naam": "BI-GEO datawarehouse",
+      "uren": 267,
+      "id": null
+     },
+     {
+      "naam": "BI-GEO front-end applicatie",
+      "uren": 104,
+      "id": null
+     },
+     {
+      "naam": "REG-Domein BI & Analyse",
+      "uren": 37,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Bouten, Thijs (TB)",
+    "functie": "Consultant BI & Analyse",
+    "discipline": "BI & Analyse",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     417,
+     545,
+     332,
+     369,
+     463,
+     393,
+     453,
+     393
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Extra-Verlofsoort",
+      "uren": 300,
+      "id": null
+     },
+     {
+      "naam": "REG-Domein BI & Analyse",
+      "uren": 53,
+      "id": null
+     },
+     {
+      "naam": "Dashboard Meldingen Openbare Ruimte",
+      "uren": 40,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Vossen, Mila (MV)",
+    "functie": "Consultant BI & Analyse",
+    "discipline": "BI & Analyse",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     445,
+     408,
+     229,
+     322,
+     352,
+     350,
+     273,
+     378
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Extra-Verlofsoort",
+      "uren": 104,
+      "id": null
+     },
+     {
+      "naam": "REG-Domein BI & Analyse",
+      "uren": 52,
+      "id": null
+     },
+     {
+      "naam": "Data-hub contractbeheer vastgoed",
+      "uren": 40,
+      "id": null
+     },
+     {
+      "naam": "Inzichten gebruik Power BI dashboard",
+      "uren": 40,
+      "id": null
+     },
+     {
+      "naam": "Doorontwikkeling HRM dashboards",
+      "uren": 32,
+      "id": null
+     },
+     {
+      "naam": "Implementatie HR Data analyse systeem",
+      "uren": 32,
+      "id": 871
+     }
+    ]
+   },
+   {
+    "naam": "Craenmehr, Koen (KC)",
+    "functie": "Informatie Architect",
+    "discipline": "Informatie architectuur",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     344,
+     502,
+     249,
+     404,
+     437,
+     310,
+     246,
+     366
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Informatiearchitectuur",
+      "uren": 270,
+      "id": null
+     },
+     {
+      "naam": "Applicatieportfolio Management",
+      "uren": 24,
+      "id": 666
+     },
+     {
+      "naam": "Implementatie Smart Twin",
+      "uren": 24,
+      "id": 1160
+     },
+     {
+      "naam": "HR21 als functiewaarderingssysteem",
+      "uren": 12,
+      "id": null
+     },
+     {
+      "naam": "Implementatie HR Data analyse systeem",
+      "uren": 12,
+      "id": 871
+     },
+     {
+      "naam": "Implementatie Leermanagementsysteem",
+      "uren": 8,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Hermans, Koen (KH)",
+    "functie": "Functioneel beheerder MS365",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     397,
+     400,
+     263,
+     364,
+     397,
+     369,
+     259,
+     363
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Extra-Verlofsoort",
+      "uren": 195,
+      "id": null
+     },
+     {
+      "naam": "REG-Domein Dienstverlening",
+      "uren": 168,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Peeters, Fatima (FP)",
+    "functie": "Functioneel beheerder Levenszaken",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     636,
+     386,
+     250,
+     356,
+     488,
+     371,
+     400,
+     359
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Domein Dienstverlening",
+      "uren": 214,
+      "id": null
+     },
+     {
+      "naam": "Implementatie RMA",
+      "uren": 97,
+      "id": 428
+     },
+     {
+      "naam": "Ontwikkeling Inhoudelijk dashboard Team Levenszaken",
+      "uren": 16,
+      "id": null
+     },
+     {
+      "naam": "Uitbreiding E-diensten Levenszaken",
+      "uren": 16,
+      "id": null
+     },
+     {
+      "naam": "Uitvoeringsplan Dienstverlening t.b.v. bedrijfscontinuïteit bij uitval / calamiteiten",
+      "uren": 16,
+      "id": 1002
+     }
+    ]
+   },
+   {
+    "naam": "Verstappen, Wouter (WV)",
+    "functie": "Functioneel beheerder MS365",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     0,
+     0,
+     325,
+     325,
+     384,
+     260,
+     433,
+     356
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Extra-Verlofsoort",
+      "uren": 200,
+      "id": null
+     },
+     {
+      "naam": "REG-Domein Dienstverlening",
+      "uren": 156,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Dings, Jesse (JD)",
+    "functie": "ProductOwner IM Kantoorautomatisering",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     415,
+     359,
+     285,
+     395,
+     458,
+     375,
+     275,
+     354
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Domein Dienstverlening",
+      "uren": 350,
+      "id": null
+     },
+     {
+      "naam": "AI-Agent-Beleid 9e verdieping",
+      "uren": 4,
+      "id": 979
+     }
+    ]
+   },
+   {
+    "naam": "Hermans, Yara (YH)",
+    "functie": "Coördinator",
+    "discipline": "Sturing",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     375,
+     387,
+     253,
+     398,
+     352,
+     351,
+     262,
+     354
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Coordinatie",
+      "uren": 250,
+      "id": null
+     },
+     {
+      "naam": "REG-Tactisch advies",
+      "uren": 80,
+      "id": null
+     },
+     {
+      "naam": "Applicatieportfolio Management",
+      "uren": 24,
+      "id": 666
+     }
+    ]
+   },
+   {
+    "naam": "Vossen, Esther (EV)",
+    "functie": "Operationeel coördinator geo",
+    "discipline": "Beheren van Kernregistraties",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     475,
+     455,
+     444,
+     576,
+     640,
+     516,
+     486,
+     354
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Domein GEO",
+      "uren": 350,
+      "id": null
+     },
+     {
+      "naam": "RTTI Borden",
+      "uren": 4,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Linders, Floor (FL)",
+    "functie": "i-adviseur dienstverlening",
+    "discipline": "Tactisch I-advies",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     375,
+     430,
+     309,
+     285,
+     457,
+     297,
+     291,
+     352
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Tactisch advies",
+      "uren": 249,
+      "id": null
+     },
+     {
+      "naam": "Vervanging beveiligingscamera’s in de ambtelijke gebouwen",
+      "uren": 24,
+      "id": null
+     },
+     {
+      "naam": "Implementatie Leermanagementsysteem",
+      "uren": 20,
+      "id": null
+     },
+     {
+      "naam": "REG-Informatiebeleid tactisch",
+      "uren": 15,
+      "id": null
+     },
+     {
+      "naam": "Rolgebaseerde toegangsbeveiling",
+      "uren": 12,
+      "id": null
+     },
+     {
+      "naam": "Doorontwikkeling teamplan",
+      "uren": 8,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Jacobs, Rianne (RJ)",
+    "functie": "Gegevensregistrator BOR",
+    "discipline": "Beheren van Kernregistraties",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     471,
+     582,
+     269,
+     327,
+     429,
+     382,
+     250,
+     352
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Beheren-Basisregistraties",
+      "uren": 336,
+      "id": null
+     },
+     {
+      "naam": "Aanbesteding Integraal beheerssysteem Openbare Ruimte",
+      "uren": 16,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Hoeijmakers, Joost (JH)",
+    "functie": "Beheerder gegevenslogistiek",
+    "discipline": "Data logistiek",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     417,
+     427,
+     561,
+     358,
+     252,
+     360,
+     252,
+     351
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Operationeel beheer",
+      "uren": 351,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Moonen, Ilse (IM)",
+    "functie": "Productowner Online Dienstverlening",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     542,
+     312,
+     0,
+     12,
+     480,
+     377,
+     458,
+     351
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Domein Dienstverlening",
+      "uren": 224,
+      "id": null
+     },
+     {
+      "naam": "Implementeren van MijnVenlo",
+      "uren": 75,
+      "id": null
+     },
+     {
+      "naam": "Implementatie RMA",
+      "uren": 52,
+      "id": 428
+     }
+    ]
+   },
+   {
+    "naam": "Moonen, Martijn (MM)",
+    "functie": "I-adviseur",
+    "discipline": "Tactisch I-advies",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     398,
+     410,
+     388,
+     370,
+     384,
+     351,
+     257,
+     351
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Tactisch advies",
+      "uren": 335,
+      "id": null
+     },
+     {
+      "naam": "AI-Agent-Onderzoeken Inzet op omgevingsplan",
+      "uren": 12,
+      "id": null
+     },
+     {
+      "naam": "AI-Agent-Beleid 9e verdieping",
+      "uren": 4,
+      "id": 979
+     }
+    ]
+   },
+   {
+    "naam": "Vossen, Lotte (LV)",
+    "functie": "Functioneel beheerder Zaaksysteem",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     333,
+     337,
+     340,
+     340,
+     377,
+     359,
+     279,
+     351
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Domein Dienstverlening",
+      "uren": 143,
+      "id": null
+     },
+     {
+      "naam": "Implementatie beleidsagenda",
+      "uren": 104,
+      "id": null
+     },
+     {
+      "naam": "REG-Extra-Verlofsoort",
+      "uren": 104,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Hendriks, Ruben (RH)",
+    "functie": "Procesbeheerder Registraties Geo (BAG)",
+    "discipline": "Beheren van basisregistraties",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     381,
+     381,
+     250,
+     352,
+     384,
+     358,
+     251,
+     350
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Beheren-Basisregistraties",
+      "uren": 250,
+      "id": null
+     },
+     {
+      "naam": "REG-Domein GEO",
+      "uren": 100,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Craenmehr, Bram (BC)",
+    "functie": "Gegevensbeheerder BAG",
+    "discipline": "Beheren van basisregistraties",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     386,
+     628,
+     250,
+     345,
+     385,
+     358,
+     251,
+     350
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Beheren-Basisregistraties",
+      "uren": 350,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Claessens, Roel (RC)",
+    "functie": "Gegevensbeheerder BAG",
+    "discipline": "Beheren van basisregistraties",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     0,
+     375,
+     250,
+     352,
+     384,
+     357,
+     250,
+     350
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Beheren-Basisregistraties",
+      "uren": 265,
+      "id": null
+     },
+     {
+      "naam": "REG-GEO-bestandsoptimalisering",
+      "uren": 85,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Bastiaans, Mila (MB)",
+    "functie": "Gegevensbeheerder BAG",
+    "discipline": "Beheren van basisregistraties",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     384,
+     357,
+     250,
+     350
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Beheren-Basisregistraties",
+      "uren": 266,
+      "id": null
+     },
+     {
+      "naam": "REG-GEO-bestandsoptimalisering",
+      "uren": 84,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Coenen, Femke (FC)",
+    "functie": "Accountmanager",
+    "discipline": "Participeren in IM-projecten",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     371,
+     365,
+     275,
+     367,
+     392,
+     350,
+     447,
+     348
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Leveranciersmanagement",
+      "uren": 270,
+      "id": null
+     },
+     {
+      "naam": "REG-Tactisch advies",
+      "uren": 70,
+      "id": null
+     },
+     {
+      "naam": "Applicatieportfolio Management",
+      "uren": 8,
+      "id": 666
+     }
+    ]
+   },
+   {
+    "naam": "Rutten, Sanne (SR)",
+    "functie": "Functioneel beheerder Levenszaken",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     350,
+     842,
+     474,
+     288,
+     348
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Domein Dienstverlening",
+      "uren": 174,
+      "id": null
+     },
+     {
+      "naam": "REG-Kantoorautomatisering",
+      "uren": 174,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Verstappen, Hanneke (HV)",
+    "functie": "Platformbeheerder BI",
+    "discipline": "BI & Analyse",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     542,
+     473,
+     186,
+     448,
+     474,
+     479,
+     351,
+     347
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Domein BI & Analyse",
+      "uren": 247,
+      "id": null
+     },
+     {
+      "naam": "Monitoring Sociale wijkteams",
+      "uren": 100,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Nelissen, Tom (TN)",
+    "functie": "Gegevensregistrator BOR",
+    "discipline": "Beheren van Kernregistraties",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     418,
+     395,
+     395,
+     395,
+     415,
+     407,
+     251,
+     346
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Beheren-Basisregistraties",
+      "uren": 220,
+      "id": null
+     },
+     {
+      "naam": "REG-Tactisch advies",
+      "uren": 110,
+      "id": null
+     },
+     {
+      "naam": "Aanbesteding Integraal beheerssysteem Openbare Ruimte",
+      "uren": 16,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Kessels, Kevin (KK)",
+    "functie": "Tactisch beleidsadviseur IM",
+    "discipline": "Tactisch I-advies",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     401,
+     388,
+     254,
+     324,
+     353,
+     340,
+     0,
+     344
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Tactisch advies",
+      "uren": 340,
+      "id": null
+     },
+     {
+      "naam": "Implementatie van AV-middelen",
+      "uren": 4,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Seegers, Lisa (LS)",
+    "functie": "Applicatie Beheerder",
+    "discipline": "Applicatiebeheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     503,
+     630,
+     413,
+     507,
+     390,
+     233,
+     235,
+     342
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Extra-Verlofsoort",
+      "uren": 130,
+      "id": null
+     },
+     {
+      "naam": "REG-Domein Fysiek",
+      "uren": 100,
+      "id": null
+     },
+     {
+      "naam": "Aanbesteding Integraal beheerssysteem Openbare Ruimte",
+      "uren": 80,
+      "id": null
+     },
+     {
+      "naam": "RTTI Borden",
+      "uren": 32,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "El Amrani, Hanneke (HE)",
+    "functie": "Functioneel beheerd RXmission",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     510,
+     267,
+     336,
+     407,
+     299,
+     266,
+     199,
+     334
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Sociaal Domein",
+      "uren": 177,
+      "id": null
+     },
+     {
+      "naam": "REG-Domein Dienstverlening",
+      "uren": 133,
+      "id": null
+     },
+     {
+      "naam": "Implementatie Inwonersportaal",
+      "uren": 24,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Verheijen, Mila (MV)",
+    "functie": "Tactisch beleidsadviseur IM",
+    "discipline": "Informatiebeleid tactisch",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     342,
+     351,
+     220,
+     360,
+     302,
+     350,
+     256,
+     330
+    ],
+    "huidig": [
+     {
+      "naam": "REG-AI-beleid-Uitvoering",
+      "uren": 100,
+      "id": null
+     },
+     {
+      "naam": "REG-Algoritmes-beleid-Uitvoering",
+      "uren": 100,
+      "id": null
+     },
+     {
+      "naam": "REG-PPM",
+      "uren": 70,
+      "id": 421
+     },
+     {
+      "naam": "Applicatieportfolio Management",
+      "uren": 60,
+      "id": 666
+     }
+    ]
+   },
+   {
+    "naam": "Hendriks, Joost (JH)",
+    "functie": "Data engineer",
+    "discipline": "BI & Analyse",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     482,
+     437,
+     331,
+     454,
+     413,
+     422,
+     421,
+     313
+    ],
+    "huidig": [
+     {
+      "naam": "BI-GEO datawarehouse",
+      "uren": 50,
+      "id": null
+     },
+     {
+      "naam": "Gebiedsprofielen",
+      "uren": 50,
+      "id": 648
+     },
+     {
+      "naam": "Inzichten gebruik Power BI dashboard",
+      "uren": 40,
+      "id": null
+     },
+     {
+      "naam": "REG-Domein BI & Analyse",
+      "uren": 37,
+      "id": null
+     },
+     {
+      "naam": "BI-GEO front-end applicatie",
+      "uren": 32,
+      "id": null
+     },
+     {
+      "naam": "Dashboard Parkeren",
+      "uren": 30,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Hendriks, Luuk (LH)",
+    "functie": "Projectleider",
+    "discipline": "Projectmanagement",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     266,
+     309,
+     118,
+     258,
+     248,
+     364,
+     312,
+     312
+    ],
+    "huidig": [
+     {
+      "naam": "Uitfasering netwerkschijven",
+      "uren": 208,
+      "id": 893
+     },
+     {
+      "naam": "Vervanging RIS/BIS",
+      "uren": 104,
+      "id": 1014
+     }
+    ]
+   },
+   {
+    "naam": "Smeets, Roel (RS)",
+    "functie": "Functioneel beheerder Maatschappelijk Domein",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     371,
+     369,
+     372,
+     512,
+     487,
+     443,
+     460,
+     312
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Coordinatie",
+      "uren": 200,
+      "id": null
+     },
+     {
+      "naam": "Implementatie Inwonersportaal",
+      "uren": 40,
+      "id": null
+     },
+     {
+      "naam": "E diensten Centric Fase 2 (o.a. aanvragen levensonderhoud en BB)",
+      "uren": 32,
+      "id": null
+     },
+     {
+      "naam": "Servermigratie MS2022",
+      "uren": 32,
+      "id": null
+     },
+     {
+      "naam": "Suite versie 22",
+      "uren": 8,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Willems, Kevin (KW)",
+    "functie": "Functioneel beheerd RXmission",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     354,
+     368,
+     169,
+     250,
+     377,
+     351,
+     258,
+     312
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Domein Fysiek",
+      "uren": 200,
+      "id": null
+     },
+     {
+      "naam": "REG-Extra-Verlofsoort",
+      "uren": 100,
+      "id": null
+     },
+     {
+      "naam": "AI-Agent-Onderzoeken Inzet op omgevingsplan",
+      "uren": 12,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Kessels, Fatima (FK)",
+    "functie": "Digicoach",
+    "discipline": "Operationeel I-advies",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     371,
+     398,
+     284,
+     324,
+     339,
+     335,
+     222,
+     312
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Adhoc-ondersteuning",
+      "uren": 104,
+      "id": null
+     },
+     {
+      "naam": "REG-Onboarding",
+      "uren": 104,
+      "id": null
+     },
+     {
+      "naam": "REG-Training geven",
+      "uren": 104,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Loonen, Iris (IL)",
+    "functie": "Tactisch beleidsadviseur IM",
+    "discipline": "Tactisch I-advies",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     154,
+     0,
+     196,
+     307
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Tactisch advies",
+      "uren": 232,
+      "id": null
+     },
+     {
+      "naam": "Vervanging beveiligingscamera’s in de ambtelijke gebouwen",
+      "uren": 24,
+      "id": null
+     },
+     {
+      "naam": "Managed Mobiele Apparaten (MMA)",
+      "uren": 20,
+      "id": null
+     },
+     {
+      "naam": "Communicatienetwerk Verkeersregelinstallaties",
+      "uren": 15,
+      "id": null
+     },
+     {
+      "naam": "Camera's en Verbindingen Sporthallen en Gymzalen",
+      "uren": 12,
+      "id": null
+     },
+     {
+      "naam": "Implementatie van AV-middelen",
+      "uren": 4,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Claessens, Ilse (IC)",
+    "functie": "Functioneel beheerder Gisib",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     400,
+     410,
+     258,
+     349,
+     343,
+     309,
+     221,
+     300
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Domein Fysiek",
+      "uren": 190,
+      "id": null
+     },
+     {
+      "naam": "Aanbesteding Integraal beheerssysteem Openbare Ruimte",
+      "uren": 80,
+      "id": null
+     },
+     {
+      "naam": "REG-Communicatie",
+      "uren": 30,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Bastiaans, Yara (YB)",
+    "functie": "Applicatie beheerder Maatschappelijk Domein",
+    "discipline": "Applicatiebeheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     702,
+     612,
+     379,
+     643,
+     372,
+     370,
+     243,
+     298
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Operationeel beheer",
+      "uren": 234,
+      "id": null
+     },
+     {
+      "naam": "Servermigratie MS2022",
+      "uren": 32,
+      "id": null
+     },
+     {
+      "naam": "Suite versie 22",
+      "uren": 32,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Cox, Hanneke (HC)",
+    "functie": "Coördinator BI & Analyse",
+    "discipline": "Sturing",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     737,
+     643,
+     183,
+     457,
+     479,
+     389,
+     314,
+     289
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Coordinatie",
+      "uren": 153,
+      "id": null
+     },
+     {
+      "naam": "BI-GEO front-end applicatie",
+      "uren": 60,
+      "id": null
+     },
+     {
+      "naam": "REG-Tactisch advies",
+      "uren": 60,
+      "id": null
+     },
+     {
+      "naam": "Digital Twin haven",
+      "uren": 16,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Lemmen, Kim (KL)",
+    "functie": "Coördinator",
+    "discipline": "Sturing",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     424,
+     393,
+     212,
+     347,
+     329,
+     330,
+     255,
+     277
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Coordinatie",
+      "uren": 187,
+      "id": null
+     },
+     {
+      "naam": "REG-coordinatie-BOR",
+      "uren": 74,
+      "id": null
+     },
+     {
+      "naam": "Aanbesteding Integraal beheerssysteem Openbare Ruimte",
+      "uren": 16,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Driessen, Iris (ID)",
+    "functie": "Gegevensregistrator BOR",
+    "discipline": "Beheren van Kernregistraties",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     336,
+     332,
+     228,
+     270,
+     306,
+     308,
+     198,
+     276
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Beheren-Basisregistraties",
+      "uren": 260,
+      "id": null
+     },
+     {
+      "naam": "Aanbesteding Integraal beheerssysteem Openbare Ruimte",
+      "uren": 16,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Mulders, Sem (SM)",
+    "functie": "Projectleider",
+    "discipline": "Projectmanagement",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     359,
+     402,
+     309,
+     322,
+     386,
+     202,
+     165,
+     272
+    ],
+    "huidig": [
+     {
+      "naam": "Geldzorgen",
+      "uren": 52,
+      "id": null
+     },
+     {
+      "naam": "Implementatie beleidsagenda",
+      "uren": 52,
+      "id": null
+     },
+     {
+      "naam": "REG-Informatiebeleid strategisch",
+      "uren": 31,
+      "id": 203
+     },
+     {
+      "naam": "Triage signalen chatbot / agent",
+      "uren": 26,
+      "id": null
+     },
+     {
+      "naam": "Woonmonitor",
+      "uren": 26,
+      "id": null
+     },
+     {
+      "naam": "REG-Informatiebeleid tactisch",
+      "uren": 25,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Rutten, Lisa (LR)",
+    "functie": "Functioneel beheerder Makelaarsuite",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     386,
+     386,
+     386,
+     346,
+     343,
+     222,
+     203,
+     272
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Domein Dienstverlening",
+      "uren": 220,
+      "id": null
+     },
+     {
+      "naam": "Doorontwikkeling Axerion - Vastgoed",
+      "uren": 52,
+      "id": 738
+     }
+    ]
+   },
+   {
+    "naam": "Hendriks, Kevin (KH)",
+    "functie": "Functioneel beheerder BuitenBeter",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     534,
+     617,
+     479,
+     356,
+     380,
+     271,
+     190,
+     266
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Domein Fysiek",
+      "uren": 266,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Wijnen, Rianne (RW)",
+    "functie": "CISO",
+    "discipline": "Participeren in IM-projecten",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     416,
+     420,
+     305,
+     330,
+     373,
+     307,
+     214,
+     248
+    ],
+    "huidig": [
+     {
+      "naam": "REG-CISO",
+      "uren": 150,
+      "id": null
+     },
+     {
+      "naam": "REG-Tactisch advies",
+      "uren": 90,
+      "id": null
+     },
+     {
+      "naam": "Vervanging beveiligingscamera’s in de ambtelijke gebouwen",
+      "uren": 8,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Linders, Rianne (RL)",
+    "functie": "I-adviseur maatschappelijk Domein",
+    "discipline": "Tactisch I-advies",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     520,
+     472,
+     396,
+     308,
+     561,
+     496,
+     292,
+     243
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Tactisch advies",
+      "uren": 100,
+      "id": null
+     },
+     {
+      "naam": "Implementeren van MijnVenlo",
+      "uren": 75,
+      "id": null
+     },
+     {
+      "naam": "Dashboard Jobport",
+      "uren": 20,
+      "id": 936
+     },
+     {
+      "naam": "Pilot i.s.m BISS / Maastricht University",
+      "uren": 20,
+      "id": 1034
+     },
+     {
+      "naam": "Triage signalen chatbot / agent",
+      "uren": 20,
+      "id": null
+     },
+     {
+      "naam": "Uitbreiding E-diensten Levenszaken",
+      "uren": 8,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Coenen, Mila (MC)",
+    "functie": "Functioneel beheerder Maatschappelijk Domein",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     220,
+     198,
+     264,
+     330,
+     354,
+     308,
+     251,
+     220
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Operationeel beheer",
+      "uren": 160,
+      "id": null
+     },
+     {
+      "naam": "Implementatie Inwonersportaal",
+      "uren": 60,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Haenen, Bram (BH)",
+    "functie": "Functioneel beheerder Youforce",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     324,
+     350,
+     286,
+     434,
+     469,
+     218,
+     153,
+     216
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Domein Dienstverlening",
+      "uren": 140,
+      "id": null
+     },
+     {
+      "naam": "REG-Kantoorautomatisering",
+      "uren": 74,
+      "id": null
+     },
+     {
+      "naam": "Implementatie Leermanagementsysteem",
+      "uren": 2,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Rutten, Kevin (KR)",
+    "functie": "Functioneel beheerder Maatschappelijk Domein",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     427,
+     269,
+     388,
+     344,
+     245,
+     448,
+     282,
+     208
+    ],
+    "huidig": [
+     {
+      "naam": "Geldzorgen",
+      "uren": 208,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Linders, Pieter (PL)",
+    "functie": "Functioneel beheerder Maatschappelijk Domein",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     259,
+     221,
+     184,
+     280,
+     227,
+     211,
+     148,
+     207
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Operationeel beheer",
+      "uren": 207,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Linders, Sem (SL)",
+    "functie": "ProductOwner",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     60,
+     360,
+     234,
+     296,
+     408,
+     308,
+     244,
+     196
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Domein Dienstverlening",
+      "uren": 196,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Schreurs, Maud (MS)",
+    "functie": "Functioneel beheerder Maatschappelijk Domein",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     500,
+     450,
+     298,
+     500,
+     370,
+     254,
+     151,
+     195
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Operationeel beheer",
+      "uren": 155,
+      "id": null
+     },
+     {
+      "naam": "E diensten Centric Fase 2 (o.a. aanvragen levensonderhoud en BB)",
+      "uren": 40,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Vermeulen, Stijn (SV)",
+    "functie": "Functioneel Beheerder",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     64,
+     256,
+     182
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Domein Dienstverlening",
+      "uren": 150,
+      "id": null
+     },
+     {
+      "naam": "Servermigratie MS2022",
+      "uren": 32,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Cox, Ilse (IC)",
+    "functie": "Gegevensbeheerder BAG",
+    "discipline": "Beheren van basisregistraties",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     385,
+     385,
+     328,
+     176,
+     192,
+     179,
+     125,
+     174
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Beheren-Basisregistraties",
+      "uren": 174,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Bartels, Gijs (GB)",
+    "functie": "Trainer",
+    "discipline": "Participeren in Lijn-projecten",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     391,
+     418,
+     265,
+     584,
+     385,
+     358,
+     112,
+     157
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Training geven",
+      "uren": 157,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Schreurs, Iris (IS)",
+    "functie": "Projectleider",
+    "discipline": "Projectmanagement",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     502,
+     681,
+     272,
+     227,
+     444,
+     495,
+     521,
+     145
+    ],
+    "huidig": [
+     {
+      "naam": "Aanbesteding nieuwe parkeerapplicatie",
+      "uren": 145,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Seegers, Sanne (SS)",
+    "functie": "Projectondersteuner",
+    "discipline": "Participeren in IM-projecten",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     64,
+     64,
+     130,
+     234,
+     104
+    ],
+    "huidig": [
+     {
+      "naam": "Uitfasering netwerkschijven",
+      "uren": 78,
+      "id": 893
+     },
+     {
+      "naam": "Vervanging RIS/BIS",
+      "uren": 26,
+      "id": 1014
+     }
+    ]
+   },
+   {
+    "naam": "Willems, Lisa (LW)",
+    "functie": "Projectleider",
+    "discipline": "Informatie architectuur",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     342,
+     370,
+     235,
+     323,
+     323,
+     118,
+     82,
+     99
+    ],
+    "huidig": [
+     {
+      "naam": "REG-Rolgebaseerd werken",
+      "uren": 43,
+      "id": null
+     },
+     {
+      "naam": "Applicatieportfolio Management",
+      "uren": 24,
+      "id": 666
+     },
+     {
+      "naam": "REG-Informatiearchitectuur",
+      "uren": 21,
+      "id": null
+     },
+     {
+      "naam": "REG-Tactisch advies",
+      "uren": 11,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Peeters, Tom (TP)",
+    "functie": "Functioneel beheerder Maatschappelijk Domein",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     88
+    ],
+    "huidig": [
+     {
+      "naam": "E diensten Centric Fase 2 (o.a. aanvragen levensonderhoud en BB)",
+      "uren": 32,
+      "id": null
+     },
+     {
+      "naam": "Implementatie Inwonersportaal",
+      "uren": 32,
+      "id": null
+     },
+     {
+      "naam": "Suite versie 22",
+      "uren": 24,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Nelissen, Roel (RN)",
+    "functie": "Functioneel beheerder Maatschappelijk Domein",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     152,
+     80,
+     80,
+     180,
+     180,
+     80,
+     80,
+     80
+    ],
+    "huidig": [
+     {
+      "naam": "E diensten Centric Fase 2 (o.a. aanvragen levensonderhoud en BB)",
+      "uren": 80,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Hoeijmakers, Ruben (RH)",
+    "functie": "Functioneel beheerder Brutis",
+    "discipline": "Beheren van Kernregistraties",
+    "team": "Realisatie en Beheer Openbare Ruimte (RGBORU)",
+    "kw": [
+     192,
+     240,
+     138,
+     194,
+     172,
+     159,
+     111,
+     40
+    ],
+    "huidig": [
+     {
+      "naam": "Aanschaf RIOX beheertool voor rioolaansluitingen",
+      "uren": 40,
+      "id": null
+     }
+    ]
+   },
+   {
+    "naam": "Hoeijmakers, Sanne (SH)",
+    "functie": "Information Security Officer",
+    "discipline": "Participeren in IM-projecten",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     413,
+     417,
+     320,
+     400,
+     372,
+     328,
+     233,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Seegers, Kevin (KS)",
+    "functie": "Inhuur",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     143,
+     145,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Hermans, Sophie (SH)",
+    "functie": "Functioneel beheerder GFS/EnterpriseOne",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     348,
+     352,
+     252,
+     351,
+     409,
+     360,
+     250,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Mulders, Martijn (MM)",
+    "functie": "Tactisch beleidsadviseur IM",
+    "discipline": "Tactisch I-advies",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     150,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Moonen, Anouk (AM)",
+    "functie": "Tactisch beleidsadviseur IM",
+    "discipline": "Tactisch I-advies",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     368,
+     341,
+     197,
+     250,
+     295,
+     269,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Thijssen, Luuk (LT)",
+    "functie": "Strategisch beleidsadviseur IM",
+    "discipline": "Informatiebeleid strategisch",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     175,
+     177,
+     122,
+     166,
+     180,
+     168,
+     118,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Schreurs, Luuk (LS)",
+    "functie": "Functioneel beheerder Makelaarsuite",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     341,
+     341,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Wolters, Noor (NW)",
+    "functie": "Functioneel beheerd RXmission",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     387,
+     395,
+     256,
+     364,
+     380,
+     354,
+     498,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Dings, Kim (KD)",
+    "functie": "Functioneel beheerder Xential / Validsign",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     350,
+     260,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Lemmen, Roel (RL)",
+    "functie": "Functioneel beheerder Levenszaken",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     380,
+     568,
+     210,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Vermeulen, Mila (MV)",
+    "functie": "Gegevensregistrator BGT",
+    "discipline": "Beheren van basisregistraties",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     390,
+     390,
+     270,
+     378,
+     384,
+     360,
+     252,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Rutten, Mark (MR)",
+    "functie": "Registrator BAG",
+    "discipline": "Beheren van basisregistraties",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     578,
+     375,
+     260,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Timmermans, Joost (JT)",
+    "functie": "Functioneel beheerd RXmission",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     0,
+     208,
+     150,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Janssen, Ruud (RJ)",
+    "functie": null,
+    "discipline": "Overig",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     0,
+     78,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Arts, Niels (NA)",
+    "functie": "Functioneel beheerder Maatschappelijk Domein",
+    "discipline": "Functioneel beheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     0,
+     0,
+     80,
+     80,
+     0,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Driessen, Luuk (LD)",
+    "functie": "Digicoach",
+    "discipline": "Operationeel I-advies",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     0,
+     0,
+     157,
+     221,
+     310,
+     309,
+     203,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "El Amrani, Ilse (IE)",
+    "functie": "Applicatie beheerder Geo-Informatie",
+    "discipline": "Applicatiebeheer",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     352,
+     327,
+     229,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Craenmehr, Mila (MC)",
+    "functie": "Adviseur Zaakgericht werken",
+    "discipline": "Tactisch I-advies",
+    "team": "Informatiemanagement (RGIMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     252,
+     177,
+     124,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Hoeijmakers, Maud (MH)",
+    "functie": "Projectleider",
+    "discipline": "Projecten",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     182,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Linders, Ilse (IL)",
+    "functie": "Adviseur Projectbeheersing",
+    "discipline": "Projectmanagement",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     156,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Vermeulen, Lotte (LV)",
+    "functie": "Projectondersteuner",
+    "discipline": "Projectmanagement",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     104,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Peeters, Anouk (AP)",
+    "functie": "Procesmanager",
+    "discipline": "Projectmanagement",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     312,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Hermans, Lieke (LH)",
+    "functie": "Projectmanager",
+    "discipline": "Projectmanagement",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     260,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Thijssen, Maud (MT)",
+    "functie": "Inhuur-Project en Procesmanagement",
+    "discipline": "Projecten",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     260,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "El Amrani, Sem (SE)",
+    "functie": "Inhuur-Project en Procesmanagement",
+    "discipline": "Projecten",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     130,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Martens, Ilse (IM)",
+    "functie": "Inhuur-Project en Procesmanagement",
+    "discipline": "Projecten",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     52,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Driessen, Noor (ND)",
+    "functie": "Projectondersteuner",
+    "discipline": "Projectmanagement",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     156,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Haenen, Daan (DH)",
+    "functie": "Inhuur-Project en Procesmanagement",
+    "discipline": "Projecten",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     182,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Jacobs, Niels (NJ)",
+    "functie": "Projectleider",
+    "discipline": "Projectmanagement",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     130,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Coenen, Thijs (TC)",
+    "functie": "Projectondersteuner",
+    "discipline": "Projecten",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     130,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Haenen, Thijs (TH)",
+    "functie": "Projectmanager",
+    "discipline": "Projecten",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     182,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Claessens, Sem (SC)",
+    "functie": "Procesmanager",
+    "discipline": "Projectmanagement",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     52,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Craenmehr, Yara (YC)",
+    "functie": "Projectleider",
+    "discipline": "Projectmanagement",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     104,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Verstappen, Pieter (PV)",
+    "functie": "Inhuur-Project en Procesmanagement",
+    "discipline": "Projecten",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     260,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Verheijen, Thijs (TV)",
+    "functie": "Projectondersteuner",
+    "discipline": "Projecten",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     260,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Bartels, Rianne (RB)",
+    "functie": "Inhuur-Project en Procesmanagement",
+    "discipline": "Projecten",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     260,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Verstappen, Gijs (GV)",
+    "functie": "Projectleider",
+    "discipline": "Projecten",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     130,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Thijssen, Daan (DT)",
+    "functie": "Inhuur-Project en Procesmanagement",
+    "discipline": "Projecten",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     52,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   },
+   {
+    "naam": "Moonen, Jesse (JM)",
+    "functie": "Inhuur-Project en Procesmanagement",
+    "discipline": "Projecten",
+    "team": "Project- en Procesmanagement (RGPMAN)",
+    "kw": [
+     0,
+     0,
+     0,
+     0,
+     52,
+     0,
+     0,
+     0
+    ],
+    "huidig": []
+   }
+  ]
+ }
 };
