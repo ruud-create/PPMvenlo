@@ -1,0 +1,38 @@
+// Fictieve voorbeelddata voor de mockup.
+window.PPM = {
+  today: "2026-11-16",
+  projects: [
+    { id: "P-2024-017", name: "Herinrichting Maasboulevard fase 2", programma: "Binnenstad & Maasoevers", leider: "Anouk Peeters", fase: "Realisatie", status: "warn", voortgang: 62, budget: 8.4, besteed: 5.6, eind: "2027-09-30", reden: "Vertraging aanbesteding kademuur (±6 wk)" },
+    { id: "P-2025-004", name: "Klimaatadaptatie Blerick-Oost", programma: "Duurzaamheid & Klimaat", leider: "Bas Hendriks", fase: "Uitvoering", status: "ok", voortgang: 48, budget: 3.2, besteed: 1.4, eind: "2027-06-30" },
+    { id: "P-2025-011", name: "Implementatie Omgevingswet – digitaal stelsel", programma: "Dienstverlening & Digitalisering", leider: "Fatima El Amrani", fase: "Uitvoering", status: "risk", voortgang: 71, budget: 1.9, besteed: 1.8, eind: "2026-12-31", reden: "Budget 95% besteed, 29% werk resterend" },
+    { id: "P-2024-032", name: "Woningbouw Hogeweg – 240 woningen", programma: "Wonen & Leefomgeving", leider: "Tom Verheijen", fase: "Planvorming", status: "ok", voortgang: 30, budget: 2.1, besteed: 0.5, eind: "2028-03-31" },
+    { id: "P-2025-019", name: "Snelfietsroute Venlo–Tegelen", programma: "Mobiliteit", leider: "Lisa Janssen", fase: "Ontwerp", status: "warn", voortgang: 35, budget: 4.6, besteed: 0.9, eind: "2027-11-30", reden: "Grondverwerving 2 percelen loopt" },
+    { id: "P-2023-041", name: "Kazernekwartier – openbare ruimte", programma: "Binnenstad & Maasoevers", leider: "Anouk Peeters", fase: "Realisatie", status: "ok", voortgang: 84, budget: 6.0, besteed: 4.9, eind: "2027-03-31" },
+    { id: "P-2025-023", name: "Vernieuwing digitale werkplek", programma: "Dienstverlening & Digitalisering", leider: "Mark Smeets", fase: "Uitvoering", status: "risk", voortgang: 40, budget: 1.2, besteed: 0.7, eind: "2027-01-31", reden: "Capaciteit ICT-team > 120% in dec" },
+    { id: "P-2026-002", name: "Energietransitie wijk Venlo-Zuid", programma: "Duurzaamheid & Klimaat", leider: "Bas Hendriks", fase: "Initiatief", status: "ok", voortgang: 12, budget: 0.8, besteed: 0.1, eind: "2028-12-31" },
+    { id: "P-2024-008", name: "Renovatie sporthal Tegelen", programma: "Sociaal Domein & Sport", leider: "Sanne Willems", fase: "Afronding", status: "done", voortgang: 97, budget: 3.5, besteed: 3.4, eind: "2026-11-30" },
+    { id: "P-2025-030", name: "Zaakgericht werken – klantcontact", programma: "Dienstverlening & Digitalisering", leider: "Fatima El Amrani", fase: "Ontwerp", status: "ok", voortgang: 22, budget: 0.6, besteed: 0.1, eind: "2027-07-31" },
+    { id: "P-2025-014", name: "Brede school Venlo-Noord", programma: "Sociaal Domein & Sport", leider: "Sanne Willems", fase: "Uitvoering", status: "warn", voortgang: 55, budget: 7.8, besteed: 4.6, eind: "2027-08-31", reden: "Kostenstijging installaties +8%" },
+    { id: "P-2026-006", name: "Parkeervisie binnenstad", programma: "Mobiliteit", leider: "Lisa Janssen", fase: "Initiatief", status: "ok", voortgang: 8, budget: 0.3, besteed: 0.02, eind: "2027-06-30" },
+  ],
+  milestones: [
+    { d: "2026-11-24", t: "Gunning kademuur Maasboulevard", p: "Herinrichting Maasboulevard fase 2" },
+    { d: "2026-11-30", t: "Oplevering sporthal Tegelen", p: "Renovatie sporthal Tegelen" },
+    { d: "2026-12-08", t: "Go-live DSO-koppeling", p: "Implementatie Omgevingswet" },
+    { d: "2026-12-15", t: "Raadsvoorstel stedenbouwkundig plan", p: "Woningbouw Hogeweg" },
+    { d: "2027-01-12", t: "Uitrol laptops fase 1", p: "Vernieuwing digitale werkplek" },
+  ],
+  people: [
+    { n: "Anouk Peeters", r: "Projectleider", team: "Ruimte", w: [90, 95, 100, 110, 105, 90, 80, 85] },
+    { n: "Bas Hendriks", r: "Projectleider", team: "Ruimte", w: [80, 85, 80, 75, 70, 60, 70, 80] },
+    { n: "Tom Verheijen", r: "Planeconoom", team: "Ruimte", w: [60, 70, 75, 90, 95, 100, 90, 70] },
+    { n: "Lisa Janssen", r: "Verkeerskundige", team: "Mobiliteit", w: [100, 105, 95, 90, 85, 80, 90, 95] },
+    { n: "Fatima El Amrani", r: "Informatiemanager", team: "I&A", w: [115, 120, 125, 110, 95, 85, 80, 80] },
+    { n: "Mark Smeets", r: "ICT-architect", team: "I&A", w: [105, 120, 130, 125, 100, 90, 85, 80] },
+    { n: "Sanne Willems", r: "Projectleider", team: "Maatschappij", w: [70, 75, 80, 60, 50, 65, 70, 75] },
+    { n: "Kevin Driessen", r: "Werkvoorbereider", team: "Uitvoering", w: [85, 90, 95, 100, 100, 95, 90, 85] },
+    { n: "Eva Coenen", r: "Projectondersteuner", team: "PMO", w: [50, 55, 60, 60, 45, 40, 50, 55] },
+    { n: "Ruben Hermans", r: "Landschapsarchitect", team: "Ruimte", w: [30, 40, 45, 60, 75, 80, 85, 90] },
+  ],
+  weeks: ["wk 47", "wk 48", "wk 49", "wk 50", "wk 51", "wk 52", "wk 1", "wk 2"],
+};
