@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Projectenportaal Venlo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -11,22 +11,45 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="app">
+  <!-- Inlogscherm (Microsoft SSO – mockup) -->
+  <section class="login" id="login" hidden>
+    <div class="login-art" aria-hidden="true">
+      <img src="assets/venlo-v-wit.png" alt="">
+    </div>
+    <div class="login-panel">
+      <div class="login-card">
+        <img class="login-logo" src="assets/venlo-logo-blauwgroen.png" alt="Gemeente Venlo">
+        <h1>Projectenportaal</h1>
+        <p class="login-lead">Inzicht in lopende projecten, reguliere taken en wie waaraan werkt.</p>
+        <button class="ms-btn" id="ms-login" type="button">
+          <svg width="20" height="20" viewBox="0 0 21 21" aria-hidden="true"><rect x="1" y="1" width="9" height="9" fill="#f25022"/><rect x="11" y="1" width="9" height="9" fill="#7fba00"/><rect x="1" y="11" width="9" height="9" fill="#00a4ef"/><rect x="11" y="11" width="9" height="9" fill="#ffb900"/></svg>
+          <span>Inloggen met Microsoft</span>
+        </button>
+        <p class="login-hint">Gebruik je account van gemeente Venlo (@venlo.nl). Je wordt doorgestuurd naar de Microsoft-inlogpagina.</p>
+        <div class="login-foot">
+          <a href="#/login">Hulp bij inloggen</a><span>·</span><a href="#/login">Privacyverklaring</a>
+        </div>
+      </div>
+      <p class="login-mock">Mockup – SSO wordt later gekoppeld aan Microsoft Entra ID</p>
+    </div>
+  </section>
+
+  <div class="app" id="app" hidden>
     <aside class="sidebar">
       <div class="brand">
         <img class="brand-logo" src="assets/venlo-logo-wit.png" alt="Gemeente Venlo">
         <span class="brand-app">Projectenportaal</span>
       </div>
       <nav class="nav" id="nav">
-        <a href="#/dashboard" data-route="dashboard"><span class="ico">◧</span>Dashboard</a>
-        <a href="#/projecten" data-route="projecten"><span class="ico">☰</span>Projecten</a>
-        <a href="#/project/P-2024-017" data-route="project"><span class="ico">◉</span>Projectdetail</a>
-        <a href="#/resources" data-route="resources"><span class="ico">◫</span>Resources</a>
+        <a href="#/home" data-route="home"><span class="ico">⌂</span>Mijn overzicht</a>
+        <a href="#/portfolio" data-route="portfolio"><span class="ico">◧</span>Portfolio</a>
+        <a href="#/projecten" data-route="projecten"><span class="ico">☰</span>Projecten &amp; taken</a>
+        <a href="#/teams" data-route="teams"><span class="ico">◫</span>Teams</a>
         <div class="nav-sep">Overig</div>
-        <a href="#/dashboard" class="muted-link"><span class="ico">⚑</span>Rapportages</a>
-        <a href="#/dashboard" class="muted-link"><span class="ico">⚙</span>Instellingen</a>
+        <a href="#/home" class="muted-link"><span class="ico">⚑</span>Rapportages</a>
+        <a href="#/login" class="muted-link"><span class="ico">⎋</span>Uitloggen</a>
       </nav>
-      <div class="sidebar-foot">Mockup · v0.1</div>
+      <div class="sidebar-foot">Mockup · v0.3 · export 16-11-2026</div>
     </aside>
 
     <div class="main">
@@ -34,23 +57,23 @@
         <div class="mob-brand"><img class="mob-v" src="assets/venlo-v-wit.png" alt=""><img class="mob-word" src="assets/venlo-woordmerk-wit.png" alt="Venlo"><span>Projectenportaal</span></div>
         <div class="search">
           <span aria-hidden="true">⌕</span>
-          <input type="search" placeholder="Zoek project, programma of medewerker…">
+          <input type="search" id="search" placeholder="Zoek activiteit, team of medewerker…">
         </div>
         <div class="topbar-right">
           <span class="pill-date">Peildatum 16 nov 2026</span>
           <button class="icon-btn" aria-label="Meldingen">🔔<span class="dot"></span></button>
-          <div class="user">
+          <a class="user" href="#/login" title="Uitloggen">
             <div class="avatar">JJ</div>
-            <div class="user-text"><strong>J. Janssen</strong><span>Portfoliomanager</span></div>
-          </div>
+            <div class="user-text"><strong>Jan Janssen</strong><span>Teamleider Informatiemanagement</span></div>
+          </a>
         </div>
       </header>
       <main class="content" id="view"></main>
       <nav class="tabbar" id="tabbar" aria-label="Hoofdnavigatie">
-        <a href="#/dashboard" data-route="dashboard"><span class="ico">◧</span>Overzicht</a>
+        <a href="#/home" data-route="home"><span class="ico">⌂</span>Mijn</a>
+        <a href="#/portfolio" data-route="portfolio"><span class="ico">◧</span>Portfolio</a>
         <a href="#/projecten" data-route="projecten"><span class="ico">☰</span>Projecten</a>
-        <a href="#/project/P-2024-017" data-route="project"><span class="ico">◉</span>Project</a>
-        <a href="#/resources" data-route="resources"><span class="ico">◫</span>Resources</a>
+        <a href="#/teams" data-route="teams"><span class="ico">◫</span>Teams</a>
       </nav>
     </div>
   </div>

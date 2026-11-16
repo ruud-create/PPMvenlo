@@ -1,326 +1,395 @@
 (function () {
   const D = window.PPM;
+  const A = D.activiteiten;
+  const ME = D.gebruiker.naam;
+  const TODAY = new Date(D.peildatum);
   const view = document.getElementById("view");
-  const STATUS = {
-    ok: ["ok", "Op koers"],
-    warn: ["warn", "Aandacht"],
-    risk: ["risk", "Kritiek"],
-    done: ["done", "Afronding"],
-  };
+
+  /* ------------------------------- helpers ------------------------------- */
   const MONTHS = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
-  const fmtDate = (s) => { const d = new Date(s); return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`; };
-  const eur = (m) => `€ ${m.toLocaleString("nl-NL", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} mln`;
+  const dt = (s) => new Date(s);
+  const fmtDate = (s) => { const d = dt(s); return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`; };
+  const days = (s) => Math.round((dt(s) - TODAY) / 864e5);
+  const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  // "Achternaam, Voornaam (CODE)" -> "Voornaam Achternaam"
+  const person = (s) => { if (!s) return "Onbekend"; const m = s.match(/^(.*?),\s*(.*?)\s*\((.*?)\)$/); return m ? `${m[2]} ${m[1]}` : s; };
+  const initials = (s) => person(s).split(" ").filter((w) => /^[A-ZÀ-Ý]/.test(w)).map((w) => w[0]).slice(0, 2).join("") || "?";
+  // "Informatiemanagement (RGIMAN)" -> {name, code}
+  const team = (s) => { const m = (s || "").match(/^(.*?)\s*\((.*?)\)$/); return m ? { name: m[1], code: m[2] } : { name: s || "—", code: "" }; };
+  const teamName = (s) => team(s).name;
+  const overdue = (a) => days(a.eind) < 0;
+  const isRegulier = (a) => a.soort !== "Project";
+  const mine = (a) => a.verantwoordelijk === ME;
+  const activeIn = (a) => !mine(a) && a.leden.includes(ME);
+
+  const STATUS = { ok: ["ok", "Op koers"], warn: ["warn", "Aandacht"], risk: ["risk", "Kritiek"], plan: ["plan", "Nog niet gestart"] };
   const badge = (s) => `<span class="badge ${STATUS[s][0]}">${STATUS[s][1]}</span>`;
-  const initials = (n) => n.split(" ").filter((w) => /^[A-Z]/.test(w)).map((w) => w[0]).slice(0, 2).join("");
-  const progress = (v, cls = "") => `<div class="prog-cell"><div class="progress ${cls}"><span style="width:${v}%"></span></div><span class="num">${v}%</span></div>`;
+  const soortTag = (a) => `<span class="tag ${isRegulier(a) ? "tag-reg" : ""}">${isRegulier(a) ? "Reguliere taak" : "Project"}</span>`;
+  const timeCell = (a) => a.verstreken == null
+    ? `<span class="psub">Doorlopend</span>`
+    : `<div class="prog-cell"><div class="progress ${a.gezondheid}"><span style="width:${a.verstreken}%"></span></div><span class="num">${a.verstreken}%</span></div>`;
+  const endLabel = (a) => {
+    const d = days(a.eind);
+    if (d < 0) return `<span class="due over">${Math.abs(d)} dagen over einddatum</span>`;
+    if (d <= 90) return `<span class="due soon">nog ${d} dagen</span>`;
+    return `<span class="due">t/m ${fmtDate(a.eind)}</span>`;
+  };
+  const ORDER = ["risk", "warn", "ok", "plan"];
+  const byHealth = (a, b) => ORDER.indexOf(a.gezondheid) - ORDER.indexOf(b.gezondheid) || dt(a.eind) - dt(b.eind);
+  const count = (arr, fn) => { const m = {}; arr.forEach((x) => [].concat(fn(x)).forEach((k) => { if (k) m[k] = (m[k] || 0) + 1; })); return Object.entries(m).sort((a, b) => b[1] - a[1]); };
+  const hbars = (rows, color = "") => { const max = Math.max(...rows.map((r) => r[1]), 1); return rows.map(([n, v]) => `<div class="hbar"><span>${esc(n)}</span><div class="track"><span style="width:${(v / max) * 100}%;${color}"></span></div><span class="val num">${v}</span></div>`).join(""); };
 
-  const ORDER = ["risk", "warn", "ok", "done"];
-  const sorted = () => [...D.projects].sort((a, b) => ORDER.indexOf(a.status) - ORDER.indexOf(b.status));
-  const overspent = (p) => p.besteed / p.budget > 0.9 && p.voortgang < 90;
+  const card = (a) => `
+    <a class="pcard" href="#/project/${a.id}" data-soort="${esc(a.soort)}">
+      <div class="pcard-top">${badge(a.gezondheid)}${soortTag(a)}</div>
+      <div class="pname">${esc(a.naam)}</div>
+      <div class="psub">${esc(teamName(a.team))} · ${esc(person(a.verantwoordelijk))}</div>
+      ${timeCell(a)}
+      <div class="pcard-foot"><span>${esc(a.programma)}</span>${endLabel(a)}</div>
+    </a>`;
 
-  /* ------------------------------ Dashboard ------------------------------ */
-  function dashboard() {
-    const P = D.projects;
-    const count = (s) => P.filter((p) => p.status === s).length;
-    const budget = P.reduce((a, p) => a + p.budget, 0);
-    const spent = P.reduce((a, p) => a + p.besteed, 0);
-    const att = P.filter((p) => p.status === "risk" || p.status === "warn");
-    const byProg = {};
-    P.forEach((p) => { byProg[p.programma] = (byProg[p.programma] || 0) + p.budget; });
-    const progs = Object.entries(byProg).sort((a, b) => b[1] - a[1]);
-    const maxProg = progs[0][1];
-    const avgLoad = Math.round(D.people.reduce((a, p) => a + p.w[0], 0) / D.people.length);
-    const seg = [["ok", "var(--ok-bar)"], ["warn", "var(--warn-bar)"], ["risk", "var(--risk-bar)"], ["done", "#A9B6B6"]];
+  /* ------------------------------- login --------------------------------- */
+  document.getElementById("ms-login").addEventListener("click", (e) => {
+    const b = e.currentTarget;
+    b.classList.add("busy");
+    b.querySelector("span").textContent = "Doorsturen naar Microsoft…";
+    setTimeout(() => { b.classList.remove("busy"); b.querySelector("span").textContent = "Inloggen met Microsoft"; location.hash = "#/home"; }, 900);
+  });
 
+  /* ---------------------------- Mijn overzicht --------------------------- */
+  function home() {
+    const own = A.filter(mine).sort(byHealth);
+    const act = A.filter(activeIn).sort(byHealth);
+    const both = own.concat(act);
+    const soon = both.filter((a) => days(a.eind) >= 0 && days(a.eind) <= 120).sort((a, b) => dt(a.eind) - dt(b.eind));
+    const attention = own.filter((a) => a.gezondheid === "risk" || a.gezondheid === "warn" || overdue(a));
+    const noDesc = own.filter((a) => !a.omschrijving).length;
     return `
       <div class="page-head">
-        <div>
-          <h1>Goedemorgen, Jan</h1>
-          <p>Overzicht van het projectenportfolio van gemeente Venlo</p>
-        </div>
-        <div class="btn-row only-desk"><button class="btn">Exporteer</button><button class="btn primary">+ Nieuw project</button></div>
+        <div><h1>Goedemorgen, Jan</h1><p>${esc(D.gebruiker.functie)} · peildatum ${fmtDate(D.peildatum)}</p></div>
       </div>
 
       <div class="grid g-4">
-        <div class="card kpi accent"><div class="kpi-label">Actieve projecten</div><div class="kpi-value num">${P.length}</div><div class="kpi-sub"><span class="up">+2</span> t.o.v. vorig kwartaal</div></div>
-        <div class="card kpi accent"><div class="kpi-label">Totaal budget</div><div class="kpi-value num">${eur(budget)}</div><div class="kpi-sub">${Math.round((spent / budget) * 100)}% besteed (${eur(spent)})</div></div>
-        <div class="card kpi accent"><div class="kpi-label">Op koers</div><div class="kpi-value num">${Math.round(((count("ok") + count("done")) / P.length) * 100)}%</div><div class="kpi-sub"><span class="down">${count("risk")} kritiek</span> · ${count("warn")} vragen aandacht</div></div>
-        <div class="card kpi accent"><div class="kpi-label">Bezetting medewerkers</div><div class="kpi-value num">${avgLoad}%</div><div class="kpi-sub"><span class="down">${D.people.filter((p) => p.w[0] > 100).length} medewerkers</span> boven 100% deze week</div></div>
+        <a class="card kpi accent" href="#/projecten?f=mijn"><div class="kpi-label">Verantwoordelijk voor</div><div class="kpi-value num">${own.length}</div><div class="kpi-sub">${own.filter((a) => !isRegulier(a)).length} projecten · ${own.filter(isRegulier).length} reguliere taken</div></a>
+        <a class="card kpi accent" href="#/projecten?f=actief"><div class="kpi-label">Actief in</div><div class="kpi-value num">${act.length}</div><div class="kpi-sub">als projectlid bij andere teams</div></a>
+        <div class="card kpi accent"><div class="kpi-label">Einddatum binnen 4 mnd</div><div class="kpi-value num">${soon.length}</div><div class="kpi-sub">eerstvolgende ${soon[0] ? fmtDate(soon[0].eind) : "—"}</div></div>
+        <div class="card kpi accent"><div class="kpi-label">Vraagt mijn aandacht</div><div class="kpi-value num" style="color:var(--risk)">${attention.length}</div><div class="kpi-sub"><span class="down">${own.filter(overdue).length} over einddatum</span></div></div>
+      </div>
+
+      <div class="grid g-2-1 mt">
+        <div>
+          <div class="card">
+            <div class="card-head"><div><h2>Waar ik verantwoordelijk voor ben</h2><span class="meta">${own.length} activiteiten</span></div><a href="#/projecten?f=mijn">Alles →</a></div>
+            <div class="seg" data-target="own">
+              <button class="on" data-v="all">Alle</button><button data-v="Project">Projecten</button><button data-v="Reguliere taken">Taken</button>
+            </div>
+            <div class="plist cards-2" id="own">${own.map(card).join("")}</div>
+          </div>
+          <div class="card mt">
+            <div class="card-head"><div><h2>Waarin ik actief ben</h2><span class="meta">${act.length} activiteiten van andere verantwoordelijken</span></div><a href="#/projecten?f=actief">Alles →</a></div>
+            <div class="plist cards-2">${act.slice(0, 6).map(card).join("")}</div>
+            ${act.length > 6 ? `<a class="more" href="#/projecten?f=actief">Toon alle ${act.length} activiteiten →</a>` : ""}
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <div class="card-head"><h2>Binnenkort einddatum</h2><span class="meta">120 dagen</span></div>
+            ${soon.length ? soon.map((a) => { const d = dt(a.eind); return `
+              <a class="ms" href="#/project/${a.id}">
+                <div class="ms-date"><b>${d.getDate()}</b><small>${MONTHS[d.getMonth()]}</small></div>
+                <div><div class="pname" style="font-size:14px">${esc(a.naam)}</div><div class="psub">${mine(a) ? "Verantwoordelijk" : "Projectlid"} · ${esc(teamName(a.team))}</div></div>
+              </a>`; }).join("") : `<p class="empty">Geen einddata in de komende 4 maanden.</p>`}
+          </div>
+          <div class="card mt">
+            <div class="card-head"><h2>Signalen</h2></div>
+            <ul class="list">
+              ${own.filter(overdue).map((a) => `<li><span class="badge risk">Over datum</span><div class="grow"><a href="#/project/${a.id}"><b>${esc(a.naam)}</b></a><div class="reason">Einddatum ${fmtDate(a.eind)} verstreken, status nog "Lopend". Verlengen of afsluiten?</div></div></li>`).join("")}
+              ${noDesc ? `<li><span class="badge warn">Data</span><div class="grow"><b>${noDesc} activiteiten zonder omschrijving</b><div class="reason">Vul de omschrijving aan voor beter inzicht bij collega's.</div></div></li>` : ""}
+              <li><span class="badge ok">Info</span><div class="grow"><b>Teamplan 2027</b><div class="reason">${own.filter((a) => a.teamplanJaren.includes(2027)).length} van je activiteiten zijn relevant voor teamplan 2027.</div></div></li>
+            </ul>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  /* ------------------------------ Portfolio ------------------------------ */
+  function portfolio() {
+    const proj = A.filter((a) => !isRegulier(a));
+    const cnt = (s) => A.filter((a) => a.gezondheid === s).length;
+    const att = A.filter((a) => a.gezondheid === "risk" || overdue(a)).sort(byHealth).slice(0, 7);
+    const ending = A.filter((a) => days(a.eind) >= 0 && days(a.eind) <= 182).sort((a, b) => dt(a.eind) - dt(b.eind)).slice(0, 6);
+    const seg = [["ok", "var(--ok-bar)"], ["warn", "var(--warn-bar)"], ["risk", "var(--risk-bar)"], ["plan", "#A9B6B6"]];
+    return `
+      <div class="page-head">
+        <div><h1>Portfolio</h1><p>Alle lopende activiteiten van gemeente Venlo · export ${fmtDate(D.peildatum)}</p></div>
+        <div class="btn-row only-desk"><button class="btn">Exporteer</button><button class="btn primary">+ Nieuwe activiteit</button></div>
+      </div>
+      <div class="grid g-4">
+        <div class="card kpi accent"><div class="kpi-label">Lopende activiteiten</div><div class="kpi-value num">${A.length}</div><div class="kpi-sub">${proj.length} projecten · ${A.length - proj.length} reguliere taken</div></div>
+        <div class="card kpi accent"><div class="kpi-label">Teams verantwoordelijk</div><div class="kpi-value num">${new Set(A.map((a) => a.team)).size}</div><div class="kpi-sub">${new Set(A.map((a) => a.verantwoordelijk)).size} verantwoordelijken</div></div>
+        <div class="card kpi accent"><div class="kpi-label">Bedrijfsvoeringsbreed</div><div class="kpi-value num">${A.filter((a) => a.bvBreed === "Ja").length}</div><div class="kpi-sub">${A.filter((a) => a.ontwikkellijn).length} in een ontwikkellijn</div></div>
+        <div class="card kpi accent"><div class="kpi-label">Over einddatum</div><div class="kpi-value num" style="color:var(--risk)">${A.filter(overdue).length}</div><div class="kpi-sub">status nog "Lopend"</div></div>
       </div>
 
       <div class="card card-pad mt">
-        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px">
-          <h2>Status portfolio</h2><span class="psub">${P.length} projecten</span>
-        </div>
-        <div class="stackbar">${seg.map(([s, c]) => `<span style="flex:${count(s)};background:${c}"></span>`).join("")}</div>
-        <div class="legend">${seg.map(([s, c]) => `<span><i style="background:${c}"></i>${STATUS[s][1]} <b class="num">${count(s)}</b></span>`).join("")}</div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px"><h2>Gezondheid portfolio</h2><span class="psub">${A.length} activiteiten</span></div>
+        <div class="stackbar">${seg.map(([s, c]) => `<span style="flex:${cnt(s)};background:${c}"></span>`).join("")}</div>
+        <div class="legend">${seg.map(([s, c]) => `<span><i style="background:${c}"></i>${STATUS[s][1]} <b class="num">${cnt(s)}</b></span>`).join("")}</div>
       </div>
 
       <div class="grid g-2-1 mt">
         <div class="card">
-          <div class="card-head"><h2>Vragen om aandacht</h2><a href="#/projecten">Alle projecten →</a></div>
+          <div class="card-head"><h2>Vragen om aandacht</h2><a href="#/projecten?f=aandacht">Alle →</a></div>
           <ul class="list">
-            ${att.map((p) => `
-              <li onclick="location.hash='#/project/${p.id}'" style="cursor:pointer">
-                <div class="grow">
-                  <div class="pname">${p.name}</div>
-                  <div class="reason">${p.reden || ""}</div>
-                </div>
-                <div class="att-meta"><div class="att-prog">${progress(p.voortgang, p.status)}</div><div class="att-badge">${badge(p.status)}</div></div>
+            ${att.map((a) => `
+              <li onclick="location.hash='#/project/${a.id}'" style="cursor:pointer">
+                <div class="grow"><div class="pname">${esc(a.naam)}</div>
+                <div class="reason">${esc(teamName(a.team))} · ${esc(person(a.verantwoordelijk))} · ${overdue(a) ? `<span class="due over">einddatum ${fmtDate(a.eind)} verstreken</span>` : `eind ${fmtDate(a.eind)}`}</div></div>
+                <div class="att-badge">${badge(a.gezondheid)}</div>
               </li>`).join("")}
           </ul>
         </div>
         <div class="card">
-          <div class="card-head"><h2>Komende mijlpalen</h2><span class="meta">30 dagen</span></div>
-          ${D.milestones.map((m) => { const d = new Date(m.d); return `
-            <div class="ms">
+          <div class="card-head"><h2>Einddatum &lt; 6 maanden</h2></div>
+          ${ending.map((a) => { const d = dt(a.eind); return `
+            <a class="ms" href="#/project/${a.id}">
               <div class="ms-date"><b>${d.getDate()}</b><small>${MONTHS[d.getMonth()]}</small></div>
-              <div><div class="pname" style="font-size:14px">${m.t}</div><div class="psub">${m.p}</div></div>
-            </div>`; }).join("")}
+              <div><div class="pname" style="font-size:14px">${esc(a.naam)}</div><div class="psub">${esc(teamName(a.team))}</div></div>
+            </a>`; }).join("")}
         </div>
       </div>
 
-      <div class="grid g-1-1 mt">
-        <div class="card card-pad">
-          <h2 style="margin-bottom:10px">Budget per programma</h2>
-          ${progs.map(([n, v]) => `<div class="hbar"><span>${n}</span><div class="track"><span style="width:${(v / maxProg) * 100}%"></span></div><span class="val num">${eur(v)}</span></div>`).join("")}
-        </div>
-        <div class="card card-pad">
-          <h2 style="margin-bottom:10px">Projecten per fase</h2>
-          ${["Initiatief", "Planvorming", "Ontwerp", "Uitvoering", "Realisatie", "Afronding"].map((f) => {
-            const n = P.filter((p) => p.fase === f).length;
-            return `<div class="hbar"><span>${f}</span><div class="track"><span style="width:${(n / 4) * 100}%;background:var(--venlo-blauw)"></span></div><span class="val num">${n}</span></div>`;
-          }).join("")}
-        </div>
+      <div class="grid g-3 mt">
+        <div class="card card-pad"><h2 style="margin-bottom:10px">Per programma</h2>${hbars(count(A, (a) => a.programma))}</div>
+        <div class="card card-pad"><h2 style="margin-bottom:10px">Categorie teamplan</h2>${hbars(count(A, (a) => a.categorie || "Niet ingevuld"), "background:var(--venlo-blauw)")}</div>
+        <div class="card card-pad"><h2 style="margin-bottom:10px">Meest betrokken teams</h2>${hbars(count(A, (a) => a.teamsBetrokken.map(teamName)).slice(0, 6), "background:var(--vbg-75)")}</div>
       </div>`;
   }
 
-  /* ------------------------------ Projecten ------------------------------ */
-  function projecten() {
-    const progs = [...new Set(D.projects.map((p) => p.programma))];
+  /* ------------------------- Projecten & taken --------------------------- */
+  const F = { chip: "alle", programma: "", team: "", q: "" };
+  function applyFilters() {
+    return A.filter((a) => {
+      if (F.chip === "project" && isRegulier(a)) return false;
+      if (F.chip === "regulier" && !isRegulier(a)) return false;
+      if (F.chip === "mijn" && !mine(a)) return false;
+      if (F.chip === "actief" && !activeIn(a)) return false;
+      if (F.chip === "aandacht" && !(a.gezondheid === "risk" || a.gezondheid === "warn" || overdue(a))) return false;
+      if (F.programma && a.programma !== F.programma) return false;
+      if (F.team && a.team !== F.team) return false;
+      if (F.q) { const q = F.q.toLowerCase(); if (![a.naam, a.omschrijving, a.team, person(a.verantwoordelijk), String(a.id)].join(" ").toLowerCase().includes(q)) return false; }
+      return true;
+    }).sort(byHealth);
+  }
+  function projectRows(list) {
+    return {
+      cards: list.map(card).join("") || `<p class="empty">Geen activiteiten gevonden.</p>`,
+      rows: list.map((a) => `
+        <tr onclick="location.hash='#/project/${a.id}'">
+          <td style="min-width:230px"><div class="pname">${esc(a.naam)}</div><div class="psub">#${a.id} · ${isRegulier(a) ? "Reguliere taak" : "Project"}</div></td>
+          <td><div>${esc(teamName(a.team))}</div><div class="psub">${team(a.team).code}</div></td>
+          <td><div class="member"><div class="avatar sm">${initials(a.verantwoordelijk)}</div>${esc(person(a.verantwoordelijk))}</div></td>
+          <td>${esc(a.programma)}</td>
+          <td>${badge(a.gezondheid)}</td>
+          <td style="width:150px">${timeCell(a)}</td>
+          <td class="num nowrap">${fmtDate(a.start)}</td>
+          <td class="num nowrap" style="${overdue(a) ? "color:var(--risk);font-weight:600" : ""}">${fmtDate(a.eind)}</td>
+        </tr>`).join("") || `<tr><td colspan="8" class="empty">Geen activiteiten gevonden.</td></tr>`,
+    };
+  }
+  function projecten(params) {
+    if (params.get("f")) F.chip = params.get("f");
+    const progs = [...new Set(A.map((a) => a.programma))].sort();
+    const teams = [...new Set(A.map((a) => a.team))].sort();
+    const chips = [["alle", "Alle"], ["mijn", "Mijn verantwoordelijkheid"], ["actief", "Actief in"], ["aandacht", "Aandacht"], ["project", "Projecten"], ["regulier", "Reguliere taken"]];
+    const list = applyFilters();
+    const r = projectRows(list);
     return `
       <div class="page-head">
-        <div><h1>Projecten</h1><p>${D.projects.length} lopende projecten in ${progs.length} programma's</p></div>
-        <div class="btn-row only-desk"><button class="btn">Kolommen</button><button class="btn">Exporteer naar Excel</button><button class="btn primary">+ Nieuw project</button></div>
+        <div><h1>Projecten &amp; taken</h1><p id="count">${list.length} van ${A.length} lopende activiteiten</p></div>
+        <div class="btn-row only-desk"><button class="btn">Exporteer naar Excel</button><button class="btn primary">+ Nieuwe activiteit</button></div>
       </div>
       <div class="card">
         <div class="filters">
-          <div class="chips"><button class="chip on">Alle</button>
-          <button class="chip">Kritiek</button>
-          <button class="chip">Aandacht</button>
-          <button class="chip">Op koers</button>
-          <button class="chip">Mijn projecten</button></div>
+          <div class="chips">${chips.map(([k, l]) => `<button class="chip ${F.chip === k ? "on" : ""}" data-chip="${k}">${l}</button>`).join("")}</div>
           <span class="spacer"></span>
-          <select class="select"><option>Alle programma's</option>${progs.map((p) => `<option>${p}</option>`).join("")}</select>
-          <select class="select"><option>Alle fasen</option></select>
-          <select class="select"><option>Sorteer: status</option></select>
+          <input class="select fsearch" type="search" id="q" placeholder="Zoeken…" value="${esc(F.q)}">
+          <select class="select" id="fprog"><option value="">Alle programma's</option>${progs.map((p) => `<option ${F.programma === p ? "selected" : ""}>${esc(p)}</option>`).join("")}</select>
+          <select class="select" id="fteam"><option value="">Alle teams</option>${teams.map((t) => `<option value="${esc(t)}" ${F.team === t ? "selected" : ""}>${esc(teamName(t))}</option>`).join("")}</select>
         </div>
-        <div class="only-mob plist">
-          ${sorted().map((p) => `
-            <a class="pcard" href="#/project/${p.id}">
-              <div class="pcard-top">${badge(p.status)}<span class="psub">${p.fase}</span></div>
-              <div class="pname">${p.name}</div>
-              <div class="psub">${p.programma} · ${p.leider}</div>
-              ${progress(p.voortgang, p.status)}
-              <div class="pcard-foot"><span>${eur(p.budget)} · <b style="color:${overspent(p) ? "var(--risk)" : "inherit"}">${Math.round((p.besteed / p.budget) * 100)}% besteed</b></span><span>t/m ${fmtDate(p.eind)}</span></div>
-            </a>`).join("")}
-        </div>
+        <div class="only-mob plist" id="pcards">${r.cards}</div>
         <div class="table-wrap only-desk">
-        <table class="table">
-          <thead><tr>
-            <th>Project</th><th>Programma</th><th>Projectleider</th><th>Fase</th><th>Status</th><th style="width:170px">Voortgang</th><th class="right">Budget</th><th class="right">Besteed</th><th>Einddatum</th>
-          </tr></thead>
-          <tbody>
-            ${sorted().map((p) => `
-              <tr onclick="location.hash='#/project/${p.id}'">
-                <td style="min-width:220px"><div class="pname">${p.name}</div><div class="psub">${p.id}</div></td>
-                <td><span class="tag">${p.programma}</span></td>
-                <td><div class="member"><div class="avatar sm">${initials(p.leider)}</div>${p.leider}</div></td>
-                <td>${p.fase}</td>
-                <td>${badge(p.status)}</td>
-                <td>${progress(p.voortgang, p.status)}</td>
-                <td class="right num nowrap">${eur(p.budget)}</td>
-                <td class="right num" style="color:${overspent(p) ? "var(--risk)" : "inherit"}">${Math.round((p.besteed / p.budget) * 100)}%</td>
-                <td class="num nowrap">${fmtDate(p.eind)}</td>
-              </tr>`).join("")}
-          </tbody>
-        </table>
+          <table class="table">
+            <thead><tr><th>Activiteit</th><th>Team verantwoordelijk</th><th>Verantwoordelijk</th><th>Programma</th><th>Gezondheid</th><th>Doorlooptijd</th><th>Start</th><th>Eind</th></tr></thead>
+            <tbody id="prows">${r.rows}</tbody>
+          </table>
         </div>
       </div>`;
+  }
+  function bindProjecten() {
+    const refresh = () => {
+      const list = applyFilters(); const r = projectRows(list);
+      document.getElementById("pcards").innerHTML = r.cards;
+      document.getElementById("prows").innerHTML = r.rows;
+      document.getElementById("count").textContent = `${list.length} van ${A.length} lopende activiteiten`;
+      document.querySelectorAll("[data-chip]").forEach((c) => c.classList.toggle("on", c.dataset.chip === F.chip));
+    };
+    document.querySelectorAll("[data-chip]").forEach((c) => c.addEventListener("click", () => { F.chip = c.dataset.chip; refresh(); }));
+    document.getElementById("fprog").addEventListener("change", (e) => { F.programma = e.target.value; refresh(); });
+    document.getElementById("fteam").addEventListener("change", (e) => { F.team = e.target.value; refresh(); });
+    document.getElementById("q").addEventListener("input", (e) => { F.q = e.target.value; refresh(); });
   }
 
   /* ---------------------------- Projectdetail ---------------------------- */
   function project(id) {
-    const p = D.projects.find((x) => x.id === id) || D.projects[0];
-    // Gantt: jan 2025 - dec 2027 (36 maanden)
-    const start = new Date("2025-01-01"), months = 36;
-    const pos = (s) => { const d = new Date(s); return (((d.getFullYear() - 2025) * 12 + d.getMonth() + d.getDate() / 31) / months) * 100; };
-    const phases = [
-      ["Initiatief", "2025-01-06", "2025-04-30", "done"],
-      ["Ontwerp (VO/DO)", "2025-04-01", "2025-11-30", "done"],
-      ["Aanbesteding", "2025-10-01", "2026-03-15", "done"],
-      ["Realisatie kade", "2026-03-01", "2027-02-28", "active"],
-      ["Realisatie boulevard", "2026-09-01", "2027-07-31", "active"],
-      ["Oplevering & nazorg", "2027-07-01", "2027-09-30", "plan"],
+    const a = A.find((x) => String(x.id) === String(id)) || A[0];
+    const s = dt(a.start), e = dt(a.eind);
+    // tijdlijn: start-jaar t/m eind-jaar, begrensd tot 3 jaar rond vandaag
+    const y0 = Math.max(s.getFullYear(), TODAY.getFullYear() - 3), y1 = Math.min(e.getFullYear(), TODAY.getFullYear() + 3);
+    const t0 = new Date(y0, 0, 1), t1 = new Date(y1 + 1, 0, 1);
+    const pos = (d) => Math.max(0, Math.min(100, ((d - t0) / (t1 - t0)) * 100));
+    const years = []; for (let y = y0; y <= y1; y++) years.push(y);
+    const longRun = e.getFullYear() > y1;
+    const role = mine(a) ? "Jij bent verantwoordelijk" : activeIn(a) ? "Jij bent projectlid" : "";
+    const other = a.teamsBetrokken.find((t) => t !== a.team);
+    const updates = [
+      [-4, person(a.verantwoordelijk), `Voortgang besproken in teamoverleg ${teamName(a.team)}.`],
+      [-19, person(a.leden[0]), other ? `Afstemming met ${teamName(other)} over planning en inzet.` : "Werkzaamheden volgens planning opgepakt."],
+      [-41, "Systeem", `Activiteit opgenomen in teamplan ${a.teamplanJaren.join(", ") || "—"} (${a.ontstaan || "ontstaan onbekend"}).`],
     ];
-    const team = [
-      [p.leider, "Projectleider"], ["Kevin Driessen", "Werkvoorbereider"], ["Ruben Hermans", "Landschapsarchitect"],
-      ["Tom Verheijen", "Planeconoom"], ["Eva Coenen", "Projectondersteuner"], ["Joost Lemmen", "Bestuurlijk opdrachtgever"],
-    ];
+    const kv = (k, v) => `<div class="kv"><span>${k}</span><b>${v || `<em class="na">Niet ingevuld</em>`}</b></div>`;
+    const chipsFor = (list, cls = "") => list.length ? list.map((t) => `<span class="teamchip ${cls}">${esc(teamName(t))} <small>${team(t).code}</small></span>`).join("") : `<em class="na">Niet ingevuld</em>`;
     return `
-      <div class="crumbs"><a href="#/projecten">Projecten</a> / ${p.programma} / ${p.id}</div>
+      <div class="crumbs"><a href="#/projecten">Projecten &amp; taken</a> / ${esc(a.programma)} / #${a.id}</div>
       <div class="card hero">
         <div>
-          <div style="display:flex;gap:10px;align-items:center;margin-bottom:6px">${badge(p.status)}<span class="tag">${p.programma}</span><span class="tag">Fase: ${p.fase}</span></div>
-          <h1>${p.name}</h1>
-          <p style="margin:6px 0 0;color:var(--text-2);max-width:760px">Vernieuwing van de Maaskade tussen de Maasbrug en de Weerd: vervanging kademuur, verbreding wandelpromenade, nieuwe groenstructuur en hoogwaterbescherming.</p>
+          <div class="hero-tags">${badge(a.gezondheid)}${soortTag(a)}<span class="tag">${esc(a.programma)}</span>${role ? `<span class="tag tag-me">${role}</span>` : ""}</div>
+          <h1>${esc(a.naam)}</h1>
+          <p class="hero-desc">${a.omschrijving ? esc(a.omschrijving) : `<em class="na">Geen omschrijving in de export.</em>`}</p>
           <div class="hero-meta">
-            <div><span>Projectleider</span><b>${p.leider}</b></div>
-            <div><span>Opdrachtgever</span><b>Wethouder Ruimte</b></div>
-            <div><span>Startdatum</span><b>6 jan 2025</b></div>
-            <div><span>Einddatum</span><b>${fmtDate(p.eind)}</b></div>
-            <div><span>Laatste update</span><b>12 nov 2026</b></div>
+            <div><span>Verantwoordelijk</span><b>${esc(person(a.verantwoordelijk))}</b></div>
+            <div><span>Team</span><b>${esc(teamName(a.team))}</b></div>
+            <div><span>Startdatum</span><b>${fmtDate(a.start)}</b></div>
+            <div><span>Einddatum</span><b style="${overdue(a) ? "color:var(--risk)" : ""}">${fmtDate(a.eind)}</b></div>
+            <div><span>Status</span><b>${esc(a.status)}${a.inUitvoering ? " · in uitvoering" : ""}</b></div>
           </div>
         </div>
-        <div class="btn-row hero-btns"><button class="btn">⤓ Statusrapport</button><button class="btn primary">Update toevoegen</button></div>
+        <div class="btn-row hero-btns"><button class="btn">⤓ Rapport</button><button class="btn primary">Update toevoegen</button></div>
       </div>
 
-      <div class="dims mt">
-        <div class="dim warn"><div class="label">Tijd</div><div class="val">${badge("warn")}</div><div class="note">6 weken vertraging op aanbesteding kademuur</div></div>
-        <div class="dim ok"><div class="label">Geld</div><div class="val">${badge("ok")}</div><div class="note">67% besteed bij 62% voortgang</div></div>
-        <div class="dim ok"><div class="label">Scope</div><div class="val">${badge("ok")}</div><div class="note">Geen wijzigingen sinds raadsbesluit</div></div>
-        <div class="dim ok"><div class="label">Kwaliteit</div><div class="val">${badge("ok")}</div><div class="note">Toetsing VO/DO akkoord</div></div>
-        <div class="dim warn"><div class="label">Risico's</div><div class="val">${badge("warn")}</div><div class="note">1 hoog, 2 midden risico's open</div></div>
-      </div>
+      ${overdue(a) ? `<div class="alert mt"><b>Einddatum verstreken.</b> Deze activiteit staat nog op "Lopend" terwijl de einddatum (${fmtDate(a.eind)}) voorbij is. Verleng de einddatum of sluit de activiteit af.</div>` : ""}
 
       <div class="card mt">
-        <div class="card-head"><h2>Planning</h2><span class="meta">2025 – 2027</span></div>
-        <div class="gantt">
-          <div class="gantt-head"><span></span>
-            <div class="gantt-months" style="grid-template-columns:repeat(3,1fr)"><span>2025</span><span>2026</span><span>2027</span></div>
+        <div class="card-head"><h2>Doorlooptijd</h2><span class="meta">${a.verstreken == null ? "doorlopende taak" : `${a.verstreken}% verstreken`}</span></div>
+        <div class="tl">
+          <div class="tl-years" style="grid-template-columns:repeat(${years.length},1fr)">${years.map((y) => `<span>${y}</span>`).join("")}</div>
+          <div class="tl-track">
+            <div class="tl-bar ${a.gezondheid}" style="left:${pos(s)}%;width:${Math.max(pos(e) - pos(s), 1)}%">${longRun ? "loopt door t/m " + e.getFullYear() + " →" : ""}</div>
+            <div class="today-line" style="left:${pos(TODAY)}%"><span class="today-flag">vandaag</span></div>
           </div>
-          <div class="gantt-body">
-            <div class="gantt-overlay"><div class="today-line" style="left:${pos(D.today)}%"><span class="today-flag">vandaag</span></div></div>
-            ${phases.map(([n, a, b, s]) => `
-              <div class="gantt-row"><div class="gantt-label">${n}</div>
-                <div class="gantt-track"><div class="gantt-bar ${s}" style="left:${pos(a)}%;width:${pos(b) - pos(a)}%">${s === "done" ? "✓ gereed" : s === "active" ? "loopt" : "gepland"}</div></div>
-              </div>`).join("")}
-          </div>
+          <div class="tl-legend"><span>Start ${fmtDate(a.start)}</span><span>Eind ${fmtDate(a.eind)}</span></div>
         </div>
       </div>
 
       <div class="grid g-3 mt">
         <div class="card">
-          <div class="card-head"><h2>Financiën</h2><span class="meta">x € 1 mln</span></div>
-          <div class="card-pad">
-            <div class="budget-figs">
-              <div><span>Budget</span><b class="num">${p.budget.toLocaleString("nl-NL",{minimumFractionDigits:1})}</b></div>
-              <div><span>Besteed</span><b class="num">${p.besteed.toLocaleString("nl-NL",{minimumFractionDigits:1})}</b></div>
-              <div><span>Verplicht</span><b class="num">1,9</b></div>
-            </div>
-            <div class="stackbar" style="height:12px">
-              <span style="flex:${p.besteed};background:var(--vbg)"></span>
-              <span style="flex:1.9;background:var(--vbg-50)"></span>
-              <span style="flex:${p.budget - p.besteed - 1.9};background:var(--line)"></span>
-            </div>
-            <div class="legend"><span><i style="background:var(--vbg)"></i>Besteed</span><span><i style="background:var(--vbg-50)"></i>Verplicht</span><span><i style="background:var(--line)"></i>Vrij</span></div>
-            <p class="psub" style="margin-top:14px">Prognose einde project: <b style="color:var(--text)">€ 8,6 mln</b> (+2%) — binnen tolerantie.</p>
+          <div class="card-head"><h2>Teamplan</h2></div>
+          <div class="kvs">
+            ${kv("Soort activiteit", esc(a.soort))}
+            ${kv("Categorie teamplan", a.categorie && esc(a.categorie))}
+            ${kv("Ontstaan", a.ontstaan && esc(a.ontstaan))}
+            ${kv("Ontwikkellijn", a.ontwikkellijn && esc(a.ontwikkellijn))}
+            ${kv("Relevant voor teamplan", a.teamplanJaren.length ? a.teamplanJaren.map((y) => `<span class="tag">${y}</span>`).join(" ") : "")}
+            ${kv("Bedrijfsvoeringsbreed", a.bvBreed && esc(a.bvBreed))}
           </div>
         </div>
         <div class="card">
-          <div class="card-head"><h2>Risico's</h2><a href="#">Register →</a></div>
-          <div class="risk-row" style="font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;padding-top:8px;padding-bottom:8px"><span>Risico</span><span>Score</span><span>Eigenaar</span></div>
-          <div class="risk-row"><span>Hoogwater tijdens kadewerkzaamheden</span><span class="score h">16</span><span class="psub">K. Driessen</span></div>
-          <div class="risk-row"><span>Prijsstijging staal en beton</span><span class="score m">9</span><span class="psub">T. Verheijen</span></div>
-          <div class="risk-row"><span>Bezwaren horeca tijdens bouw</span><span class="score m">8</span><span class="psub">A. Peeters</span></div>
-          <div class="risk-row"><span>Archeologische vondsten</span><span class="score l">4</span><span class="psub">R. Hermans</span></div>
+          <div class="card-head"><h2>Teams</h2></div>
+          <div class="card-pad">
+            <h3 class="sub">Verantwoordelijk</h3><div class="teamchips">${chipsFor([a.team], "lead")}</div>
+            <h3 class="sub">Betrokken</h3><div class="teamchips">${chipsFor(a.teamsBetrokken)}</div>
+            <h3 class="sub">Impact op team</h3><div class="teamchips">${chipsFor(a.impactOpTeam, "impact")}</div>
+          </div>
         </div>
         <div class="card">
-          <div class="card-head"><h2>Recente updates</h2></div>
-          <ul class="timeline">
-            <li><time>12 nov 2026 · A. Peeters</time>Inschrijvingen kademuur beoordeeld; gunning verwacht 24 nov.</li>
-            <li><time>28 okt 2026 · K. Driessen</time>Bouwweg langs Maaskade aangelegd, verkeersmaatregelen actief.</li>
-            <li><time>14 okt 2026 · Stuurgroep</time>Vertraging aanbesteding geaccepteerd; buffer inzetten.</li>
-            <li><time>30 sep 2026 · E. Coenen</time>Q3-rapportage opgeleverd aan raad.</li>
-          </ul>
+          <div class="card-head"><h2>Projectleden</h2><span class="meta">${a.leden.length + 1} personen</span></div>
+          <div class="team">
+            <div class="member"><div class="avatar sm ${mine(a) ? "me" : ""}">${initials(a.verantwoordelijk)}</div><div>${esc(person(a.verantwoordelijk))}${mine(a) ? " (jij)" : ""}<small>Verantwoordelijk</small></div></div>
+            ${a.leden.map((l) => `<div class="member"><div class="avatar sm ${l === ME ? "me" : ""}">${initials(l)}</div><div>${esc(person(l))}${l === ME ? " (jij)" : ""}<small>Projectlid</small></div></div>`).join("")}
+          </div>
+          <p class="mock-note">Projectleden staan niet in de export – voorbeelddata.</p>
         </div>
       </div>
 
       <div class="grid g-2-1 mt">
         <div class="card">
-          <div class="card-head"><h2>Mijlpalen</h2></div>
-          <table class="table ms-table">
-            <thead><tr><th>Mijlpaal</th><th>Gepland</th><th>Prognose</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr><td>Raadsbesluit kredietaanvraag</td><td class="num">15 mrt 2025</td><td class="num">15 mrt 2025</td><td>${badge("done").replace("Afronding", "Gereed")}</td></tr>
-              <tr><td>Definitief ontwerp vastgesteld</td><td class="num">30 nov 2025</td><td class="num">28 nov 2025</td><td>${badge("done").replace("Afronding", "Gereed")}</td></tr>
-              <tr><td>Gunning kademuur</td><td class="num">15 okt 2026</td><td class="num">24 nov 2026</td><td>${badge("warn").replace("Aandacht", "Vertraagd")}</td></tr>
-              <tr><td>Kademuur gereed</td><td class="num">31 jan 2027</td><td class="num">15 mrt 2027</td><td>${badge("warn").replace("Aandacht", "Risico")}</td></tr>
-              <tr><td>Oplevering boulevard</td><td class="num">30 sep 2027</td><td class="num">30 sep 2027</td><td>${badge("ok")}</td></tr>
-            </tbody>
-          </table>
+          <div class="card-head"><h2>Recente updates</h2><span class="meta">voorbeelddata</span></div>
+          <ul class="timeline">${updates.map(([d, w, t]) => { const x = new Date(TODAY); x.setDate(x.getDate() + d); return `<li><time>${fmtDate(x)} · ${esc(w)}</time>${esc(t)}</li>`; }).join("")}</ul>
         </div>
         <div class="card">
-          <div class="card-head"><h2>Projectteam</h2><span class="meta">${team.length} personen · 3,4 fte</span></div>
-          <div class="team">
-            ${team.map(([n, r]) => `<div class="member"><div class="avatar sm">${initials(n)}</div><div>${n}<small>${r}</small></div></div>`).join("")}
+          <div class="card-head"><h2>Nog aan te vullen</h2></div>
+          <div class="card-pad">
+            <p class="psub" style="margin:0 0 10px">Niet in de huidige export, wel nodig voor een compleet beeld:</p>
+            <ul class="todo"><li>Gezondheid (tijd / geld / scope)</li><li>Budget en besteding</li><li>Mijlpalen</li><li>Risico's</li><li>Projectleden en inzet in uren</li></ul>
           </div>
         </div>
       </div>`;
   }
 
-  /* ------------------------------ Resources ------------------------------ */
-  function resources() {
-    const lvl = (v) => (v === 0 ? 0 : v < 60 ? 1 : v < 85 ? 2 : v <= 100 ? 3 : v <= 115 ? 4 : 5);
-    const teams = {};
-    D.people.forEach((p) => { (teams[p.team] = teams[p.team] || []).push(p.w[0]); });
-    const over = D.people.filter((p) => p.w[0] > 100).length;
-    const avail = D.people.filter((p) => p.w[0] < 70);
+  /* -------------------------------- Teams -------------------------------- */
+  function teams() {
+    const q0 = new Date(TODAY.getFullYear(), Math.floor(TODAY.getMonth() / 3) * 3, 1);
+    const Q = Array.from({ length: 8 }, (_, i) => { const s = new Date(q0); s.setMonth(s.getMonth() + i * 3); const e = new Date(s); e.setMonth(e.getMonth() + 3); return { s, e, k: `K${Math.floor(s.getMonth() / 3) + 1}`, l: `K${Math.floor(s.getMonth() / 3) + 1} '${String(s.getFullYear()).slice(2)}` }; });
+    const involved = (a) => [...new Set([a.team, ...a.teamsBetrokken])];
+    const tlist = count(A, involved).slice(0, 12).map(([t]) => t);
+    const grid = tlist.map((t) => ({ t, w: Q.map((q) => A.filter((a) => involved(a).includes(t) && dt(a.start) < q.e && dt(a.eind) >= q.s).length), lead: A.filter((a) => a.team === t).length }));
+    const max = Math.max(...grid.flatMap((g) => g.w));
+    const lvl = (v) => (v === 0 ? 0 : v <= max * 0.15 ? 1 : v <= max * 0.35 ? 2 : v <= max * 0.6 ? 3 : v <= max * 0.8 ? 4 : 5);
+    const people = count(A, (a) => a.verantwoordelijk).slice(0, 8);
+    const pmax = people[0][1];
     return `
       <div class="page-head">
-        <div><h1>Resources & capaciteit</h1><p>Inzet van medewerkers op projecten, komende 8 weken</p></div>
-        <div class="btn-row"><select class="select"><option>Alle teams</option></select><select class="select"><option>Komende 8 weken</option></select><button class="btn primary only-desk">Inzet plannen</button></div>
+        <div><h1>Teams</h1><p>Lopende activiteiten per team (verantwoordelijk of betrokken), komende 8 kwartalen</p></div>
+        <div class="btn-row"><select class="select"><option>Alle programma's</option></select><select class="select"><option>Komende 2 jaar</option></select></div>
       </div>
       <div class="grid g-4">
-        <div class="card kpi accent"><div class="kpi-label">Medewerkers in portfolio</div><div class="kpi-value num">${D.people.length}</div><div class="kpi-sub">28,5 fte beschikbaar</div></div>
-        <div class="card kpi accent"><div class="kpi-label">Gem. bezetting deze week</div><div class="kpi-value num">${Math.round(D.people.reduce((a, p) => a + p.w[0], 0) / D.people.length)}%</div><div class="kpi-sub">Norm: 80 – 100%</div></div>
-        <div class="card kpi accent"><div class="kpi-label">Overbelast (&gt;100%)</div><div class="kpi-value num" style="color:var(--risk)">${over}</div><div class="kpi-sub">Piek in wk 49: 4 personen</div></div>
-        <div class="card kpi accent"><div class="kpi-label">Beschikbare capaciteit</div><div class="kpi-value num" style="color:var(--ok)">${avail.length}</div><div class="kpi-sub">medewerkers onder 70%</div></div>
+        <div class="card kpi accent"><div class="kpi-label">Teams in portfolio</div><div class="kpi-value num">${new Set(A.flatMap(involved)).size}</div><div class="kpi-sub">${new Set(A.map((a) => a.team)).size} als verantwoordelijk team</div></div>
+        <div class="card kpi accent"><div class="kpi-label">Meest betrokken</div><div class="kpi-value kpi-text">${esc(teamName(tlist[0]))}</div><div class="kpi-sub">${grid[0].w[0]} activiteiten dit kwartaal</div></div>
+        <div class="card kpi accent"><div class="kpi-label">Samenwerking</div><div class="kpi-value num">${A.filter((a) => a.teamsBetrokken.length > 1).length}</div><div class="kpi-sub">activiteiten met &gt;1 betrokken team</div></div>
+        <div class="card kpi accent"><div class="kpi-label">Impact op organisatie</div><div class="kpi-value num">${A.filter((a) => a.impactOpTeam.length).length}</div><div class="kpi-sub">activiteiten met impact op teams</div></div>
       </div>
 
       <div class="grid g-2-1 mt">
         <div class="card">
-          <div class="card-head"><h2>Bezetting per medewerker</h2>
-            <div class="heat-legend"><span><i class="h1"></i>&lt;60%</span><span><i class="h2"></i>60–85%</span><span><i class="h3"></i>85–100%</span><span><i class="h4"></i>100–115%</span><span><i class="h5"></i>&gt;115%</span></div>
+          <div class="card-head"><h2>Lopende activiteiten per kwartaal</h2>
+            <div class="heat-legend"><span><i class="h1"></i>laag</span><span><i class="h3"></i>gemiddeld</span><span><i class="h5"></i>piek</span></div>
           </div>
           <div class="only-mob">
-            ${D.people.map((p) => `
+            ${grid.map((g) => `
               <div class="person">
-                <div class="person-top"><div class="member"><div class="avatar sm">${initials(p.n)}</div><div>${p.n}<small>${p.r} · ${p.team}</small></div></div><span class="pct h${lvl(p.w[0])}">${p.w[0]}%</span></div>
-                <div class="weeks">${p.w.map((v, i) => `<div><i class="h${lvl(v)}"></i><small>${D.weeks[i].replace("wk ", "")}</small></div>`).join("")}</div>
+                <div class="person-top"><div><b>${esc(teamName(g.t))}</b><small class="psub" style="display:block">${g.lead}× verantwoordelijk team</small></div><span class="pct h${lvl(g.w[0])}">${g.w[0]}</span></div>
+                <div class="weeks">${g.w.map((v, i) => `<div><i class="h${lvl(v)}"></i><small>${Q[i].k}</small></div>`).join("")}</div>
               </div>`).join("")}
           </div>
           <div class="card-pad table-wrap only-desk">
             <table class="heat">
-              <thead><tr><th class="left">Medewerker</th>${D.weeks.map((w) => `<th>${w}</th>`).join("")}</tr></thead>
-              <tbody>
-                ${D.people.map((p) => `<tr><td class="who">${p.n}<small>${p.r} · ${p.team}</small></td>${p.w.map((v) => `<td class="h${lvl(v)}">${v}%</td>`).join("")}</tr>`).join("")}
-              </tbody>
+              <thead><tr><th class="left">Team</th>${Q.map((q) => `<th>${q.l}</th>`).join("")}</tr></thead>
+              <tbody>${grid.map((g) => `<tr><td class="who">${esc(teamName(g.t))}<small>${team(g.t).code} · ${g.lead}× verantwoordelijk</small></td>${g.w.map((v) => `<td class="h${lvl(v)}">${v}</td>`).join("")}</tr>`).join("")}</tbody>
             </table>
           </div>
         </div>
         <div>
           <div class="card">
-            <div class="card-head"><h2>Bezetting per team</h2><span class="meta">deze week</span></div>
-            ${Object.entries(teams).map(([t, arr]) => { const v = Math.round(arr.reduce((a, b) => a + b, 0) / arr.length); const c = v > 100 ? "risk" : v > 90 ? "warn" : "ok"; return `
-              <div class="cap-team"><div class="top"><b>${t}</b><span class="num">${v}% · ${arr.length} pers.</span></div><div class="progress ${c}"><span style="width:${Math.min(v, 100)}%"></span></div></div>`; }).join("")}
+            <div class="card-head"><h2>Per verantwoordelijke</h2><span class="meta">aantal activiteiten</span></div>
+            ${people.map(([p, n]) => { const c = n >= 8 ? "risk" : n >= 4 ? "warn" : "ok"; return `
+              <div class="cap-team"><div class="top"><span class="member"><span class="avatar sm ${p === ME ? "me" : ""}">${initials(p)}</span><b>${esc(person(p))}</b></span><span class="num">${n}</span></div><div class="progress ${c}"><span style="width:${(n / pmax) * 100}%"></span></div></div>`; }).join("")}
           </div>
           <div class="card mt">
             <div class="card-head"><h2>Signalen</h2></div>
             <ul class="list">
-              <li><span class="badge risk">Kritiek</span><div class="grow"><b>Team I&amp;A</b><div class="reason">Mark Smeets en Fatima El Amrani &gt;120% in wk 48–50 door go-live DSO en werkplekuitrol.</div></div></li>
-              <li><span class="badge warn">Aandacht</span><div class="grow"><b>Anouk Peeters</b><div class="reason">Leidt 2 realisatieprojecten tegelijk; piek rond gunning kademuur.</div></div></li>
-              <li><span class="badge ok">Kans</span><div class="grow"><b>Eva Coenen, Ruben Hermans</b><div class="reason">Ruimte beschikbaar in december voor ondersteuning.</div></div></li>
+              <li><span class="badge risk">Piek</span><div class="grow"><b>${esc(teamName(tlist[0]))}</b><div class="reason">Betrokken bij ${grid[0].w[0]} lopende activiteiten dit kwartaal – check capaciteit.</div></div></li>
+              <li><span class="badge warn">Spreiding</span><div class="grow"><b>${esc(person(people[0][0]))}</b><div class="reason">Verantwoordelijk voor ${people[0][1]} activiteiten in deze selectie.</div></div></li>
+              <li><span class="badge ok">Info</span><div class="grow"><b>Uren ontbreken</b><div class="reason">Voor inzet in uren/fte is een koppeling met de urenregistratie nodig.</div></div></li>
             </ul>
           </div>
         </div>
@@ -329,12 +398,32 @@
 
   /* ------------------------------- Router -------------------------------- */
   function render() {
-    const [, route = "dashboard", arg] = (location.hash || "#/dashboard").split("/");
-    const html = { dashboard, projecten, project: () => project(arg), resources }[route];
-    view.innerHTML = (html || dashboard)();
-    document.querySelectorAll("#nav a[data-route], #tabbar a[data-route]").forEach((a) => a.classList.toggle("active", a.dataset.route === route));
+    const raw = (location.hash || "#/login").replace(/^#\/?/, "");
+    const [path, qs = ""] = raw.split("?");
+    const [route = "login", arg] = path.split("/");
+    const params = new URLSearchParams(qs);
+    const isLogin = !route || route === "login";
+    document.getElementById("login").hidden = !isLogin;
+    document.getElementById("app").hidden = isLogin;
+    document.body.classList.toggle("on-login", isLogin);
+    if (isLogin) return;
+    const pages = { home, portfolio, projecten: () => projecten(params), project: () => project(arg), teams };
+    view.innerHTML = (pages[route] || home)();
+    if (route === "projecten") bindProjecten();
+    document.querySelectorAll(".seg").forEach((seg) => seg.addEventListener("click", (e) => {
+      const b = e.target.closest("button"); if (!b) return;
+      seg.querySelectorAll("button").forEach((x) => x.classList.toggle("on", x === b));
+      document.querySelectorAll(`#${seg.dataset.target} .pcard`).forEach((c) => {
+        c.style.display = b.dataset.v === "all" || c.dataset.soort === b.dataset.v ? "" : "none";
+      });
+    }));
+    const navRoute = route === "project" ? "projecten" : route;
+    document.querySelectorAll("#nav a[data-route], #tabbar a[data-route]").forEach((a) => a.classList.toggle("active", a.dataset.route === navRoute));
     window.scrollTo(0, 0);
   }
+  document.getElementById("search").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") { F.q = e.target.value; F.chip = "alle"; location.hash = "#/projecten"; render(); }
+  });
   window.addEventListener("hashchange", render);
   render();
 })();

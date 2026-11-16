@@ -6,15 +6,29 @@ Primair ontworpen voor **mobiel gebruik** (navigatiebalk onderin, kaarten in pla
 ## Schermen
 | Scherm | Doel |
 |---|---|
-| Dashboard | KPI's, statusverdeling portfolio, projecten die aandacht vragen, komende mijlpalen, budget per programma |
-| Projecten | Filterbare lijst met status, voortgang, budget en einddatum |
-| Projectdetail | Status op tijd/geld/scope/kwaliteit/risico, planning (gantt), financiën, risico's, updates, mijlpalen, team |
-| Resources | Bezettings-heatmap per medewerker (8 weken), bezetting per team, signalen over- en onderbezetting |
+| Inloggen | Microsoft SSO (mockup; koppeling met Entra ID volgt later) |
+| Mijn overzicht | Landingspagina: activiteiten waar ik **verantwoordelijk** voor ben en waarin ik **actief** ben, einddata en signalen |
+| Portfolio | Gezondheid, aandachtspunten, einddata, verdeling per programma / categorie teamplan / betrokken teams |
+| Projecten & taken | Filterbare lijst (mijn, actief in, aandacht, projecten, reguliere taken, programma, team, zoeken) |
+| Projectdetail | Velden uit de export: omschrijving, team, verantwoordelijke, doorlooptijd, teamplan, betrokken teams, impact op team |
+| Teams | Lopende activiteiten per team per kwartaal, activiteiten per verantwoordelijke |
 
-Screenshots: mobiel in `docs/screenshots/mobiel/` (`overzicht.png` toont alle vier de schermen naast elkaar), desktop in `docs/screenshots/`.
+## Data
+`mockup/data.js` bevat 50 diverse activiteiten uit de export *Lopende projecten / reguliere taken* (16-11-2026),
+gegenereerd met `tools/export_naar_mockup.py`:
+
+```
+python tools/export_naar_mockup.py pad/naar/export.xlsx            # namen gepseudonimiseerd (standaard)
+python tools/export_naar_mockup.py pad/naar/export.xlsx --echte-namen
+```
+
+- De ingelogde gebruiker "Jan Janssen" krijgt de activiteiten van de medewerker met de meeste verantwoordelijkheden in de export.
+- Namen van medewerkers zijn standaard gepseudonimiseerd; projectnamen, teams, programma's, datums en teamplanvelden komen uit de export.
+- Niet in de export en daarom als voorbeelddata aangevuld: *gezondheid*, *projectleden* en *recente updates*. "Doorlooptijd" is berekend uit start- en einddatum.
+- De export zelf (`*.xlsx`) wordt niet in de repository opgeslagen.
 
 ## Bekijken
-Open `mockup/index.html` in een browser. Er is geen build of server nodig.
+Open `mockup/index.html` in een browser; je start op het inlogscherm (klik op *Inloggen met Microsoft*). Er is geen build of server nodig.
 Voor de mobiele weergave: open de ontwikkelaarstools van de browser en kies een telefoonformaat, of maak het venster smaller dan 760px.
 
 ## Huisstijl
