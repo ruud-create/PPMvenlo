@@ -18,6 +18,10 @@ Open `mockup/index.html` in een browser. Er is geen build of server nodig.
 Voor de mobiele weergave: open de ontwikkelaarstools van de browser en kies een telefoonformaat, of maak het venster smaller dan 760px.
 
 ## Huisstijl
-De kleuren staan als tokens bovenaan `mockup/styles.css`. Hoofdkleur is een benadering van het Venlo-blauw.
-Vervang de waarden door de officiële codes uit het huisstijlhandboek en voeg het echte logo toe.
-De "V" in de zijbalk is een placeholder. Alle data in `mockup/data.js` is fictief.
+Gebaseerd op de huisstijl van gemeente Venlo:
+- **Logo**: `mockup/assets/` bevat het logo (wit en blauwgroen, transparante achtergrond), los beeldmerk (V) en woordmerk.
+- **Primaire kleur**: Venlo blauwgroen `#00807F` (PMS 7474 C) met tinten 150% `#005D5C`, 125% `#016D6D`, 75% `#40A09F`, 50% `#7FBFBF`, 25% `#BFDFDF`, 10% `#E0F5F4`.
+- **Contrastregel**: witte tekst alleen op 100% en 150%; donkere tekst op 50% en lichter.
+- **Secundaire kleuren** functioneel ingezet: groen = op koers, bruin = aandacht, rood = kritiek, blauw = informatief, roze = markering "vandaag" in de planning.
+
+Alle kleuren staan als tokens bovenaan `mockup/styles.css`. Alle data in `mockup/data.js` is fictief.

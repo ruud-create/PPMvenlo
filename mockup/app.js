@@ -30,7 +30,7 @@
     const progs = Object.entries(byProg).sort((a, b) => b[1] - a[1]);
     const maxProg = progs[0][1];
     const avgLoad = Math.round(D.people.reduce((a, p) => a + p.w[0], 0) / D.people.length);
-    const seg = [["ok", "var(--ok)"], ["warn", "var(--venlo-warm)"], ["risk", "var(--risk)"], ["done", "#9aa7b8"]];
+    const seg = [["ok", "var(--ok-bar)"], ["warn", "var(--warn-bar)"], ["risk", "var(--risk-bar)"], ["done", "#A9B6B6"]];
 
     return `
       <div class="page-head">
@@ -89,7 +89,7 @@
           <h2 style="margin-bottom:10px">Projecten per fase</h2>
           ${["Initiatief", "Planvorming", "Ontwerp", "Uitvoering", "Realisatie", "Afronding"].map((f) => {
             const n = P.filter((p) => p.fase === f).length;
-            return `<div class="hbar"><span>${f}</span><div class="track"><span style="width:${(n / 4) * 100}%;background:var(--venlo-accent)"></span></div><span class="val num">${n}</span></div>`;
+            return `<div class="hbar"><span>${f}</span><div class="track"><span style="width:${(n / 4) * 100}%;background:var(--venlo-blauw)"></span></div><span class="val num">${n}</span></div>`;
           }).join("")}
         </div>
       </div>`;
@@ -182,7 +182,7 @@
             <div><span>Laatste update</span><b>12 nov 2026</b></div>
           </div>
         </div>
-        <div class="btn-row hero-btns"><button class="btn">Statusrapport (PDF)</button><button class="btn primary">Update toevoegen</button></div>
+        <div class="btn-row hero-btns"><button class="btn">⤓ Statusrapport</button><button class="btn primary">Update toevoegen</button></div>
       </div>
 
       <div class="dims mt">
@@ -219,11 +219,11 @@
               <div><span>Verplicht</span><b class="num">1,9</b></div>
             </div>
             <div class="stackbar" style="height:12px">
-              <span style="flex:${p.besteed};background:var(--venlo-blue-700)"></span>
-              <span style="flex:1.9;background:#9fbde3"></span>
+              <span style="flex:${p.besteed};background:var(--vbg)"></span>
+              <span style="flex:1.9;background:var(--vbg-50)"></span>
               <span style="flex:${p.budget - p.besteed - 1.9};background:var(--line)"></span>
             </div>
-            <div class="legend"><span><i style="background:var(--venlo-blue-700)"></i>Besteed</span><span><i style="background:#9fbde3"></i>Verplicht</span><span><i style="background:var(--line)"></i>Vrij</span></div>
+            <div class="legend"><span><i style="background:var(--vbg)"></i>Besteed</span><span><i style="background:var(--vbg-50)"></i>Verplicht</span><span><i style="background:var(--line)"></i>Vrij</span></div>
             <p class="psub" style="margin-top:14px">Prognose einde project: <b style="color:var(--text)">€ 8,6 mln</b> (+2%) — binnen tolerantie.</p>
           </div>
         </div>

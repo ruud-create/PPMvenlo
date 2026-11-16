@@ -5,18 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Projectenportaal Venlo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/venlo-v-blauwgroen.png">
+  <meta name="theme-color" content="#00807F">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="app">
     <aside class="sidebar">
       <div class="brand">
-        <div class="brand-mark" aria-hidden="true">V</div>
-        <div class="brand-text">
-          <span class="brand-org">gemeente venlo</span>
-          <span class="brand-app">Projectenportaal</span>
-        </div>
+        <img class="brand-logo" src="assets/venlo-logo-wit.png" alt="Gemeente Venlo">
+        <span class="brand-app">Projectenportaal</span>
       </div>
       <nav class="nav" id="nav">
         <a href="#/dashboard" data-route="dashboard"><span class="ico">◧</span>Dashboard</a>
@@ -32,7 +31,7 @@
 
     <div class="main">
       <header class="topbar">
-        <div class="mob-brand"><div class="brand-mark" aria-hidden="true">V</div><div><b>gemeente venlo</b><span>Projectenportaal</span></div></div>
+        <div class="mob-brand"><img class="mob-v" src="assets/venlo-v-wit.png" alt=""><img class="mob-word" src="assets/venlo-woordmerk-wit.png" alt="Venlo"><span>Projectenportaal</span></div>
         <div class="search">
           <span aria-hidden="true">⌕</span>
           <input type="search" placeholder="Zoek project, programma of medewerker…">
