@@ -14,6 +14,10 @@
   const initials = (n) => n.split(" ").filter((w) => /^[A-Z]/.test(w)).map((w) => w[0]).slice(0, 2).join("");
   const progress = (v, cls = "") => `<div class="prog-cell"><div class="progress ${cls}"><span style="width:${v}%"></span></div><span class="num">${v}%</span></div>`;
 
+  const ORDER = ["risk", "warn", "ok", "done"];
+  const sorted = () => [...D.projects].sort((a, b) => ORDER.indexOf(a.status) - ORDER.indexOf(b.status));
+  const overspent = (p) => p.besteed / p.budget > 0.9 && p.voortgang < 90;
+
   /* ------------------------------ Dashboard ------------------------------ */
   function dashboard() {
     const P = D.projects;
@@ -34,7 +38,7 @@
           <h1>Goedemorgen, Jan</h1>
           <p>Overzicht van het projectenportfolio van gemeente Venlo</p>
         </div>
-        <div class="btn-row"><button class="btn">Exporteer</button><button class="btn primary">+ Nieuw project</button></div>
+        <div class="btn-row only-desk"><button class="btn">Exporteer</button><button class="btn primary">+ Nieuw project</button></div>
       </div>
 
       <div class="grid g-4">
@@ -62,8 +66,7 @@
                   <div class="pname">${p.name}</div>
                   <div class="reason">${p.reden || ""}</div>
                 </div>
-                <div style="width:150px">${progress(p.voortgang, p.status)}</div>
-                <div style="width:96px;text-align:right">${badge(p.status)}</div>
+                <div class="att-meta"><div class="att-prog">${progress(p.voortgang, p.status)}</div><div class="att-badge">${badge(p.status)}</div></div>
               </li>`).join("")}
           </ul>
         </div>
@@ -98,27 +101,37 @@
     return `
       <div class="page-head">
         <div><h1>Projecten</h1><p>${D.projects.length} lopende projecten in ${progs.length} programma's</p></div>
-        <div class="btn-row"><button class="btn">Kolommen</button><button class="btn">Exporteer naar Excel</button><button class="btn primary">+ Nieuw project</button></div>
+        <div class="btn-row only-desk"><button class="btn">Kolommen</button><button class="btn">Exporteer naar Excel</button><button class="btn primary">+ Nieuw project</button></div>
       </div>
       <div class="card">
         <div class="filters">
-          <button class="chip on">Alle</button>
+          <div class="chips"><button class="chip on">Alle</button>
           <button class="chip">Kritiek</button>
           <button class="chip">Aandacht</button>
           <button class="chip">Op koers</button>
-          <button class="chip">Mijn projecten</button>
+          <button class="chip">Mijn projecten</button></div>
           <span class="spacer"></span>
           <select class="select"><option>Alle programma's</option>${progs.map((p) => `<option>${p}</option>`).join("")}</select>
           <select class="select"><option>Alle fasen</option></select>
           <select class="select"><option>Sorteer: status</option></select>
         </div>
-        <div class="table-wrap">
+        <div class="only-mob plist">
+          ${sorted().map((p) => `
+            <a class="pcard" href="#/project/${p.id}">
+              <div class="pcard-top">${badge(p.status)}<span class="psub">${p.fase}</span></div>
+              <div class="pname">${p.name}</div>
+              <div class="psub">${p.programma} · ${p.leider}</div>
+              ${progress(p.voortgang, p.status)}
+              <div class="pcard-foot"><span>${eur(p.budget)} · <b style="color:${overspent(p) ? "var(--risk)" : "inherit"}">${Math.round((p.besteed / p.budget) * 100)}% besteed</b></span><span>t/m ${fmtDate(p.eind)}</span></div>
+            </a>`).join("")}
+        </div>
+        <div class="table-wrap only-desk">
         <table class="table">
           <thead><tr>
             <th>Project</th><th>Programma</th><th>Projectleider</th><th>Fase</th><th>Status</th><th style="width:170px">Voortgang</th><th class="right">Budget</th><th class="right">Besteed</th><th>Einddatum</th>
           </tr></thead>
           <tbody>
-            ${[...D.projects].sort((a, b) => ["risk", "warn", "ok", "done"].indexOf(a.status) - ["risk", "warn", "ok", "done"].indexOf(b.status)).map((p) => `
+            ${sorted().map((p) => `
               <tr onclick="location.hash='#/project/${p.id}'">
                 <td style="min-width:220px"><div class="pname">${p.name}</div><div class="psub">${p.id}</div></td>
                 <td><span class="tag">${p.programma}</span></td>
@@ -127,7 +140,7 @@
                 <td>${badge(p.status)}</td>
                 <td>${progress(p.voortgang, p.status)}</td>
                 <td class="right num nowrap">${eur(p.budget)}</td>
-                <td class="right num" style="color:${p.besteed / p.budget > 0.9 && p.voortgang < 90 ? "var(--risk)" : "inherit"}">${Math.round((p.besteed / p.budget) * 100)}%</td>
+                <td class="right num" style="color:${overspent(p) ? "var(--risk)" : "inherit"}">${Math.round((p.besteed / p.budget) * 100)}%</td>
                 <td class="num nowrap">${fmtDate(p.eind)}</td>
               </tr>`).join("")}
           </tbody>
@@ -169,7 +182,7 @@
             <div><span>Laatste update</span><b>12 nov 2026</b></div>
           </div>
         </div>
-        <div class="btn-row" style="align-items:flex-start"><button class="btn">Statusrapport (PDF)</button><button class="btn primary">Update toevoegen</button></div>
+        <div class="btn-row hero-btns"><button class="btn">Statusrapport (PDF)</button><button class="btn primary">Update toevoegen</button></div>
       </div>
 
       <div class="dims mt">
@@ -236,7 +249,7 @@
       <div class="grid g-2-1 mt">
         <div class="card">
           <div class="card-head"><h2>Mijlpalen</h2></div>
-          <table class="table">
+          <table class="table ms-table">
             <thead><tr><th>Mijlpaal</th><th>Gepland</th><th>Prognose</th><th>Status</th></tr></thead>
             <tbody>
               <tr><td>Raadsbesluit kredietaanvraag</td><td class="num">15 mrt 2025</td><td class="num">15 mrt 2025</td><td>${badge("done").replace("Afronding", "Gereed")}</td></tr>
@@ -266,7 +279,7 @@
     return `
       <div class="page-head">
         <div><h1>Resources & capaciteit</h1><p>Inzet van medewerkers op projecten, komende 8 weken</p></div>
-        <div class="btn-row"><select class="select"><option>Alle teams</option></select><select class="select"><option>Komende 8 weken</option></select><button class="btn primary">Inzet plannen</button></div>
+        <div class="btn-row"><select class="select"><option>Alle teams</option></select><select class="select"><option>Komende 8 weken</option></select><button class="btn primary only-desk">Inzet plannen</button></div>
       </div>
       <div class="grid g-4">
         <div class="card kpi accent"><div class="kpi-label">Medewerkers in portfolio</div><div class="kpi-value num">${D.people.length}</div><div class="kpi-sub">28,5 fte beschikbaar</div></div>
@@ -280,7 +293,14 @@
           <div class="card-head"><h2>Bezetting per medewerker</h2>
             <div class="heat-legend"><span><i class="h1"></i>&lt;60%</span><span><i class="h2"></i>60–85%</span><span><i class="h3"></i>85–100%</span><span><i class="h4"></i>100–115%</span><span><i class="h5"></i>&gt;115%</span></div>
           </div>
-          <div class="card-pad table-wrap">
+          <div class="only-mob">
+            ${D.people.map((p) => `
+              <div class="person">
+                <div class="person-top"><div class="member"><div class="avatar sm">${initials(p.n)}</div><div>${p.n}<small>${p.r} · ${p.team}</small></div></div><span class="pct h${lvl(p.w[0])}">${p.w[0]}%</span></div>
+                <div class="weeks">${p.w.map((v, i) => `<div><i class="h${lvl(v)}"></i><small>${D.weeks[i].replace("wk ", "")}</small></div>`).join("")}</div>
+              </div>`).join("")}
+          </div>
+          <div class="card-pad table-wrap only-desk">
             <table class="heat">
               <thead><tr><th class="left">Medewerker</th>${D.weeks.map((w) => `<th>${w}</th>`).join("")}</tr></thead>
               <tbody>
@@ -312,7 +332,7 @@
     const [, route = "dashboard", arg] = (location.hash || "#/dashboard").split("/");
     const html = { dashboard, projecten, project: () => project(arg), resources }[route];
     view.innerHTML = (html || dashboard)();
-    document.querySelectorAll("#nav a[data-route]").forEach((a) => a.classList.toggle("active", a.dataset.route === route));
+    document.querySelectorAll("#nav a[data-route], #tabbar a[data-route]").forEach((a) => a.classList.toggle("active", a.dataset.route === route));
     window.scrollTo(0, 0);
   }
   window.addEventListener("hashchange", render);

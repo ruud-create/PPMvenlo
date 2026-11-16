@@ -1,6 +1,7 @@
 # PPM Venlo – mockup projectenportaal
 
 Klikbare mockup van een Project Portfolio Management-app voor medewerkers van gemeente Venlo.
+Primair ontworpen voor **mobiel gebruik** (navigatiebalk onderin, kaarten in plaats van tabellen); op desktop schaalt de app op naar een zijbalk met tabellen.
 
 ## Schermen
 | Scherm | Doel |
@@ -10,10 +11,11 @@ Klikbare mockup van een Project Portfolio Management-app voor medewerkers van ge
 | Projectdetail | Status op tijd/geld/scope/kwaliteit/risico, planning (gantt), financiën, risico's, updates, mijlpalen, team |
 | Resources | Bezettings-heatmap per medewerker (8 weken), bezetting per team, signalen over- en onderbezetting |
 
-Screenshots staan in `docs/screenshots/`.
+Screenshots: mobiel in `docs/screenshots/mobiel/` (`overzicht.png` toont alle vier de schermen naast elkaar), desktop in `docs/screenshots/`.
 
 ## Bekijken
 Open `mockup/index.html` in een browser. Er is geen build of server nodig.
+Voor de mobiele weergave: open de ontwikkelaarstools van de browser en kies een telefoonformaat, of maak het venster smaller dan 760px.
 
 ## Huisstijl
 De kleuren staan als tokens bovenaan `mockup/styles.css`. Hoofdkleur is een benadering van het Venlo-blauw.

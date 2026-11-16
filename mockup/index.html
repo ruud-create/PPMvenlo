@@ -32,6 +32,7 @@
 
     <div class="main">
       <header class="topbar">
+        <div class="mob-brand"><div class="brand-mark" aria-hidden="true">V</div><div><b>gemeente venlo</b><span>Projectenportaal</span></div></div>
         <div class="search">
           <span aria-hidden="true">⌕</span>
           <input type="search" placeholder="Zoek project, programma of medewerker…">
@@ -46,6 +47,12 @@
         </div>
       </header>
       <main class="content" id="view"></main>
+      <nav class="tabbar" id="tabbar" aria-label="Hoofdnavigatie">
+        <a href="#/dashboard" data-route="dashboard"><span class="ico">◧</span>Overzicht</a>
+        <a href="#/projecten" data-route="projecten"><span class="ico">☰</span>Projecten</a>
+        <a href="#/project/P-2024-017" data-route="project"><span class="ico">◉</span>Project</a>
+        <a href="#/resources" data-route="resources"><span class="ico">◫</span>Resources</a>
+      </nav>
     </div>
   </div>
   <script src="data.js"></script>
