@@ -1,4 +1,8 @@
 (function () {
+  // Versienummer van de mockup – verhoog bij elke nieuwe versie (wordt overal in de titel getoond)
+  const VERSIE = "0.5";
+  document.querySelectorAll(".versie").forEach((el) => (el.textContent = `v${VERSIE}`));
+  document.title = `Projectenportaal v${VERSIE} · Venlo`;
   const D = window.PPM;
   const A = D.activiteiten;
   const ME = D.gebruiker.naam;

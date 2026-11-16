@@ -33,6 +33,17 @@ python tools/export_naar_mockup.py projecten.xlsx --uren uren.xlsx --echte-namen
 - Statusupdates die je in de mockup toevoegt worden alleen in je eigen browser bewaard (localStorage).
 - De exports zelf (`*.xlsx`) worden niet in de repository opgeslagen.
 
+## Versie
+Huidige versie: **v0.5**. Het nummer staat in `mockup/app.js` (`VERSIE`) en wordt getoond achter "Projectenportaal" (zijbalk, mobiele kop, inlogscherm en browsertab).
+
+| Versie | Inhoud |
+|---|---|
+| v0.1 | Eerste mockup (dashboard, projecten, detail, resources) |
+| v0.2 | Mobile-first + huisstijl gemeente Venlo |
+| v0.3 | 50 activiteiten uit export, inlog (Microsoft SSO), Mijn overzicht |
+| v0.4 | Strategische weging op projectdetail |
+| v0.5 | Uren uit urenexport, statusupdate toevoegen |
+
 ## Bekijken
 Open `mockup/index.html` in een browser; je start op het inlogscherm (klik op *Inloggen met Microsoft*). Er is geen build of server nodig.
 Voor de mobiele weergave: open de ontwikkelaarstools van de browser en kies een telefoonformaat, of maak het venster smaller dan 760px.
