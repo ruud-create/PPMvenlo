@@ -1,11 +1,11 @@
 // Gegenereerd door tools/export_naar_mockup.py uit de export 'Lopende projecten/reguliere taken'.
 // Namen zijn gepseudonimiseerd.
-// Velden 'gezondheid', 'verstreken' en 'leden' zijn mockup-aanvullingen.
+// Velden 'gezondheid', 'verstreken', 'leden' en 'weging' zijn mockup-aanvullingen.
 window.PPM = {
  "peildatum": "2026-11-16",
  "gebruiker": {
-  "naam": "Janssen, Jan (JJ)",
-  "functie": "Teamleider Informatiemanagement",
+  "naam": "Janssen, Ruud (RJ)",
+  "functie": "Hoofd Informatiemanagement",
   "team": "Informatiemanagement (RGIMAN)"
  },
  "activiteiten": [
@@ -13,7 +13,7 @@ window.PPM = {
    "id": 1190,
    "naam": "Uitvoeren strategie GEO",
    "team": "Informatiemanagement (RGIMAN)",
-   "verantwoordelijk": "Janssen, Jan (JJ)",
+   "verantwoordelijk": "Janssen, Ruud (RJ)",
    "status": "Lopend",
    "omschrijving": "",
    "programma": "Bedrijfsvoering",
@@ -39,13 +39,18 @@ window.PPM = {
     "Driessen, Stijn (SD)",
     "Vossen, Bram (BV)",
     "Wijnen, Gijs (GW)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.5,
+    "uitvoerbaarheid": 4.2,
+    "waarde": 2
+   }
   },
   {
    "id": 428,
    "naam": "Implementatie RMA",
    "team": "Informatiemanagement (RGIMAN)",
-   "verantwoordelijk": "Janssen, Jan (JJ)",
+   "verantwoordelijk": "Janssen, Ruud (RJ)",
    "status": "Lopend",
    "omschrijving": "Implementatie van record management applicatie. Starten met aansluiting van i-burgerzaken en Suites.",
    "programma": "Bedrijfsvoering",
@@ -76,13 +81,18 @@ window.PPM = {
     "Jacobs, Wouter (WJ)",
     "Loonen, Mark (ML)",
     "Hermans, Gijs (GH)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.9,
+    "uitvoerbaarheid": 4.1,
+    "waarde": 3
+   }
   },
   {
    "id": 1193,
    "naam": "Digitale en datavaardigheden",
    "team": "Informatiemanagement (RGIMAN)",
-   "verantwoordelijk": "Janssen, Jan (JJ)",
+   "verantwoordelijk": "Janssen, Ruud (RJ)",
    "status": "Lopend",
    "omschrijving": "",
    "programma": "Bedrijfsvoering",
@@ -107,13 +117,18 @@ window.PPM = {
     "Claessens, Martijn (MC)",
     "Bastiaans, Bram (BB)",
     "Hermans, Wouter (WH)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 3.1,
+    "uitvoerbaarheid": 3.3,
+    "waarde": 3
+   }
   },
   {
    "id": 674,
    "naam": "Samenwerking BsGW",
    "team": "Informatiemanagement GEO (RGIMGE)",
-   "verantwoordelijk": "Janssen, Jan (JJ)",
+   "verantwoordelijk": "Janssen, Ruud (RJ)",
    "status": "Lopend",
    "omschrijving": "Relatie herstellen\nSamenwerkingsportaal optimaliseren\nOnderzoeken procesoptimalisering BAG-WOZ",
    "programma": "Bedrijfsvoering",
@@ -139,13 +154,18 @@ window.PPM = {
    "leden": [
     "Bastiaans, Bram (BB)",
     "Bartels, Sophie (SB)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.5,
+    "uitvoerbaarheid": 4.4,
+    "waarde": 4
+   }
   },
   {
    "id": 1162,
    "naam": "Update/vernieuwing Kader Informatisering",
    "team": "Informatiemanagement (RGIMAN)",
-   "verantwoordelijk": "Janssen, Jan (JJ)",
+   "verantwoordelijk": "Janssen, Ruud (RJ)",
    "status": "Lopend",
    "omschrijving": "",
    "programma": "Bedrijfsvoering",
@@ -172,13 +192,18 @@ window.PPM = {
     "Bouten, Luuk (LB)",
     "Martens, Gijs (GM)",
     "Jacobs, Sophie (SJ)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 3.3,
+    "uitvoerbaarheid": 4.0,
+    "waarde": 3
+   }
   },
   {
    "id": 721,
    "naam": "REG-Inwerken medewerker",
    "team": "Informatiemanagement (RGIMAN)",
-   "verantwoordelijk": "Janssen, Jan (JJ)",
+   "verantwoordelijk": "Janssen, Ruud (RJ)",
    "status": "Lopend",
    "omschrijving": "",
    "programma": "Geen programma",
@@ -202,13 +227,18 @@ window.PPM = {
     "Wijnen, Lieke (LW)",
     "Vossen, Koen (KV)",
     "Hermans, Gijs (GH)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 1.3,
+    "uitvoerbaarheid": 3.8,
+    "waarde": 3
+   }
   },
   {
    "id": 906,
    "naam": "REG-GEO-schuilkelders/bunkers",
    "team": "Informatiemanagement GEO (RGIMGE)",
-   "verantwoordelijk": "Janssen, Jan (JJ)",
+   "verantwoordelijk": "Janssen, Ruud (RJ)",
    "status": "Lopend",
    "omschrijving": "",
    "programma": "Bedrijfsvoering",
@@ -228,13 +258,18 @@ window.PPM = {
    "leden": [
     "Craenmehr, Esther (EC)",
     "Hermans, Niels (NH)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.2,
+    "uitvoerbaarheid": 3.9,
+    "waarde": 2
+   }
   },
   {
    "id": 905,
    "naam": "REG-GEO-kunstwerken",
    "team": "Informatiemanagement GEO (RGIMGE)",
-   "verantwoordelijk": "Janssen, Jan (JJ)",
+   "verantwoordelijk": "Janssen, Ruud (RJ)",
    "status": "Lopend",
    "omschrijving": "",
    "programma": "Bedrijfsvoering",
@@ -255,13 +290,18 @@ window.PPM = {
     "Jacobs, Sophie (SJ)",
     "Schreurs, Ruben (RS)",
     "Claessens, Martijn (MC)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.0,
+    "uitvoerbaarheid": 3.8,
+    "waarde": 2
+   }
   },
   {
    "id": 203,
    "naam": "REG-Informatiebeleid strategisch",
    "team": "Informatiemanagement (RGIMAN)",
-   "verantwoordelijk": "Janssen, Jan (JJ)",
+   "verantwoordelijk": "Janssen, Ruud (RJ)",
    "status": "Lopend",
    "omschrijving": "",
    "programma": "Bedrijfsvoering",
@@ -286,13 +326,18 @@ window.PPM = {
     "Wolters, Lotte (LW)",
     "Vermeulen, Thijs (TV)",
     "Cox, Pieter (PC)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.4,
+    "uitvoerbaarheid": 3.9,
+    "waarde": 3
+   }
   },
   {
    "id": 421,
    "naam": "REG-PPM",
    "team": "Informatiemanagement (RGIMAN)",
-   "verantwoordelijk": "Janssen, Jan (JJ)",
+   "verantwoordelijk": "Janssen, Ruud (RJ)",
    "status": "Lopend",
    "omschrijving": "Up to date houden van het gehele projectportfolio IM. Planningen afstemmen met medewerkers team IM en organisatie gemeente Venlo",
    "programma": "Bedrijfsvoering",
@@ -317,7 +362,12 @@ window.PPM = {
     "Martens, Martijn (MM)",
     "Cox, Jesse (JC)",
     "Craenmehr, Sophie (SC)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 1.6,
+    "uitvoerbaarheid": 3.0,
+    "waarde": 3
+   }
   },
   {
    "id": 871,
@@ -346,11 +396,16 @@ window.PPM = {
    "gezondheid": "ok",
    "verstreken": 75,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Peeters, Bas (BP)",
     "Dings, Roel (RD)",
     "Kessels, Ruben (RK)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 4.5,
+    "uitvoerbaarheid": 3.8,
+    "waarde": 4
+   }
   },
   {
    "id": 893,
@@ -383,11 +438,16 @@ window.PPM = {
    "gezondheid": "warn",
    "verstreken": 74,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Vossen, Koen (KV)",
     "Vossen, Bram (BV)",
     "Dings, Tom (TD)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 3.6,
+    "uitvoerbaarheid": 3.7,
+    "waarde": 3
+   }
   },
   {
    "id": 1014,
@@ -421,12 +481,17 @@ window.PPM = {
    "gezondheid": "warn",
    "verstreken": 88,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Willems, Sanne (SW)",
     "Hermans, Niels (NH)",
     "Dings, Roel (RD)",
     "Wijnen, Lieke (LW)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 5.0,
+    "uitvoerbaarheid": 2.5,
+    "waarde": 4
+   }
   },
   {
    "id": 819,
@@ -457,11 +522,16 @@ window.PPM = {
    "gezondheid": "ok",
    "verstreken": 62,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Jacobs, Sophie (SJ)",
     "Rutten, Bas (BR)",
     "Arts, Esther (EA)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 3.2,
+    "uitvoerbaarheid": 4.2,
+    "waarde": 3
+   }
   },
   {
    "id": 1042,
@@ -492,12 +562,17 @@ window.PPM = {
    "gezondheid": "ok",
    "verstreken": 59,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Schreurs, Noor (NS)",
     "Dings, Roel (RD)",
     "Driessen, Maud (MD)",
     "Vossen, Bram (BV)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 3.3,
+    "uitvoerbaarheid": 5,
+    "waarde": 3
+   }
   },
   {
    "id": 1137,
@@ -531,12 +606,17 @@ window.PPM = {
    "gezondheid": "risk",
    "verstreken": 9,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Dings, Tom (TD)",
     "Hermans, Gijs (GH)",
     "Bouten, Luuk (LB)",
     "Kessels, Ruben (RK)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 3.9,
+    "uitvoerbaarheid": 1.8,
+    "waarde": 2
+   }
   },
   {
    "id": 666,
@@ -571,12 +651,17 @@ window.PPM = {
    "gezondheid": "ok",
    "verstreken": 82,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Smeets, Jesse (JS)",
     "Vermeulen, Thijs (TV)",
     "Jacobs, Wouter (WJ)",
     "Coenen, Lotte (LC)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 4.8,
+    "uitvoerbaarheid": 4.1,
+    "waarde": 4
+   }
   },
   {
    "id": 831,
@@ -607,12 +692,17 @@ window.PPM = {
    "gezondheid": "risk",
    "verstreken": 25,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Dings, Tom (TD)",
     "El Amrani, Pieter (PE)",
     "Jacobs, Pieter (PJ)",
     "Vossen, Bram (BV)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.3,
+    "uitvoerbaarheid": 2.4,
+    "waarde": 3
+   }
   },
   {
    "id": 1002,
@@ -642,12 +732,17 @@ window.PPM = {
    "gezondheid": "ok",
    "verstreken": 10,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Jacobs, Pieter (PJ)",
     "Nelissen, Lisa (LN)",
     "Peeters, Lisa (LP)",
     "Smeets, Floor (FS)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.3,
+    "uitvoerbaarheid": 4.6,
+    "waarde": 3
+   }
   },
   {
    "id": 681,
@@ -678,18 +773,23 @@ window.PPM = {
    "gezondheid": "ok",
    "verstreken": 72,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Schreurs, Noor (NS)",
     "Smeets, Kim (KS)",
     "Peeters, Bas (BP)",
     "Vermeulen, Thijs (TV)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.3,
+    "uitvoerbaarheid": 3.4,
+    "waarde": 4
+   }
   },
   {
    "id": 374,
    "naam": "REG-OR",
    "team": "Informatiemanagement (RGIMAN)",
-   "verantwoordelijk": "Janssen, Jan (JJ)",
+   "verantwoordelijk": "Janssen, Ruud (RJ)",
    "status": "Lopend",
    "omschrijving": "",
    "programma": "Geen programma",
@@ -709,7 +809,12 @@ window.PPM = {
    "leden": [
     "Martens, Gijs (GM)",
     "Moonen, Roel (RM)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 1.6,
+    "uitvoerbaarheid": 1,
+    "waarde": 2
+   }
   },
   {
    "id": 723,
@@ -735,7 +840,12 @@ window.PPM = {
    "leden": [
     "Timmermans, Stijn (ST)",
     "Hermans, Gijs (GH)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.2,
+    "uitvoerbaarheid": 2.1,
+    "waarde": 2
+   }
   },
   {
    "id": 451,
@@ -765,7 +875,12 @@ window.PPM = {
     "Verheijen, Stijn (SV)",
     "Craenmehr, Sophie (SC)",
     "Dings, Roel (RD)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 1,
+    "uitvoerbaarheid": 1.7,
+    "waarde": 3
+   }
   },
   {
    "id": 724,
@@ -793,7 +908,12 @@ window.PPM = {
     "Timmermans, Stijn (ST)",
     "Smeets, Kim (KS)",
     "Nelissen, Lisa (LN)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 1.8,
+    "uitvoerbaarheid": 1.9,
+    "waarde": 2
+   }
   },
   {
    "id": 1123,
@@ -826,11 +946,16 @@ window.PPM = {
    "gezondheid": "plan",
    "verstreken": 0,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Bouten, Luuk (LB)",
     "Kessels, Ruben (RK)",
     "Martens, Gijs (GM)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 3.7,
+    "uitvoerbaarheid": 3.1,
+    "waarde": 3
+   }
   },
   {
    "id": 1187,
@@ -861,7 +986,12 @@ window.PPM = {
    "leden": [
     "Wijnen, Gijs (GW)",
     "Smeets, Jesse (JS)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.8,
+    "uitvoerbaarheid": 4.4,
+    "waarde": 4
+   }
   },
   {
    "id": 1077,
@@ -901,7 +1031,12 @@ window.PPM = {
    "leden": [
     "Cox, Jesse (JC)",
     "Peeters, Sanne (SP)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 4.5,
+    "uitvoerbaarheid": 2.3,
+    "waarde": 2
+   }
   },
   {
    "id": 985,
@@ -933,7 +1068,12 @@ window.PPM = {
    "leden": [
     "Craenmehr, Sophie (SC)",
     "Hermans, Niels (NH)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.8,
+    "uitvoerbaarheid": 3.4,
+    "waarde": 3
+   }
   },
   {
    "id": 979,
@@ -966,7 +1106,12 @@ window.PPM = {
    "leden": [
     "Vermeulen, Bram (BV)",
     "Dings, Tom (TD)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.4,
+    "uitvoerbaarheid": 4.2,
+    "waarde": 3
+   }
   },
   {
    "id": 383,
@@ -997,12 +1142,17 @@ window.PPM = {
    "gezondheid": "ok",
    "verstreken": 97,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Smeets, Jesse (JS)",
     "Jacobs, Pieter (PJ)",
     "Jacobs, Wouter (WJ)",
     "Wijnen, Lieke (LW)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 3.2,
+    "uitvoerbaarheid": 3.8,
+    "waarde": 4
+   }
   },
   {
    "id": 815,
@@ -1036,12 +1186,17 @@ window.PPM = {
    "gezondheid": "ok",
    "verstreken": 63,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Peeters, Lisa (LP)",
     "Gommans, Fatima (FG)",
     "Hermans, Gijs (GH)",
     "Driessen, Stijn (SD)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 4.4,
+    "uitvoerbaarheid": 3.1,
+    "waarde": 3
+   }
   },
   {
    "id": 28,
@@ -1071,11 +1226,16 @@ window.PPM = {
    "gezondheid": "ok",
    "verstreken": 91,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Verstappen, Lieke (LV)",
     "Smeets, Floor (FS)",
     "Claessens, Martijn (MC)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 3.1,
+    "uitvoerbaarheid": 4.8,
+    "waarde": 3
+   }
   },
   {
    "id": 1184,
@@ -1107,7 +1267,12 @@ window.PPM = {
    "leden": [
     "Hermans, Gijs (GH)",
     "Wolters, Daan (DW)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 4.2,
+    "uitvoerbaarheid": 4.6,
+    "waarde": 3
+   }
   },
   {
    "id": 1114,
@@ -1134,12 +1299,17 @@ window.PPM = {
    "gezondheid": "risk",
    "verstreken": 63,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Dings, Tom (TD)",
     "Jacobs, Pieter (PJ)",
     "Vossen, Bram (BV)",
     "Loonen, Mark (ML)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 3.9,
+    "uitvoerbaarheid": 2.4,
+    "waarde": 2
+   }
   },
   {
    "id": 877,
@@ -1166,7 +1336,12 @@ window.PPM = {
     "Nelissen, Lisa (LN)",
     "Peeters, Bas (BP)",
     "Wijnen, Gijs (GW)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.4,
+    "uitvoerbaarheid": 4.8,
+    "waarde": 5
+   }
   },
   {
    "id": 1129,
@@ -1198,7 +1373,12 @@ window.PPM = {
    "leden": [
     "Mulders, Floor (FM)",
     "Jacobs, Pieter (PJ)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.4,
+    "uitvoerbaarheid": 4.4,
+    "waarde": 2
+   }
   },
   {
    "id": 936,
@@ -1227,11 +1407,16 @@ window.PPM = {
    "gezondheid": "ok",
    "verstreken": 44,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Jacobs, Sophie (SJ)",
     "Verheijen, Stijn (SV)",
     "Cox, Pieter (PC)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 3.9,
+    "uitvoerbaarheid": 4.0,
+    "waarde": 5
+   }
   },
   {
    "id": 1130,
@@ -1263,7 +1448,12 @@ window.PPM = {
     "Driessen, Stijn (SD)",
     "Bartels, Sophie (SB)",
     "Mulders, Floor (FM)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.1,
+    "uitvoerbaarheid": 3.8,
+    "waarde": 3
+   }
   },
   {
    "id": 616,
@@ -1291,7 +1481,12 @@ window.PPM = {
     "Peeters, Lisa (LP)",
     "Wolters, Daan (DW)",
     "Hermans, Gijs (GH)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 1.1,
+    "uitvoerbaarheid": 3.7,
+    "waarde": 5
+   }
   },
   {
    "id": 1027,
@@ -1323,7 +1518,12 @@ window.PPM = {
    "leden": [
     "Lemmen, Anouk (AL)",
     "Claessens, Martijn (MC)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.3,
+    "uitvoerbaarheid": 2.9,
+    "waarde": 4
+   }
   },
   {
    "id": 1160,
@@ -1354,7 +1554,12 @@ window.PPM = {
    "leden": [
     "Kessels, Ruben (RK)",
     "Jacobs, Wouter (WJ)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 3.4,
+    "uitvoerbaarheid": 4.2,
+    "waarde": 4
+   }
   },
   {
    "id": 1034,
@@ -1385,12 +1590,17 @@ window.PPM = {
    "gezondheid": "ok",
    "verstreken": 36,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "El Amrani, Pieter (PE)",
     "Peeters, Lisa (LP)",
     "Thijssen, Joost (JT)",
     "Bartels, Sophie (SB)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.8,
+    "uitvoerbaarheid": 4.8,
+    "waarde": 3
+   }
   },
   {
    "id": 738,
@@ -1423,7 +1633,12 @@ window.PPM = {
    "leden": [
     "Hermans, Niels (NH)",
     "Jacobs, Sophie (SJ)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 3.6,
+    "uitvoerbaarheid": 3.5,
+    "waarde": 5
+   }
   },
   {
    "id": 789,
@@ -1456,7 +1671,12 @@ window.PPM = {
    "leden": [
     "Lemmen, Anouk (AL)",
     "Wijnen, Lieke (LW)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.3,
+    "uitvoerbaarheid": 3.1,
+    "waarde": 4
+   }
   },
   {
    "id": 968,
@@ -1486,12 +1706,17 @@ window.PPM = {
    "gezondheid": "ok",
    "verstreken": 90,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Arts, Esther (EA)",
     "Timmermans, Stijn (ST)",
     "Vossen, Bram (BV)",
     "Claessens, Floor (FC)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.5,
+    "uitvoerbaarheid": 4.2,
+    "waarde": 4
+   }
   },
   {
    "id": 741,
@@ -1523,11 +1748,16 @@ window.PPM = {
    "gezondheid": "ok",
    "verstreken": 69,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Verheijen, Stijn (SV)",
     "Jacobs, Pieter (PJ)",
     "Willems, Sanne (SW)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 3.4,
+    "uitvoerbaarheid": 3.8,
+    "waarde": 4
+   }
   },
   {
    "id": 1076,
@@ -1560,7 +1790,12 @@ window.PPM = {
     "Nelissen, Lisa (LN)",
     "Dings, Tom (TD)",
     "Jacobs, Pieter (PJ)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 4.3,
+    "uitvoerbaarheid": 3.0,
+    "waarde": 3
+   }
   },
   {
    "id": 648,
@@ -1591,12 +1826,17 @@ window.PPM = {
    "gezondheid": "warn",
    "verstreken": 74,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Rutten, Bas (BR)",
     "Smeets, Kim (KS)",
     "Jacobs, Pieter (PJ)",
     "Craenmehr, Esther (EC)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 3.9,
+    "uitvoerbaarheid": 3.9,
+    "waarde": 4
+   }
   },
   {
    "id": 762,
@@ -1626,11 +1866,16 @@ window.PPM = {
    "gezondheid": "warn",
    "verstreken": 94,
    "leden": [
-    "Janssen, Jan (JJ)",
+    "Janssen, Ruud (RJ)",
     "Craenmehr, Esther (EC)",
     "Hermans, Gijs (GH)",
     "Nelissen, Lisa (LN)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.3,
+    "uitvoerbaarheid": 3.1,
+    "waarde": 4
+   }
   },
   {
    "id": 946,
@@ -1656,7 +1901,12 @@ window.PPM = {
    "leden": [
     "Mulders, Floor (FM)",
     "El Amrani, Pieter (PE)"
-   ]
+   ],
+   "weging": {
+    "complexiteit": 2.6,
+    "uitvoerbaarheid": 5,
+    "waarde": 4
+   }
   }
  ]
 };

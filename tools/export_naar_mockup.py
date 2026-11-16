@@ -74,7 +74,7 @@ def main(pad, echte_namen=False):
         if echte_namen:
             return echt
         if echt == persona_echt:
-            return "Janssen, Jan (JJ)"
+            return "Janssen, Ruud (RJ)"
         if echt not in namen:
             k = h(echt)
             while True:
@@ -142,10 +142,20 @@ def main(pad, echte_namen=False):
         # projectleden (mockup-aanvulling): persona zit in projecten waar zijn/haar team betrokken is
         leden = []
         if PERSONA_TEAM in betrokken and r["Verantwoordelijk"] != persona_echt and k % 3 != 0:
-            leden.append("Janssen, Jan (JJ)")
+            leden.append("Janssen, Ruud (RJ)")
         for i in range(2 + k % 3):
             leden.append(pseudo(f"lid-{(k >> (i * 5)) % 60}"))
         jaren = r["Relevant Voor Jaar Teamplan"]
+        # strategische weging (mockup-aanvulling): scores 1-5
+        cx = 0.9 + (0 if regulier else 0.6) + min(len(betrokken), 5) * 0.3 + (0.6 if impact else 0) \
+            + (0.5 if r["Bedrijfsvoeringsbreedproject"] == "Ja" else 0) + ((k >> 3) % 9) * 0.22
+        ux = 4.0 - (1.5 if eind < PEILDATUM else 0) - (1.4 if gezondheid == "risk" else 0.7 if gezondheid == "warn" else 0) \
+            - max(len(betrokken) - 2, 0) * 0.25 + ((k >> 7) % 9) * 0.2 - 0.6
+        waarde = 2 + (1 if r["Programma"] and r["Programma"] != "Bedrijfsvoering" else 0) \
+            + (1 if r["Ontwikkellijn"] else 0) + (1 if (r["Categorieteamplan"] or "").startswith("B") else 0) + (k >> 11) % 2
+        weging = {"complexiteit": round(max(1, min(5, cx)), 1),
+                  "uitvoerbaarheid": round(max(1, min(5, ux)), 1),
+                  "waarde": int(max(1, min(5, waarde)))}
         out.append({
             "id": r["Id"],
             "naam": r["Gecontracteerde activiteit"].strip(),
@@ -169,14 +179,15 @@ def main(pad, echte_namen=False):
             "gezondheid": gezondheid,
             "verstreken": None if regulier and (eind - start).days > 5 * 365 else verstreken,
             "leden": list(dict.fromkeys(leden)),
+            "weging": weging,
         })
 
     js = ("// Gegenereerd door tools/export_naar_mockup.py uit de export 'Lopende projecten/reguliere taken'.\n"
           "// Namen zijn gepseudonimiseerd" + (" NIET (--echte-namen)" if echte_namen else "") + ".\n"
-          "// Velden 'gezondheid', 'verstreken' en 'leden' zijn mockup-aanvullingen.\n"
+          "// Velden 'gezondheid', 'verstreken', 'leden' en 'weging' zijn mockup-aanvullingen.\n"
           "window.PPM = " + json.dumps({
               "peildatum": PEILDATUM.isoformat(),
-              "gebruiker": {"naam": "Janssen, Jan (JJ)", "functie": "Teamleider Informatiemanagement", "team": PERSONA_TEAM},
+              "gebruiker": {"naam": "Janssen, Ruud (RJ)", "functie": "Hoofd Informatiemanagement", "team": PERSONA_TEAM},
               "activiteiten": out,
           }, ensure_ascii=False, indent=1) + ";\n")
     with open("mockup/data.js", "w", encoding="utf-8") as f:

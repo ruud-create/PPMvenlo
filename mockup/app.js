@@ -66,7 +66,7 @@
     const noDesc = own.filter((a) => !a.omschrijving).length;
     return `
       <div class="page-head">
-        <div><h1>Goedemorgen, Jan</h1><p>${esc(D.gebruiker.functie)} · peildatum ${fmtDate(D.peildatum)}</p></div>
+        <div><h1>Goedemorgen, ${esc(person(ME).split(" ")[0])}</h1><p>${esc(D.gebruiker.functie)} · peildatum ${fmtDate(D.peildatum)}</p></div>
       </div>
 
       <div class="grid g-4">
@@ -240,6 +240,39 @@
     document.getElementById("q").addEventListener("input", (e) => { F.q = e.target.value; refresh(); });
   }
 
+  /* ---------------------- Strategische weging (matrix) ------------------- */
+  const QUAD = (w) => w.uitvoerbaarheid >= 3
+    ? (w.complexiteit >= 3 ? ["Strategisch project", "Waardevol maar complex: stuur actief op scope en inzet."] : ["Quick win", "Goed uitvoerbaar en overzichtelijk: snel resultaat boeken."])
+    : (w.complexiteit >= 3 ? ["Risicovol", "Complex én lastig uitvoerbaar: herijk aanpak of fasering."] : ["Heroverwegen", "Beperkt uitvoerbaar: randvoorwaarden regelen of herprioriteren."]);
+  function matrix(a) {
+    const W = 360, H = 290, L = 44, R = 12, T = 12, B = 44;
+    const x = (v) => L + ((v - 1) / 4) * (W - L - R);
+    const y = (v) => T + (1 - (v - 1) / 4) * (H - T - B);
+    const cl = (v) => Math.max(1.15, Math.min(4.85, v)); // houd stippen binnen het vlak
+    const me = a.weging, q = QUAD(me)[0];
+    const quads = [
+      ["Risicovol", 1, 3, 3, 5], ["Strategisch project", 3, 5, 3, 5],
+      ["Heroverwegen", 1, 3, 1, 3], ["Quick win", 3, 5, 1, 3],
+    ];
+    const r = (w, big) => (big ? 5 : 2.6) + w.waarde * (big ? 1.4 : 0.8);
+    const others = A.filter((o) => o.id !== a.id);
+    return `
+      <svg class="matrix" viewBox="0 0 ${W} ${H}" role="img" aria-label="Strategische weging: complexiteit ${me.complexiteit}, uitvoerbaarheid ${me.uitvoerbaarheid}, kwadrant ${q}">
+        ${quads.map(([n, x0, x1, y0, y1]) => `<rect x="${x(x0)}" y="${y(y1)}" width="${x(x1) - x(x0)}" height="${y(y0) - y(y1)}" class="quad ${n === q ? "on" : ""}"/>`).join("")}
+        ${[1, 2, 3, 4, 5].map((v) => `<line x1="${x(v)}" x2="${x(v)}" y1="${T}" y2="${H - B}" class="grid ${v === 3 ? "mid" : ""}"/><line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" class="grid ${v === 3 ? "mid" : ""}"/>
+          <text x="${x(v)}" y="${H - B + 14}" text-anchor="middle" class="tick">${v}</text><text x="${L - 8}" y="${y(v) + 4}" text-anchor="end" class="tick">${v}</text>`).join("")}
+        <text x="${(L + W - R) / 2}" y="${H - 6}" text-anchor="middle" class="axis">Uitvoerbaarheid →</text>
+        <text transform="translate(12 ${(T + H - B) / 2}) rotate(-90)" text-anchor="middle" class="axis">Complexiteit →</text>
+        ${others.map((o) => `<a href="#/project/${o.id}"><circle cx="${x(cl(o.weging.uitvoerbaarheid))}" cy="${y(cl(o.weging.complexiteit))}" r="${r(o.weging)}" class="dot"><title>${esc(o.naam)} – complexiteit ${o.weging.complexiteit}, uitvoerbaarheid ${o.weging.uitvoerbaarheid}, waarde ${o.weging.waarde}/5</title></circle></a>`).join("")}
+        ${quads.map(([n, x0, x1, y0, y1]) => `<text x="${x0 < 3 ? x(x0) + 8 : x(x1) - 8}" y="${y1 > 3 ? y(y1) + 16 : y(y0) - 8}" text-anchor="${x0 < 3 ? "start" : "end"}" class="qlabel ${n === q ? "on" : ""}">${n}</text>`).join("")}
+        <circle cx="${x(cl(me.uitvoerbaarheid))}" cy="${y(cl(me.complexiteit))}" r="${r(me, true)}" class="dot me"><title>${esc(a.naam)}</title></circle>
+        <text x="${x(cl(me.uitvoerbaarheid)) + (me.uitvoerbaarheid > 4.2 ? -1 : 1) * (r(me, true) + 6)}" y="${y(cl(me.complexiteit)) + 4}" text-anchor="${me.uitvoerbaarheid > 4.2 ? "end" : "start"}" class="melabel">Dit project</text>
+      </svg>`;
+  }
+  const scoreBar = (label, v, hint) => `
+    <div class="score-row"><div class="top"><span>${label}</span><b class="num">${v.toLocaleString("nl-NL")} <small>/ 5</small></b></div>
+    <div class="progress"><span style="width:${(v / 5) * 100}%;background:var(--vbg)"></span></div><small class="psub">${hint}</small></div>`;
+
   /* ---------------------------- Projectdetail ---------------------------- */
   function project(id) {
     const a = A.find((x) => String(x.id) === String(id)) || A[0];
@@ -291,6 +324,24 @@
         </div>
       </div>
 
+      <div class="card mt">
+        <div class="card-head"><div><h2>Strategische weging</h2><span class="meta">Waarde van het project op complexiteit en uitvoerbaarheid</span></div><span class="meta">voorbeeldscores</span></div>
+        <div class="weging">
+          <div class="weging-chart">
+            ${matrix(a)}
+            <div class="legend"><span><i class="lg-me"></i>Dit project</span><span><i class="lg-other"></i>Overige activiteiten</span><span>Grootte = strategische waarde</span></div>
+          </div>
+          <div class="weging-side">
+            <div class="quad-result"><span class="psub">Kwadrant</span><b>${QUAD(a.weging)[0]}</b><p>${QUAD(a.weging)[1]}</p></div>
+            ${scoreBar("Complexiteit", a.weging.complexiteit, "Aantal teams, impact op organisatie, bedrijfsvoeringsbreed")}
+            ${scoreBar("Uitvoerbaarheid", a.weging.uitvoerbaarheid, "Capaciteit, planning, afhankelijkheden")}
+            <div class="score-row"><div class="top"><span>Strategische waarde</span><b class="num">${a.weging.waarde} <small>/ 5</small></b></div>
+              <div class="pips">${[1, 2, 3, 4, 5].map((i) => `<i class="${i <= a.weging.waarde ? "on" : ""}"></i>`).join("")}</div><small class="psub">Bijdrage aan programma, ontwikkellijn en teamplan</small></div>
+            <button class="btn" style="width:100%;margin-top:6px">Weging aanpassen</button>
+          </div>
+        </div>
+      </div>
+
       <div class="grid g-3 mt">
         <div class="card">
           <div class="card-head"><h2>Teamplan</h2></div>
@@ -330,7 +381,7 @@
           <div class="card-head"><h2>Nog aan te vullen</h2></div>
           <div class="card-pad">
             <p class="psub" style="margin:0 0 10px">Niet in de huidige export, wel nodig voor een compleet beeld:</p>
-            <ul class="todo"><li>Gezondheid (tijd / geld / scope)</li><li>Budget en besteding</li><li>Mijlpalen</li><li>Risico's</li><li>Projectleden en inzet in uren</li></ul>
+            <ul class="todo"><li>Strategische weging (scores per project)</li><li>Gezondheid (tijd / geld / scope)</li><li>Budget en besteding</li><li>Mijlpalen</li><li>Risico's</li><li>Projectleden en inzet in uren</li></ul>
           </div>
         </div>
       </div>`;

@@ -22,9 +22,9 @@ python tools/export_naar_mockup.py pad/naar/export.xlsx            # namen gepse
 python tools/export_naar_mockup.py pad/naar/export.xlsx --echte-namen
 ```
 
-- De ingelogde gebruiker "Jan Janssen" krijgt de activiteiten van de medewerker met de meeste verantwoordelijkheden in de export.
+- De ingelogde gebruiker "Ruud Janssen" krijgt de activiteiten van de medewerker met de meeste verantwoordelijkheden in de export.
 - Namen van medewerkers zijn standaard gepseudonimiseerd; projectnamen, teams, programma's, datums en teamplanvelden komen uit de export.
-- Niet in de export en daarom als voorbeelddata aangevuld: *gezondheid*, *projectleden* en *recente updates*. "Doorlooptijd" is berekend uit start- en einddatum.
+- Niet in de export en daarom als voorbeelddata aangevuld: *gezondheid*, *strategische weging* (complexiteit, uitvoerbaarheid, strategische waarde), *projectleden* en *recente updates*. "Doorlooptijd" is berekend uit start- en einddatum.
 - De export zelf (`*.xlsx`) wordt niet in de repository opgeslagen.
 
 ## Bekijken
