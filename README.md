@@ -34,7 +34,7 @@ python tools/export_naar_mockup.py projecten.xlsx --uren uren.xlsx --echte-namen
 - De exports zelf (`*.xlsx`) worden niet in de repository opgeslagen.
 
 ## Versie
-Huidige versie: **v0.5**. Het nummer staat in `mockup/app.js` (`VERSIE`) en wordt getoond achter "Projectenportaal" (zijbalk, mobiele kop, inlogscherm en browsertab).
+Huidige versie: **v0.5**. Het nummer staat in `mockup/app.js` (`VERSIE`) en is te zien in het gebruikersmenu rechtsboven (klik op je naam/avatar) en in de browsertab.
 
 | Versie | Inhoud |
 |---|---|

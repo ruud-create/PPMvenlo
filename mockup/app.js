@@ -3,6 +3,13 @@
   const VERSIE = "0.5";
   document.querySelectorAll(".versie").forEach((el) => (el.textContent = `v${VERSIE}`));
   document.title = `Projectenportaal v${VERSIE} · Venlo`;
+  // gebruikersmenu (versie + uitloggen)
+  const userBtn = document.getElementById("user-btn"), userDd = document.getElementById("user-dd");
+  const setMenu = (open) => { userDd.hidden = !open; userBtn.setAttribute("aria-expanded", String(open)); };
+  userBtn.addEventListener("click", (e) => { e.stopPropagation(); setMenu(userDd.hidden); });
+  document.addEventListener("click", (e) => { if (!e.target.closest("#usermenu")) setMenu(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+  window.addEventListener("hashchange", () => setMenu(false));
   const D = window.PPM;
   const A = D.activiteiten;
   const ME = D.gebruiker.naam;

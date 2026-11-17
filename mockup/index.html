@@ -19,7 +19,7 @@
     <div class="login-panel">
       <div class="login-card">
         <img class="login-logo" src="assets/venlo-logo-blauwgroen.png" alt="Gemeente Venlo">
-        <h1>Projectenportaal <span class="versie"></span></h1>
+        <h1>Projectenportaal</h1>
         <p class="login-lead">Inzicht in lopende projecten, reguliere taken en wie waaraan werkt.</p>
         <button class="ms-btn" id="ms-login" type="button">
           <svg width="20" height="20" viewBox="0 0 21 21" aria-hidden="true"><rect x="1" y="1" width="9" height="9" fill="#f25022"/><rect x="11" y="1" width="9" height="9" fill="#7fba00"/><rect x="1" y="11" width="9" height="9" fill="#00a4ef"/><rect x="11" y="11" width="9" height="9" fill="#ffb900"/></svg>
@@ -38,7 +38,7 @@
     <aside class="sidebar">
       <div class="brand">
         <img class="brand-logo" src="assets/venlo-logo-wit.png" alt="Gemeente Venlo">
-        <span class="brand-app">Projectenportaal <span class="versie"></span></span>
+        <span class="brand-app">Projectenportaal</span>
       </div>
       <nav class="nav" id="nav">
         <a href="#/home" data-route="home"><span class="ico">⌂</span>Mijn overzicht</a>
@@ -47,14 +47,13 @@
         <a href="#/teams" data-route="teams"><span class="ico">◫</span>Teams</a>
         <div class="nav-sep">Overig</div>
         <a href="#/home" class="muted-link"><span class="ico">⚑</span>Rapportages</a>
-        <a href="#/login" class="muted-link"><span class="ico">⎋</span>Uitloggen</a>
       </nav>
       <div class="sidebar-foot">Mockup · export 16-11-2026</div>
     </aside>
 
     <div class="main">
       <header class="topbar">
-        <div class="mob-brand"><img class="mob-v" src="assets/venlo-v-wit.png" alt=""><img class="mob-word" src="assets/venlo-woordmerk-wit.png" alt="Venlo"><span>Projectenportaal <span class="versie"></span></span></div>
+        <div class="mob-brand"><img class="mob-v" src="assets/venlo-v-wit.png" alt=""><img class="mob-word" src="assets/venlo-woordmerk-wit.png" alt="Venlo"><span>Projectenportaal</span></div>
         <div class="search">
           <span aria-hidden="true">⌕</span>
           <input type="search" id="search" placeholder="Zoek activiteit, team of medewerker…">
@@ -62,10 +61,18 @@
         <div class="topbar-right">
           <span class="pill-date">Peildatum 16 nov 2026</span>
           <button class="icon-btn" aria-label="Meldingen">🔔<span class="dot"></span></button>
-          <a class="user" href="#/login" title="Uitloggen">
-            <div class="avatar">RJ</div>
-            <div class="user-text"><strong>Ruud Janssen</strong><span>Hoofd Informatiemanagement</span></div>
-          </a>
+          <div class="usermenu" id="usermenu">
+            <button class="user" id="user-btn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="user-dd">
+              <div class="avatar">RJ</div>
+              <div class="user-text"><strong>Ruud Janssen</strong><span>Hoofd Informatiemanagement</span></div>
+              <span class="caret" aria-hidden="true">▾</span>
+            </button>
+            <div class="user-dd" id="user-dd" role="menu" hidden>
+              <div class="dd-head"><div class="avatar">RJ</div><div><strong>Ruud Janssen</strong><span>Hoofd Informatiemanagement</span></div></div>
+              <div class="dd-item static" role="none"><span class="ico">ⓘ</span>Versie<span class="versie"></span></div>
+              <a class="dd-item" role="menuitem" href="#/login"><span class="ico">⎋</span>Uitloggen</a>
+            </div>
+          </div>
         </div>
       </header>
       <main class="content" id="view"></main>

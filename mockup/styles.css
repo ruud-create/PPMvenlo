@@ -610,9 +610,33 @@ details.person[open] summary { margin-bottom: 8px; }
 
 @media (max-width: 760px) { .card-head.stack { flex-direction: column; align-items: stretch; gap: 10px; } .card-head.stack .select { height: 40px; } }
 
-/* versienummer achter de titel */
-.versie { display: inline-block; font-size: .72em; font-weight: 600; padding: 1px 7px; border-radius: 99px; vertical-align: middle; margin-left: 4px; letter-spacing: .02em; }
-.brand-app .versie, .mob-brand .versie { background: rgba(255,255,255,.18); color: #fff; }
-.login-card h1 .versie { background: var(--vbg-10); color: var(--vbg-150); font-size: .5em; vertical-align: 4px; }
+/* gebruikersmenu met versie en uitloggen */
+.usermenu { position: relative; }
+button.user { font: inherit; color: inherit; background: transparent; border: 0; padding: 4px 6px; border-radius: 10px; cursor: pointer; text-align: left; }
+button.user:hover, button.user[aria-expanded="true"] { background: var(--surface-2); }
+.caret { font-size: 12px; color: var(--text-3); }
+.user-dd { position: absolute; right: 0; top: calc(100% + 8px); z-index: 40; width: 260px; max-width: calc(100vw - 24px); background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 40, 40, .18); padding: 6px; color: var(--text); }
+.dd-head { display: flex; gap: 10px; align-items: center; padding: 10px; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+.dd-head strong { display: block; font-size: 14px; }
+.dd-head span { font-size: 12.5px; color: var(--text-3); }
+.dd-head .avatar { background: var(--vbg-10); color: var(--vbg-150); }
+.dd-item { display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 8px; font-size: 14px; color: var(--text); }
+.dd-item .ico { width: 18px; text-align: center; color: var(--text-3); }
+a.dd-item:hover { background: var(--surface-2); text-decoration: none; }
+.dd-item.static { color: var(--text-2); }
+.versie { margin-left: auto; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 99px; background: var(--vbg-10); color: var(--vbg-150); }
+@media (max-width: 760px) {
+  button.user { padding: 0; }
+  button.user:hover, button.user[aria-expanded="true"] { background: transparent; }
+  .topbar .caret { color: rgba(255,255,255,.8); }
+  .mob-brand { min-width: 0; }
+  .mob-brand > span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+}
 
-@media (max-width: 760px) { .mob-brand > span { white-space: nowrap; } .mob-brand .versie { margin-left: 2px; padding: 0 6px; } }
+/* tablet: bovenbalk compacter zodat niets buiten beeld valt */
+@media (max-width: 1100px) and (min-width: 761px) {
+  .search { width: auto; flex: 1; min-width: 0; margin-right: 16px; }
+  .pill-date, .user-text { display: none; }
+}
+.grid > *, .card { min-width: 0; }
+@media (min-width: 761px) { .chips { flex-wrap: wrap; } }
