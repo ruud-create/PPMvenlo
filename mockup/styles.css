@@ -640,3 +640,20 @@ a.dd-item:hover { background: var(--surface-2); text-decoration: none; }
 }
 .grid > *, .card { min-width: 0; }
 @media (min-width: 761px) { .chips { flex-wrap: wrap; } }
+
+/* ---- geen horizontale scroll: lange woorden afbreken en grid-kolommen laten krimpen ---- */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html { overflow-x: hidden; }
+@supports (overflow: clip) { html { overflow-x: clip; } }
+.hero { grid-template-columns: minmax(0, 1fr) auto; }
+.hero > div { min-width: 0; }
+.hero h1, .hero-desc, .hero-meta b, .pname, .psub, .kpi-label, .kpi-sub, .kv b, .teamchip, .reason, .timeline li { overflow-wrap: anywhere; }
+.hero-meta > div { min-width: 0; }
+@media (max-width: 760px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .hero-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .g-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+.content { overflow-wrap: break-word; }
+.person-top > div, .member > div, .member > span:last-child { min-width: 0; }
+.person-top b, .member, .who, .cap-team b { overflow-wrap: anywhere; }
